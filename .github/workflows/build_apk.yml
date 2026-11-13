@@ -30,13 +30,9 @@ jobs:
       - name: Unduh Dependensi Paket
         run: flutter pub get
 
-      - name: Rakit APK Ringan (Universal & Split-ABI)
+      - name: Rakit APK Android
         run: |
-          # 1. Rakit APK Universal (bisa dipasang di semua jenis HP Android)
-          flutter build apk --release --android-skip-build-dependency-validation
-          
-          # 2. Rakit APK Split per ABI (super hemat kuota & RAM untuk HP 64-bit modern)
-          flutter build apk --split-per-abi --android-skip-build-dependency-validation
+          flutter build apk --release
 
       - name: Upload Berkas APK Siap Download
         uses: actions/upload-artifact@v4
