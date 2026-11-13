@@ -1,0 +1,46 @@
+name: Build SakuKuliah APK 🌸
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch: # Memungkinkan tombol "Run workflow" manual di GitHub
+
+jobs:
+  build:
+    name: Rakit APK Android Super Ringan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java (JDK 17)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Unduh Dependensi Paket
+        run: flutter pub get
+
+      - name: Rakit APK Ringan (Universal & Split-ABI)
+        run: |
+          # 1. Rakit APK Universal (bisa dipasang di semua jenis HP Android)
+          flutter build apk --release
+          
+          # 2. Rakit APK Split per ABI (super hemat kuota & RAM untuk HP 64-bit modern)
+          flutter build apk --split-per-abi
+
+      - name: Upload Berkas APK Siap Download
+        uses: actions/upload-artifact@v4
+        with:
+          name: SakuKuliah-APK-Android
+          path: build/app/outputs/flutter-apk/*.apk
+          retention-days: 30

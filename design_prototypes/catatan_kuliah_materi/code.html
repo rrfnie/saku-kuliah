@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,600;0,700;1,600&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "background": "#fef7ff", "surface-container-highest": "#e8e0ea", "on-error-container": "#93000a", "secondary-fixed": "#f4dce4", "on-primary": "#ffffff", "on-secondary-fixed-variant": "#524249", "on-secondary-container": "#716066", "on-primary-container": "#744658", "on-surface": "#1e1a22", "on-tertiary-fixed-variant": "#6f3251", "secondary": "#6b5a60", "outline-variant": "#d4c2c6", "on-secondary": "#ffffff", "on-surface-variant": "#504447", "tertiary-fixed": "#ffd8e6", "tertiary": "#8b4969", "primary-fixed": "#ffd9e4", "on-background": "#1e1a22", "tertiary-container": "#ffb2d3", "primary-container": "#f4b8cd", "inverse-primary": "#f2b6cb", "error": "#ba1a1a", "surface": "#fef7ff", "outline": "#827377", "surface-container-high": "#eee5f0", "secondary-container": "#f4dce4", "secondary-fixed-dim": "#d7c1c8", "surface-container-lowest": "#ffffff", "on-tertiary-fixed": "#3a0524", "error-container": "#ffdad6", "surface-dim": "#dfd7e2", "surface-container-low": "#f9f1fc", "surface-bright": "#fef7ff", "surface-container": "#f3ebf6", "tertiary-fixed-dim": "#ffafd2", "on-primary-fixed": "#320f1f", "on-tertiary": "#ffffff", "primary-fixed-dim": "#f2b6cb", "inverse-on-surface": "#f6eef9", "surface-tint": "#805063", "on-primary-fixed-variant": "#65394b", "on-error": "#ffffff", "inverse-surface": "#332f37", "surface-variant": "#e8e0ea", "primary": "#805063", "on-tertiary-container": "#7f3e5e", "on-secondary-fixed": "#25181e" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xl": "2rem", "gutter-sm": "0.75rem", "margin": "1.25rem", "margin-sm": "1rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "space-lg": "1.5rem", "gutter": "1rem", "space-md": "1rem" }, "fontFamily": { "body-md": ["Inter"], "headline-lg-mobile": ["Epilogue"], "label-sm": ["Inter"], "headline-sm": ["Epilogue"], "headline-lg": ["Epilogue"], "body-lg": ["Inter"], "label-md": ["Inter"], "display-lg": ["Epilogue"], "body-sm": ["Inter"], "headline-md": ["Epilogue"], "label-lg": ["Inter"] }, "fontSize": { "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_4px_20px_-4px_rgba(217,139,174,0.12)] pt-safe"><div class="px-margin py-1.5 flex items-center justify-between text-on-surface-variant font-label-md text-label-md"><span class="font-semibold text-on-surface tracking-tight">09:41</span><div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-secondary-container/80 text-on-secondary-container font-label-sm text-label-sm"><span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span><span>Offline Mode • Data Lokal</span></div><div class="inline-flex items-center gap-1 text-on-surface-variant"><span class="material-symbols-outlined text-[16px]">wifi_off</span><span class="material-symbols-outlined text-[16px]">battery_full</span></div></div><div class="h-14 px-margin flex items-center justify-between gap-3"><div class="flex items-center gap-2.5 min-w-0"><img alt="SakuKuliah Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/ALJJyrBaPMDJ0AU85MZcXY6f0lpfZuXGrEvvTWI-ASX6UOGZYjkFHCEaCSRQJ-1IcwUS1dBuorSwmaZO1pwi-cBDht3dHmXPMhLQtzTM4uPwDsIjPPI_ec8u-f0HFqSl8iGyGE201mNrBPoa26yuPHt6BitUrc5GuQ8-5JGNuNbkUfrleB029qYF7KnB6vb520Ae1JQrQgaxfqOZKfwCrRevzpaOkmrdq-5EIwcESMGEXKvA1g"/><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm tracking-tight text-on-surface truncate leading-tight">SakuKuliah</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Daftar Tugas</span></div></div><div class="flex items-center gap-2"><button class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-secondary-container/50 transition-colors"><span class="material-symbols-outlined text-[20px]">cloud_done</span></button><div class="relative flex items-center justify-center p-0.5 rounded-full ring-2 ring-primary-container"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_3IG71AZ_sGOVTaakU4vhqUkeKq8mxjSq0JK8IivuxeM0ZTP43ABqzgELZ3KV2OzOGomRJrtKbxd7jEqmXFyr9Zlg0JB_BF8Aanhy-cI4rhSUHAlBNwmF7pucHVq33M2f65WZLjQHZKgWsKdc0ssk2R8GI2QJGvqWDK1lofO2ijCy2Y1d1ZFxahpzmVcGcyyEHFU97pLfg8wHkrwfzBt_YcOcb5KZUZeSQRmanQnU"/></div></div></div></header><main class="flex-1 flex flex-col relative w-full px-margin pt-24 pb-28 bg-surface"><div class="flex flex-col w-full pb-8">
+<!-- Intro & Action Header -->
+<section class="flex items-start justify-between gap-3 mb-5">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-secondary-container text-on-secondary-container">
+<span class="material-symbols-outlined text-[14px]">edit_note</span>
+</span>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider">Ruang Catatan</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight">Catatan Kuliah</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Simpan rangkuman &amp; materi kuliah secara offline</p>
+</div>
+<button class="flex items-center gap-1.5 px-3.5 py-2.5 rounded-full bg-primary-container text-on-primary-container shadow-sm active:scale-95 transition-all flex-shrink-0 cursor-pointer" id="btn-open-editor">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span class="font-label-md text-label-md whitespace-nowrap">+ Catatan Baru</span>
+</button>
+</section>
+<!-- Search & Course Filters -->
+<section class="flex flex-col gap-3 mb-6">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full bg-surface-container-lowest text-on-surface placeholder:text-outline text-body-md font-body-md rounded-2xl pl-11 pr-10 py-3 shadow-[0_2px_12px_-2px_rgba(217,139,174,0.08)] outline-none focus:bg-surface-container-low transition-colors" id="search-input" placeholder="Cari catatan kuliah atau materi..." type="text"/>
+<button class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px] p-1 rounded-full hover:bg-surface-container transition-colors">mic</button>
+</div>
+<!-- Filter Chips Horizontal Scroll -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 -mx-margin px-margin scrollbar-none">
+<button class="filter-chip active flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm whitespace-nowrap transition-all" data-filter="all">
+<span>Semua Matkul</span>
+<span class="px-1.5 py-0.2 rounded-full bg-on-primary/20 text-[10px]">14</span>
+</button>
+<button class="filter-chip flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-secondary-container/60 font-label-md text-label-md whitespace-nowrap transition-all" data-filter="uiux">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span>Desain UI/UX</span>
+</button>
+<button class="filter-chip flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-secondary-container/60 font-label-md text-label-md whitespace-nowrap transition-all" data-filter="ai">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>Kecerdasan Buatan</span>
+</button>
+<button class="filter-chip flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-secondary-container/60 font-label-md text-label-md whitespace-nowrap transition-all" data-filter="metopen">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>Metopen</span>
+</button>
+<button class="filter-chip flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-secondary-container/60 font-label-md text-label-md whitespace-nowrap transition-all" data-filter="weblanjut">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span>Web Lanjut</span>
+</button>
+</div>
+</section>
+<!-- Pinned Note Card (High Priority / Delight Highlight) -->
+<section class="flex flex-col gap-2 mb-6">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">push_pin</span>
+<span class="font-label-md text-label-md text-primary tracking-wide uppercase">Catatan Disematkan</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded-full">Prioritas UTS</span>
+</div>
+<article class="relative bg-surface-container-lowest rounded-3xl p-5 shadow-[0_6px_20px_-3px_rgba(217,139,174,0.14)] overflow-hidden transition-transform active:scale-[0.99] cursor-pointer" onclick="openNoteDetail('heuristik')">
+<!-- Decorative Pastel Ribbon Accent -->
+<div class="absolute top-0 left-0 bottom-0 w-1.5 bg-gradient-to-b from-primary via-tertiary to-primary-container"></div>
+<!-- Top Meta Row -->
+<div class="flex items-center justify-between gap-2 mb-3 pl-1">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+            Desain UI/UX
+          </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+            21 Okt 2024
+          </span>
+</div>
+<div class="w-7 h-7 rounded-full bg-secondary-container/50 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">push_pin</span>
+</div>
+</div>
+<!-- Note Headline -->
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2 pl-1 leading-snug">
+        Rangkuman Teori 10 Prinsip Heuristik Nielsen
+      </h3>
+<!-- Content Snippet -->
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 pl-1 line-clamp-3">
+        1. Visibility of system status, 2. Match between system and real world, 3. User control and freedom, 4. Consistency and standards, 5. Error prevention...
+      </p>
+<!-- Tags & Sync Badge Footer -->
+<div class="flex items-center justify-between gap-2 pt-2 pl-1 border-t-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="px-2 py-0.5 rounded-md bg-surface-container text-tertiary font-label-sm text-label-sm">#Heuristic</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container text-tertiary font-label-sm text-label-sm">#UjianUTS</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container text-tertiary font-label-sm text-label-sm">#Bab3</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] text-primary">offline_pin</span>
+<span>Tersimpan</span>
+</div>
+</div>
+</article>
+</section>
+<!-- Recent Notes Stream -->
+<section class="flex flex-col gap-3">
+<div class="flex items-center justify-between px-1 mb-1">
+<span class="font-headline-sm text-headline-sm text-on-surface">Catatan Terbaru</span>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+<span>Urutkan:</span>
+<button class="font-semibold text-primary inline-flex items-center">
+          Terbaru
+          <span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Note Card 2: Kecerdasan Buatan -->
+<article class="bg-surface-container-lowest rounded-2xl p-4 shadow-[0_4px_16px_-2px_rgba(217,139,174,0.08)] transition-all active:scale-[0.99] cursor-pointer" onclick="openNoteDetail('ai-search')">
+<div class="flex items-center justify-between gap-2 mb-2.5">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm">
+            Kecerdasan Buatan
+          </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">18 Okt 2024</span>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1" onclick="event.stopPropagation()">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1.5 leading-snug">
+        Perbedaan Algoritma Pencarian Breadth-First vs Depth-First
+      </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-3 line-clamp-2">
+        BFS menggunakan struktur antrian FIFO untuk menemukan jarak terpendek, sedangkan DFS menggunakan stack LIFO untuk penelusuran cabang terdalam terlebih dahulu.
+      </p>
+<!-- Attachment & Offline status -->
+<div class="flex items-center justify-between gap-2 pt-2">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container-high text-on-secondary-container font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-error">picture_as_pdf</span>
+<span class="truncate max-w-[160px]">PDF Bahan Kuliah (2.4 MB)</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant text-[11px]">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+<span>4 mnt baca</span>
+</div>
+</div>
+</article>
+<!-- Note Card 3: Metodologi Penelitian -->
+<article class="bg-surface-container-lowest rounded-2xl p-4 shadow-[0_4px_16px_-2px_rgba(217,139,174,0.08)] transition-all active:scale-[0.99] cursor-pointer" onclick="openNoteDetail('metopen')">
+<div class="flex items-center justify-between gap-2 mb-2.5">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm">
+            Metodologi Penelitian TI
+          </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">14 Okt 2024</span>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1" onclick="event.stopPropagation()">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1.5 leading-snug">
+        Daftar Topik Skripsi Potensial &amp; Dosen Pembimbing
+      </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-3 line-clamp-2">
+        Rencana fokus: Penerapan UX Design System pada aplikasi akademik berbasis offline-first untuk mahasiswa tingkat sarjana. Calon pembimbing: Bu Ratna &amp; Pak Danang.
+      </p>
+<div class="flex items-center justify-between gap-2 pt-2">
+<div class="flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">#Skripsi</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">#Proposal</span>
+</div>
+<div class="inline-flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] text-primary">bookmark</span>
+<span>Draft 1</span>
+</div>
+</div>
+</article>
+</section>
+<!-- Offline Storage Info Banner -->
+<div class="mt-6 p-4 rounded-2xl bg-surface-container-low flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-secondary-container flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">cloud_off</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface">Penyimpanan Catatan Aman di HP</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Semua catatan dienkripsi dan dapat dibuka tanpa kuota internet.</span>
+</div>
+</div>
+<!-- Bottom Sheet Modal: Quick Note Editor (Interactive) -->
+<div class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 flex flex-col justify-end" id="editor-sheet">
+<div class="w-full max-h-[751px] bg-surface-container-lowest rounded-t-[32px] p-5 shadow-2xl flex flex-col transform translate-y-full transition-transform duration-300 overflow-y-auto" id="editor-content">
+<!-- Drag Handle Pill -->
+<div class="w-12 h-1.5 bg-surface-container-highest rounded-full mx-auto mb-4 cursor-pointer" id="sheet-drag-handle"></div>
+<!-- Header actions inside sheet -->
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors" id="btn-close-editor">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+<span class="font-headline-sm text-headline-sm text-on-surface">Tulis Catatan Kuliah</span>
+</div>
+<button class="px-4 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm active:scale-95 transition-all" id="btn-save-note">
+          Simpan
+        </button>
+</div>
+<!-- Course Selector Pill Chips -->
+<div class="mb-4">
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-1.5">Pilih Mata Kuliah</label>
+<div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+<label class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm cursor-pointer border border-primary/20">
+<input checked="" class="hidden" name="sheet-course" type="radio"/>
+<span>🎨 Desain UI/UX</span>
+</label>
+<label class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm cursor-pointer">
+<input class="hidden" name="sheet-course" type="radio"/>
+<span>🤖 Kecerdasan Buatan</span>
+</label>
+<label class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm cursor-pointer">
+<input class="hidden" name="sheet-course" type="radio"/>
+<span>📊 Metopen</span>
+</label>
+</div>
+</div>
+<!-- Note Title Input -->
+<input class="font-headline-sm text-headline-sm text-on-surface placeholder:text-outline bg-transparent py-2 outline-none mb-2" id="editor-title-input" placeholder="Judul rangkuman atau topik..." type="text"/>
+<!-- Formatting Bar -->
+<div class="flex items-center gap-1 py-1.5 px-2 bg-surface-container-low rounded-xl mb-3 overflow-x-auto">
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface"><span class="material-symbols-outlined text-[18px]">format_bold</span></button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface"><span class="material-symbols-outlined text-[18px]">format_italic</span></button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface"><span class="material-symbols-outlined text-[18px]">format_list_bulleted</span></button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface"><span class="material-symbols-outlined text-[18px]">attach_file</span></button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface"><span class="material-symbols-outlined text-[18px]">mic</span></button>
+<div class="h-4 w-px bg-outline-variant mx-1"></div>
+<button class="p-1.5 rounded-lg text-primary hover:bg-primary-fixed/40"><span class="material-symbols-outlined text-[18px]">push_pin</span></button>
+</div>
+<!-- Editor Textarea Content -->
+<textarea class="w-full bg-transparent font-body-md text-body-md text-on-surface placeholder:text-outline resize-none outline-none leading-relaxed" id="editor-body-input" placeholder="Mulai mengetik ringkasan materi dosen, poin penting ujian, atau rumus praktis..." rows="7"></textarea>
+<!-- Bottom Sheet Tags & Offline Notice -->
+<div class="mt-4 pt-3 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span>Tersimpan lokal di memori HP</span>
+</div>
+<span id="char-counter">0 kata</span>
+</div>
+</div>
+</div>
+<!-- Note Preview Dialog Detail Modal -->
+<div class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4" id="detail-modal">
+<div class="bg-surface-container-lowest rounded-3xl w-full max-w-sm max-h-[707px] p-6 shadow-2xl flex flex-col overflow-y-auto transform scale-95 transition-transform duration-300">
+<div class="flex items-center justify-between mb-3">
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm" id="modal-subject">Desain UI/UX</span>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors" id="btn-close-detail">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2" id="modal-title">Judul Catatan</h3>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm mb-4">
+<span class="material-symbols-outlined text-[14px]">calendar_month</span>
+<span id="modal-date">21 Okt 2024</span>
+<span>•</span>
+<span class="text-primary font-medium" id="modal-status">Offline Terverifikasi</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6 whitespace-pre-line" id="modal-body">
+        Konten rangkuman perkuliahan akan ditampilkan di sini.
+      </div>
+<div class="flex items-center gap-2 mt-auto">
+<button class="flex-1 py-2.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center gap-1.5 hover:bg-surface-container-high transition-colors" id="btn-share-note">
+<span class="material-symbols-outlined text-[18px]">share</span>
+          Ekspor Teks
+        </button>
+<button class="flex-1 py-2.5 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md flex items-center justify-center gap-1.5 active:scale-95 transition-all" id="btn-edit-active">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+          Sunting
+        </button>
+</div>
+</div>
+</div>
+<!-- Floating Action Indicator for Quick Note -->
+<div class="fixed bottom-20 right-4 z-40">
+<button class="w-14 h-14 rounded-full bg-primary-container text-on-primary-container shadow-[0_8px_24px_-4px_rgba(217,139,174,0.36)] flex items-center justify-center hover:scale-105 active:scale-95 transition-transform cursor-pointer" id="fab-quick-note" title="Tambah Catatan">
+<span class="material-symbols-outlined text-[26px]">draw</span>
+</button>
+</div>
+</div>
+<script>
+  (function initNotesScreen() {
+    const editorSheet = document.getElementById('editor-sheet');
+    const editorContent = document.getElementById('editor-content');
+    const btnOpenEditor = document.getElementById('btn-open-editor');
+    const btnCloseEditor = document.getElementById('btn-close-editor');
+    const fabQuickNote = document.getElementById('fab-quick-note');
+    const btnSaveNote = document.getElementById('btn-save-note');
+    const sheetDragHandle = document.getElementById('sheet-drag-handle');
+    const editorBodyInput = document.getElementById('editor-body-input');
+    const charCounter = document.getElementById('char-counter');
+
+    const detailModal = document.getElementById('detail-modal');
+    const btnCloseDetail = document.getElementById('btn-close-detail');
+    const modalTitle = document.getElementById('modal-title');
+    const modalSubject = document.getElementById('modal-subject');
+    const modalDate = document.getElementById('modal-date');
+    const modalBody = document.getElementById('modal-body');
+
+    const filterChips = document.querySelectorAll('.filter-chip');
+
+    // Filter Chips Toggle
+    filterChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        filterChips.forEach(c => {
+          c.classList.remove('bg-primary', 'text-on-primary');
+          c.classList.add('bg-surface-container', 'text-on-surface-variant');
+        });
+        chip.classList.remove('bg-surface-container', 'text-on-surface-variant');
+        chip.classList.add('bg-primary', 'text-on-primary');
+      });
+    });
+
+    // Open & Close Bottom Sheet Editor
+    function openEditor() {
+      editorSheet.classList.remove('opacity-0', 'pointer-events-none');
+      editorContent.classList.remove('translate-y-full');
+      setTimeout(() => {
+        const titleInput = document.getElementById('editor-title-input');
+        if (titleInput) titleInput.focus();
+      }, 300);
+    }
+
+    function closeEditor() {
+      editorContent.classList.add('translate-y-full');
+      editorSheet.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    if (btnOpenEditor) btnOpenEditor.addEventListener('click', openEditor);
+    if (fabQuickNote) fabQuickNote.addEventListener('click', openEditor);
+    if (btnCloseEditor) btnCloseEditor.addEventListener('click', closeEditor);
+    if (sheetDragHandle) sheetDragHandle.addEventListener('click', closeEditor);
+
+    // Close on backdrop tap
+    editorSheet.addEventListener('click', (e) => {
+      if (e.target === editorSheet) closeEditor();
+    });
+
+    // Word counter
+    if (editorBodyInput && charCounter) {
+      editorBodyInput.addEventListener('input', (e) => {
+        const words = e.target.value.trim().split(/\s+/).filter(Boolean).length;
+        charCounter.textContent = words + ' kata';
+      });
+    }
+
+    // Save Action Mock
+    if (btnSaveNote) {
+      btnSaveNote.addEventListener('click', () => {
+        btnSaveNote.textContent = 'Tersimpan ✨';
+        setTimeout(() => {
+          btnSaveNote.textContent = 'Simpan';
+          closeEditor();
+        }, 600);
+      });
+    }
+
+    // Detail Modal Handlers
+    window.openNoteDetail = function(noteId) {
+      if (noteId === 'heuristik') {
+        modalTitle.textContent = "Rangkuman Teori 10 Prinsip Heuristik Nielsen";
+        modalSubject.textContent = "Desain UI/UX";
+        modalDate.textContent = "21 Okt 2024";
+        modalBody.textContent = "1. Visibility of system status\n2. Match between system and real world\n3. User control and freedom\n4. Consistency and standards\n5. Error prevention\n6. Recognition rather than recall\n7. Flexibility and efficiency of use\n8. Aesthetic and minimalist design\n9. Help users recognize, diagnose, and recover from errors\n10. Help and documentation\n\nPenting diingat: Studi kasus aplikasi perbankan seringkali fokus di prinsip nomor 5 (Error prevention) untuk otentikasi PIN.";
+      } else if (noteId === 'ai-search') {
+        modalTitle.textContent = "Perbedaan Algoritma Pencarian BFS vs DFS";
+        modalSubject.textContent = "Kecerdasan Buatan";
+        modalDate.textContent = "18 Okt 2024";
+        modalBody.textContent = "Breadth-First Search (BFS):\n- Menggunakan queue (FIFO)\n- Menjamin penemuan jalur terpendek pada graph tanpa bobot\n- Konsumsi memori lebih besar O(b^d)\n\nDepth-First Search (DFS):\n- Menggunakan stack (LIFO) atau rekursi\n- Efisien memori O(bm)\n- Risiko terjebak pada lintasan tanpa ujung jika graph tidak dibatasi.";
+      } else {
+        modalTitle.textContent = "Daftar Topik Skripsi Potensial & Dosen Pembimbing";
+        modalSubject.textContent = "Metodologi Penelitian TI";
+        modalDate.textContent = "14 Okt 2024";
+        modalBody.textContent = "Ide Riset:\n1. Evaluasi Usability Sistem KRS Mahasiswa Menggunakan Pendekatan UX Honeycomb\n2. Perancangan UI Offline-first dengan Sinkronisasi Background PWA untuk Daerah Rendah Bandwidth.\n\nCatatan Dosen:\nSiapkan gap penelitian dari 5 jurnal internasional IEEE/Scopus terbaru sebelum bimbingan pertama bulan depan.";
+      }
+      detailModal.classList.remove('opacity-0', 'pointer-events-none');
+      const dialogCard = detailModal.querySelector('div');
+      if (dialogCard) {
+        dialogCard.classList.remove('scale-95');
+        dialogCard.classList.add('scale-100');
+      }
+    };
+
+    function closeDetail() {
+      const dialogCard = detailModal.querySelector('div');
+      if (dialogCard) {
+        dialogCard.classList.remove('scale-100');
+        dialogCard.classList.add('scale-95');
+      }
+      detailModal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    if (btnCloseDetail) btnCloseDetail.addEventListener('click', closeDetail);
+    detailModal.addEventListener('click', (e) => {
+      if (e.target === detailModal) closeDetail();
+    });
+
+    const btnEditActive = document.getElementById('btn-edit-active');
+    if (btnEditActive) {
+      btnEditActive.addEventListener('click', () => {
+        closeDetail();
+        openEditor();
+      });
+    }
+  })();
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-4px_24px_-4px_rgba(217,139,174,0.18)]" data-active-classes="text-primary font-semibold [&amp;&gt;div]:bg-primary-container [&amp;&gt;div]:text-on-primary-container [&amp;&gt;div]:scale-105"><div class="flex justify-around items-center h-16 px-gutter-sm max-w-md mx-auto"><a class="flex flex-col items-center justify-center gap-0.5 flex-1 min-w-[56px] py-1 text-on-surface-variant transition-all" data-path="beranda" href="#"><div class="flex items-center justify-center w-12 h-7 rounded-full transition-all text-on-surface-variant"><span class="material-symbols-outlined text-[20px]">home</span></div><span class="font-label-sm text-label-sm tracking-tight">Home</span></a><a class="flex flex-col items-center justify-center gap-0.5 flex-1 min-w-[56px] py-1 text-on-surface-variant transition-all" data-path="jadwal-kuliah" href="#"><div class="flex items-center justify-center w-12 h-7 rounded-full transition-all text-on-surface-variant"><span class="material-symbols-outlined text-[20px]">calendar_today</span></div><span class="font-label-sm text-label-sm tracking-tight">Jadwal</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-0.5 flex-1 min-w-[56px] py-1 transition-all text-primary font-semibold [&amp;&gt;div]:bg-primary-container [&amp;&gt;div]:text-on-primary-container [&amp;&gt;div]:scale-105" data-path="daftar-tugas" href="#"><div class="flex items-center justify-center w-12 h-7 rounded-full transition-all text-on-surface-variant"><span class="material-symbols-outlined text-[20px]">checklist</span></div><span class="font-label-sm text-label-sm tracking-tight">Tugas</span></a><a class="flex flex-col items-center justify-center gap-0.5 flex-1 min-w-[56px] py-1 text-on-surface-variant transition-all" data-path="akademik-krs" href="#"><div class="flex items-center justify-center w-12 h-7 rounded-full transition-all text-on-surface-variant"><span class="material-symbols-outlined text-[20px]">school</span></div><span class="font-label-sm text-label-sm tracking-tight">Akademik</span></a><a class="flex flex-col items-center justify-center gap-0.5 flex-1 min-w-[56px] py-1 text-on-surface-variant transition-all" data-path="profil-mahasiswa" href="#"><div class="flex items-center justify-center w-12 h-7 rounded-full transition-all text-on-surface-variant"><span class="material-symbols-outlined text-[20px]">person</span></div><span class="font-label-sm text-label-sm tracking-tight">Profil</span></a></div></nav></body></html>
