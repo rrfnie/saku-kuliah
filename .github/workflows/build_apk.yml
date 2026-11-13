@@ -19,16 +19,16 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'gradle'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          cache: true
 
-      - name: Unduh Dependensi Paket
-        run: flutter pub get
+      - name: Bersihkan & Unduh Dependensi
+        run: |
+          flutter clean
+          flutter pub get
 
       - name: Rakit APK Android
         run: |
