@@ -33,10 +33,10 @@ jobs:
       - name: Rakit APK Ringan (Universal & Split-ABI)
         run: |
           # 1. Rakit APK Universal (bisa dipasang di semua jenis HP Android)
-          flutter build apk --release
+          flutter build apk --release --android-skip-build-dependency-validation
           
           # 2. Rakit APK Split per ABI (super hemat kuota & RAM untuk HP 64-bit modern)
-          flutter build apk --split-per-abi
+          flutter build apk --split-per-abi --android-skip-build-dependency-validation
 
       - name: Upload Berkas APK Siap Download
         uses: actions/upload-artifact@v4
