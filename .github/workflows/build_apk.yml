@@ -40,3 +40,11 @@ jobs:
           name: SakuKuliah-APK-Android
           path: build/app/outputs/flutter-apk/*.apk
           retention-days: 30
+
+      - name: Upload Log Jika Gagal
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: error-build-log
+          path: build_out.txt
+          retention-days: 7
