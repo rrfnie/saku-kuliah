@@ -32,7 +32,7 @@ jobs:
 
       - name: Rakit APK Android
         run: |
-          flutter build apk --release --android-skip-build-dependency-validation
+          flutter build apk --release --android-skip-build-dependency-validation > build_out.txt 2>&1 || (echo "=== GRADLE FAILURE LOG ===" && tail -n 120 build_out.txt && exit 1)
 
       - name: Upload Berkas APK Siap Download
         uses: actions/upload-artifact@v4
