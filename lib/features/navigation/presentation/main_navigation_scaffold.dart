@@ -104,7 +104,7 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
       child: SafeArea(
         top: false,
         child: SizedBox(
-          height: 64,
+          height: 70,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -138,8 +138,8 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
               AnimatedContainer(
                 duration: const Duration(milliseconds: 240),
                 curve: Curves.easeOutBack,
-                width: isSelected ? 48 : 42,
-                height: 28,
+                width: isSelected ? 54 : 44,
+                height: 32,
                 decoration: BoxDecoration(
                   color: isSelected
                       ? theme.colorScheme.primaryContainer
@@ -156,12 +156,12 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
                       : null,
                 ),
                 child: AnimatedScale(
-                  scale: isSelected ? 1.08 : 1.0,
+                  scale: isSelected ? 1.05 : 1.0,
                   duration: const Duration(milliseconds: 220),
                   curve: Curves.easeOutBack,
                   child: Icon(
                     icon,
-                    size: 20,
+                    size: 23,
                     color: isSelected
                         ? theme.colorScheme.onPrimaryContainer
                         : theme.colorScheme.onSurfaceVariant,
@@ -172,7 +172,7 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
               Text(
                 label,
                 style: AppTypography.labelSm.copyWith(
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
                   color: isSelected
                       ? theme.colorScheme.primary

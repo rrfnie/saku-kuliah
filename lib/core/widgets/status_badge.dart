@@ -21,8 +21,8 @@ class StatusBadge extends StatelessWidget {
     this.leading,
     this.hasPulseDot = false,
     this.dotColor,
-    this.padding = const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-    this.fontSize = 11,
+    this.padding = const EdgeInsets.symmetric(horizontal: 10, vertical: 4.5),
+    this.fontSize = 12,
   });
 
   /// Factory untuk SKS Badge (contoh: "3 SKS")
@@ -31,8 +31,8 @@ class StatusBadge extends StatelessWidget {
       label: '$sks SKS',
       backgroundColor: AppColors.surfaceContainerHigh,
       textColor: AppColors.onSurfaceVariant,
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-      fontSize: 10,
+      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
+      fontSize: 11.5,
     );
   }
 
