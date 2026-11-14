@@ -464,15 +464,15 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: 34,
-                      height: 34,
+                      width: 30,
+                      height: 30,
                       decoration: BoxDecoration(
                         color: AppColors.primaryFixed,
-                        borderRadius: BorderRadius.circular(9),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       child: Icon(
                         Icons.menu_book_rounded,
-                        size: 19,
+                        size: 16,
                         color: AppColors.onPrimaryFixedVariant,
                       ),
                     ),
@@ -481,7 +481,6 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                       style: AppTypography.labelSm.copyWith(
                         color: AppColors.primary,
                         fontWeight: FontWeight.bold,
-                        fontSize: 11.5,
                       ),
                     ),
                   ],
@@ -491,7 +490,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   '$sksSemester SKS',
                   style: AppTypography.headlineSm.copyWith(
                     fontWeight: FontWeight.bold,
-                    fontSize: 17,
+                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -499,7 +498,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   '$activeCoursesCount Matkul Aktif',
                   style: AppTypography.labelSm.copyWith(
                     color: AppColors.onSurfaceVariant,
-                    fontSize: 11,
+                    fontSize: 10,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -520,15 +519,15 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: 34,
-                      height: 34,
+                      width: 30,
+                      height: 30,
                       decoration: BoxDecoration(
                         color: AppColors.secondaryFixed,
-                        borderRadius: BorderRadius.circular(9),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       child: Icon(
                         Icons.pending_actions_rounded,
-                        size: 19,
+                        size: 16,
                         color: AppColors.onSecondaryFixedVariant,
                       ),
                     ),
@@ -537,7 +536,6 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                       style: AppTypography.labelSm.copyWith(
                         color: AppColors.error,
                         fontWeight: FontWeight.bold,
-                        fontSize: 11.5,
                       ),
                     ),
                   ],
@@ -547,7 +545,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   '$pendingTasksCount Tugas',
                   style: AppTypography.headlineSm.copyWith(
                     fontWeight: FontWeight.bold,
-                    fontSize: 17,
+                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -555,7 +553,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   'Belum tuntas',
                   style: AppTypography.labelSm.copyWith(
                     color: AppColors.onSurfaceVariant,
-                    fontSize: 11,
+                    fontSize: 10,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -579,15 +577,15 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        width: 34,
-                        height: 34,
+                        width: 30,
+                        height: 30,
                         decoration: BoxDecoration(
                           color: AppColors.tertiaryFixed,
-                          borderRadius: BorderRadius.circular(9),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         child: Icon(
                           Icons.verified_rounded,
-                          size: 19,
+                          size: 16,
                           color: AppColors.onTertiaryFixedVariant,
                         ),
                       ),
@@ -596,7 +594,6 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                         style: AppTypography.labelSm.copyWith(
                           color: activeCoursesCount == 0 ? AppColors.onSurfaceVariant : AppColors.tertiary,
                           fontWeight: FontWeight.bold,
-                          fontSize: 11.5,
                         ),
                       ),
                     ],
@@ -606,7 +603,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                     activeCoursesCount == 0 ? '-' : '${attendanceRate.toStringAsFixed(1)}%',
                     style: AppTypography.headlineSm.copyWith(
                       fontWeight: FontWeight.bold,
-                      fontSize: 17,
+                      fontSize: 16,
                     ),
                   ),
                   const SizedBox(height: 2),
@@ -614,8 +611,8 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                     activeCoursesCount == 0 ? 'Belum ada matkul' : 'Cek Absen 75% 🔍',
                     style: AppTypography.labelSm.copyWith(
                       color: activeCoursesCount == 0 ? AppColors.onSurfaceVariant : AppColors.primary,
-                      fontWeight: activeCoursesCount == 0 ? FontWeight.bold : FontWeight.bold,
-                      fontSize: 11,
+                      fontWeight: activeCoursesCount == 0 ? FontWeight.normal : FontWeight.bold,
+                      fontSize: 10,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),

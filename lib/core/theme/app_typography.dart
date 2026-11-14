@@ -36,63 +36,63 @@ class AppTypography {
   );
 
   static TextStyle get headlineMd => GoogleFonts.epilogue(
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: FontWeight.w600,
-    height: 30 / 22,
+    height: 28 / 20,
     color: _onSurface,
   );
 
   static TextStyle get headlineSm => GoogleFonts.epilogue(
-    fontSize: 19,
+    fontSize: 18,
     fontWeight: FontWeight.w600,
-    height: 25 / 19,
+    height: 24 / 18,
     color: _onSurface,
   );
 
   // Body Text (Inter)
   static TextStyle get bodyLg => GoogleFonts.inter(
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: FontWeight.w400,
-    height: 25 / 17,
+    height: 24 / 16,
     color: _onSurface,
   );
 
   static TextStyle get bodyMd => GoogleFonts.inter(
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: FontWeight.w400,
-    height: 22 / 15,
+    height: 20 / 14,
     color: _onSurfaceVariant,
   );
 
   static TextStyle get bodySm => GoogleFonts.inter(
-    fontSize: 13.5,
+    fontSize: 12,
     fontWeight: FontWeight.w400,
-    height: 18 / 13.5,
+    height: 16 / 12,
     color: _onSurfaceVariant,
   );
 
   // Labels & Badges (Inter)
   static TextStyle get labelLg => GoogleFonts.inter(
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: FontWeight.w600,
-    height: 21 / 15,
+    height: 20 / 14,
     letterSpacing: 0.14,
     color: _onSurface,
   );
 
   static TextStyle get labelMd => GoogleFonts.inter(
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: FontWeight.w600,
-    height: 18 / 13,
+    height: 16 / 12,
     letterSpacing: 0.24,
     color: _onSurface,
   );
 
   static TextStyle get labelSm => GoogleFonts.inter(
-    fontSize: 11.5,
+    fontSize: 10,
     fontWeight: FontWeight.w600,
-    height: 16 / 11.5,
-    letterSpacing: 0.3,
+    height: 14 / 10,
+    letterSpacing: 0.4,
     color: _onSurfaceVariant,
   );
 }

@@ -104,33 +104,23 @@ class _SakuKuliahAppState extends State<SakuKuliahApp> {
           scrollBehavior: const SmoothScrollBehavior(),
           builder: (context, child) {
             final isDark = Theme.of(context).brightness == Brightness.dark;
-            final mediaQuery = MediaQuery.of(context);
-            // Menjamin skala huruf selalu nyaman dan proporsional di layar HP
-            final comfortableScaler = mediaQuery.textScaler.clamp(
-              minScaleFactor: 1.06,
-              maxScaleFactor: 1.28,
-            );
-
-            return MediaQuery(
-              data: mediaQuery.copyWith(textScaler: comfortableScaler),
-              child: Container(
-                color: isDark ? const Color(0xFF0F0B10) : AppColors.surfaceContainerLow,
-                alignment: Alignment.center,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 430),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      boxShadow: [
-                        BoxShadow(
-                          color: isDark ? const Color(0x33000000) : AppColors.primary.withValues(alpha: 0.15),
-                          blurRadius: 28,
-                          offset: const Offset(0, 8),
-                        ),
-                      ],
-                    ),
-                    child: child ?? const SizedBox(),
+            return Container(
+              color: isDark ? const Color(0xFF0F0B10) : AppColors.surfaceContainerLow,
+              alignment: Alignment.center,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 430),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    boxShadow: [
+                      BoxShadow(
+                        color: isDark ? const Color(0x33000000) : AppColors.primary.withValues(alpha: 0.15),
+                        blurRadius: 28,
+                        offset: const Offset(0, 8),
+                      ),
+                    ],
                   ),
+                  child: child ?? const SizedBox(),
                 ),
               ),
             );
