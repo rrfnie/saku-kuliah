@@ -10,3 +10,4 @@
     @com.google.gson.annotations.SerializedName <fields>;
 }
 -dontwarn java.time.**
+
