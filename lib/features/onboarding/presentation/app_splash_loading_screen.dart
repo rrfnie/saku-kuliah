@@ -201,7 +201,7 @@ class _AppSplashLoadingScreenState extends State<AppSplashLoadingScreen>
                     child: LinearProgressIndicator(
                       value: _progressValue,
                       backgroundColor: Colors.transparent,
-                      valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                      valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
                     ),
                   ),
                 ),

@@ -48,7 +48,7 @@ class _StudentIdCardWidgetState extends State<StudentIdCardWidget> with SingleTi
                       color: Colors.white,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.close, size: 20, color: AppColors.primary),
+                    child: Icon(Icons.close, size: 20, color: AppColors.primary),
                   ),
                   onPressed: () => Navigator.pop(context),
                 ),
@@ -111,7 +111,7 @@ class _StudentIdCardWidgetState extends State<StudentIdCardWidget> with SingleTi
           children: [
             Row(
               children: [
-                const Icon(Icons.badge_rounded, size: 18, color: AppColors.primary),
+                Icon(Icons.badge_rounded, size: 18, color: AppColors.primary),
                 const SizedBox(width: 6),
                 Text(
                   'Kartu Mahasiswa (KTM Digital)',
@@ -131,7 +131,7 @@ class _StudentIdCardWidgetState extends State<StudentIdCardWidget> with SingleTi
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.sync_rounded, size: 13, color: AppColors.onPrimaryContainer),
+                    Icon(Icons.sync_rounded, size: 13, color: AppColors.onPrimaryContainer),
                     const SizedBox(width: 4),
                     Text(
                       _showBack ? 'Lihat Depan' : 'Putar Kartu',
@@ -179,20 +179,20 @@ class _StudentIdCardWidgetState extends State<StudentIdCardWidget> with SingleTi
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Color(0xFFFFF0F5), // Lavender blush
-            Color(0xFFFDE8F1), // Soft rose
-            Color(0xFFF3E5F5), // Lilac
+            AppColors.surfaceContainerLowest,
+            AppColors.primaryContainer.withValues(alpha: 0.35),
+            AppColors.secondaryContainer.withValues(alpha: 0.35),
           ],
         ),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            color: Color(0x22805063),
+            color: AppColors.primary.withValues(alpha: 0.15),
             blurRadius: 18,
-            offset: Offset(0, 6),
+            offset: const Offset(0, 6),
           ),
         ],
         border: Border.all(color: Colors.white, width: 2),
@@ -282,7 +282,7 @@ class _StudentIdCardWidgetState extends State<StudentIdCardWidget> with SingleTi
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: const Color(0x33D98BAE), width: 1),
+                        border: Border.all(color: AppColors.cardBorder, width: 1),
                         boxShadow: const [
                           BoxShadow(
                             color: Color(0x14000000),
@@ -297,7 +297,7 @@ class _StudentIdCardWidgetState extends State<StudentIdCardWidget> with SingleTi
                         child: Image.asset(
                           'assets/images/logo.png',
                           fit: BoxFit.contain,
-                          errorBuilder: (context, error, stackTrace) => const Icon(
+                          errorBuilder: (context, error, stackTrace) => Icon(
                             Icons.school_rounded,
                             size: 20,
                             color: AppColors.primary,
@@ -308,7 +308,7 @@ class _StudentIdCardWidgetState extends State<StudentIdCardWidget> with SingleTi
                   ],
                 ),
 
-                const Divider(height: 18, color: Color(0x33D98BAE)),
+                Divider(height: 18, color: AppColors.dividerColor),
 
                 // Middle Row: Photo + Student Information
                 Row(
@@ -361,7 +361,7 @@ class _StudentIdCardWidgetState extends State<StudentIdCardWidget> with SingleTi
                             ),
                             child: Text(
                               p.nim.trim().isEmpty ? 'NIM: -' : 'NIM: ${p.nim}',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'monospace',
                                 fontWeight: FontWeight.w800,
                                 fontSize: 11.5,
@@ -456,7 +456,7 @@ class _StudentIdCardWidgetState extends State<StudentIdCardWidget> with SingleTi
                         ),
                         Text(
                           p.academicYear,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 9.5,
                             fontWeight: FontWeight.bold,
                             color: AppColors.primary,
@@ -482,20 +482,20 @@ class _StudentIdCardWidgetState extends State<StudentIdCardWidget> with SingleTi
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Color(0xFFF3E5F5), // Lilac
-            Color(0xFFEDE7F6), // Soft Purple
-            Color(0xFFFFF0F5), // Lavender blush
+            AppColors.surfaceContainerLowest,
+            AppColors.secondaryContainer.withValues(alpha: 0.35),
+            AppColors.primaryContainer.withValues(alpha: 0.35),
           ],
         ),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            color: Color(0x22805063),
+            color: AppColors.primary.withValues(alpha: 0.15),
             blurRadius: 18,
-            offset: Offset(0, 6),
+            offset: const Offset(0, 6),
           ),
         ],
         border: Border.all(color: Colors.white, width: 2),
@@ -526,7 +526,7 @@ class _StudentIdCardWidgetState extends State<StudentIdCardWidget> with SingleTi
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: const Color(0x33D98BAE), width: 1.5),
+                  border: Border.all(color: AppColors.cardBorder, width: 1.5),
                   boxShadow: const [
                     BoxShadow(color: Colors.black12, blurRadius: 4),
                   ],
@@ -643,7 +643,7 @@ class _StudentIdCardWidgetState extends State<StudentIdCardWidget> with SingleTi
     return Container(
       width: 4,
       height: 4,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.primary,
         shape: BoxShape.circle,
       ),
@@ -704,7 +704,7 @@ class _StudentIdCardWidgetState extends State<StudentIdCardWidget> with SingleTi
       child: Center(
         child: Text(
           initial,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.onPrimaryContainer,
             fontWeight: FontWeight.bold,
             fontSize: 32,

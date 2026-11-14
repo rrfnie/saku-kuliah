@@ -92,7 +92,7 @@ class _AddTransactionSheetState extends State<AddTransactionSheet> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
+            colorScheme: ColorScheme.light(
               primary: AppColors.primary,
               onPrimary: Colors.white,
               surface: AppColors.surfaceContainerLowest,
@@ -134,7 +134,7 @@ class _AddTransactionSheetState extends State<AddTransactionSheet> {
     final categories = _isExpense ? _expenseCategories : _incomeCategories;
 
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.surfaceContainerLowest,
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
@@ -326,7 +326,7 @@ class _AddTransactionSheetState extends State<AddTransactionSheet> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                       side: BorderSide(
-                        color: isSelected ? AppColors.primary : const Color(0x33F4DCE4),
+                        color: isSelected ? AppColors.primary : AppColors.cardBorder,
                       ),
                     ),
                     showCheckmark: false,
@@ -353,14 +353,14 @@ class _AddTransactionSheetState extends State<AddTransactionSheet> {
                   decoration: BoxDecoration(
                     color: AppColors.surfaceContainerLow,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: const Color(0x33F4DCE4)),
+                    border: Border.all(color: AppColors.cardBorder),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.calendar_today_rounded, size: 16, color: AppColors.primary),
+                          Icon(Icons.calendar_today_rounded, size: 16, color: AppColors.primary),
                           const SizedBox(width: 8),
                           Text(
                             DateFormat('dd MMMM yyyy').format(_selectedDate),
@@ -368,7 +368,7 @@ class _AddTransactionSheetState extends State<AddTransactionSheet> {
                           ),
                         ],
                       ),
-                      const Icon(Icons.arrow_drop_down, color: AppColors.onSurfaceVariant),
+                      Icon(Icons.arrow_drop_down, color: AppColors.onSurfaceVariant),
                     ],
                   ),
                 ),
@@ -409,7 +409,7 @@ class _AddTransactionSheetState extends State<AddTransactionSheet> {
         color: AppColors.onSurfaceVariant,
       ),
       backgroundColor: AppColors.surfaceContainerLow,
-      side: const BorderSide(color: Color(0x33F4DCE4)),
+      side: BorderSide(color: AppColors.cardBorder),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       padding: EdgeInsets.zero,
       onPressed: () => _addAmountPreset(amount),

@@ -5,19 +5,19 @@ import '../theme/app_typography.dart';
 /// Pill Badge serbaguna untuk status, SKS, prioritas, dan tag
 class StatusBadge extends StatelessWidget {
   final String label;
-  final Color backgroundColor;
-  final Color textColor;
+  final Color? backgroundColor;
+  final Color? textColor;
   final Widget? leading;
   final bool hasPulseDot;
   final Color? dotColor;
   final EdgeInsetsGeometry padding;
   final double fontSize;
 
-  const StatusBadge({
+  StatusBadge({
     super.key,
     required this.label,
-    this.backgroundColor = AppColors.secondaryContainer,
-    this.textColor = AppColors.onSecondaryContainer,
+    this.backgroundColor,
+    this.textColor,
     this.leading,
     this.hasPulseDot = false,
     this.dotColor,
@@ -73,13 +73,13 @@ class StatusBadge extends StatelessWidget {
       label: label,
       backgroundColor: AppColors.primaryFixed,
       textColor: AppColors.onPrimaryFixed,
-      leading: const Icon(Icons.stars, size: 14, color: AppColors.primary),
+      leading: Icon(Icons.stars, size: 14, color: AppColors.primary),
     );
   }
 
   /// Factory untuk Badge 100% Offline
   factory StatusBadge.offlineTrust() {
-    return const StatusBadge(
+    return StatusBadge(
       label: '100% Offline & Privat • Tanpa Akun',
       backgroundColor: AppColors.secondaryContainer,
       textColor: AppColors.onSecondaryContainer,
@@ -89,10 +89,13 @@ class StatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final effectiveBg = backgroundColor ?? AppColors.secondaryContainer;
+    final effectiveText = textColor ?? AppColors.onSecondaryContainer;
+
     return Container(
       padding: padding,
       decoration: BoxDecoration(
-        color: backgroundColor,
+        color: effectiveBg,
         borderRadius: BorderRadius.circular(9999),
       ),
       child: Row(
@@ -103,7 +106,7 @@ class StatusBadge extends StatelessWidget {
               width: 6,
               height: 6,
               decoration: BoxDecoration(
-                color: dotColor ?? textColor,
+                color: dotColor ?? effectiveText,
                 shape: BoxShape.circle,
               ),
             ),
@@ -115,7 +118,7 @@ class StatusBadge extends StatelessWidget {
           Text(
             label,
             style: AppTypography.labelSm.copyWith(
-              color: textColor,
+              color: effectiveText,
               fontSize: fontSize,
               fontWeight: FontWeight.w600,
             ),

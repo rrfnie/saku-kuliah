@@ -165,7 +165,7 @@ class _AddDocumentSheetState extends State<AddDocumentSheet> {
     final bottomInset = MediaQuery.of(context).viewInsets.bottom;
 
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
@@ -204,11 +204,11 @@ class _AddDocumentSheetState extends State<AddDocumentSheet> {
                 children: [
                   Container(
                     padding: const EdgeInsets.all(10),
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: AppColors.primaryContainer,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.folder_special_rounded, color: AppColors.primary, size: 22),
+                    child: Icon(Icons.folder_special_rounded, color: AppColors.primary, size: 22),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -227,7 +227,7 @@ class _AddDocumentSheetState extends State<AddDocumentSheet> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close_rounded, color: AppColors.onSurfaceVariant),
+                    icon: Icon(Icons.close_rounded, color: AppColors.onSurfaceVariant),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ],
@@ -249,7 +249,7 @@ class _AddDocumentSheetState extends State<AddDocumentSheet> {
                     border: Border.all(
                       color: _fileName.isNotEmpty
                           ? AppColors.primary.withValues(alpha: 0.4)
-                          : const Color(0x33F4DCE4),
+                          : AppColors.cardBorder,
                       style: BorderStyle.solid,
                       width: 1.5,
                     ),
@@ -305,11 +305,11 @@ class _AddDocumentSheetState extends State<AddDocumentSheet> {
                         decoration: BoxDecoration(
                           color: AppColors.surfaceContainerLowest,
                           borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: const Color(0x22F4DCE4)),
+                          border: Border.all(color: AppColors.dividerColor),
                         ),
                         child: Text(
                           _fileName.isNotEmpty ? 'Ganti' : 'Pilih File',
-                          style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primary),
+                          style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primary),
                         ),
                       ),
                     ],
@@ -331,7 +331,7 @@ class _AddDocumentSheetState extends State<AddDocumentSheet> {
                   hintStyle: AppTypography.bodySm.copyWith(color: AppColors.onSurfaceVariant.withValues(alpha: 0.6)),
                   filled: true,
                   fillColor: AppColors.surfaceContainerLow,
-                  prefixIcon: const Icon(Icons.description_outlined, size: 20, color: AppColors.primary),
+                  prefixIcon: Icon(Icons.description_outlined, size: 20, color: AppColors.primary),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -371,7 +371,7 @@ class _AddDocumentSheetState extends State<AddDocumentSheet> {
                         color: isSelected ? AppColors.primary : AppColors.surfaceContainerLow,
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: isSelected ? AppColors.primary : const Color(0x22F4DCE4),
+                          color: isSelected ? AppColors.primary : AppColors.dividerColor,
                         ),
                       ),
                       child: Row(
@@ -421,9 +421,9 @@ class _AddDocumentSheetState extends State<AddDocumentSheet> {
                   hintStyle: AppTypography.bodySm.copyWith(color: AppColors.onSurfaceVariant.withValues(alpha: 0.6)),
                   filled: true,
                   fillColor: AppColors.surfaceContainerLow,
-                  prefixIcon: const Icon(Icons.pin_outlined, size: 20, color: AppColors.secondary),
+                  prefixIcon: Icon(Icons.pin_outlined, size: 20, color: AppColors.secondary),
                   helperText: 'Bisa langsung kamu salin (copy) dalam 1-klik saat isi form kampus!',
-                  helperStyle: const TextStyle(fontSize: 10, color: AppColors.onSurfaceVariant),
+                  helperStyle: TextStyle(fontSize: 10, color: AppColors.onSurfaceVariant),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -447,7 +447,7 @@ class _AddDocumentSheetState extends State<AddDocumentSheet> {
                   hintStyle: AppTypography.bodySm.copyWith(color: AppColors.onSurfaceVariant.withValues(alpha: 0.6)),
                   filled: true,
                   fillColor: AppColors.surfaceContainerLow,
-                  prefixIcon: const Icon(Icons.notes_rounded, size: 20, color: AppColors.onSurfaceVariant),
+                  prefixIcon: Icon(Icons.notes_rounded, size: 20, color: AppColors.onSurfaceVariant),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),

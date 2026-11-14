@@ -36,11 +36,12 @@ class _SemesterHistorySheetState extends State<SemesterHistorySheet> {
       context: context,
       builder: (ctx) {
         return AlertDialog(
+          scrollable: true,
           backgroundColor: AppColors.surfaceContainerLowest,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           title: Row(
             children: [
-              const Icon(Icons.edit_note_rounded, color: AppColors.primary),
+              Icon(Icons.edit_note_rounded, color: AppColors.primary),
               const SizedBox(width: 8),
               Text(
                 'Edit Nilai Semester ${record.semesterNumber}',
@@ -48,37 +49,42 @@ class _SemesterHistorySheetState extends State<SemesterHistorySheet> {
               ),
             ],
           ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Perbarui jumlah SKS dan IPS untuk semester ini:',
-                style: AppTypography.bodySm.copyWith(color: AppColors.onSurfaceVariant),
-              ),
-              const SizedBox(height: 12),
-              Text('Jumlah SKS', style: AppTypography.labelMd),
-              const SizedBox(height: 6),
-              TextField(
-                controller: sksController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  hintText: 'Misal: 22',
-                  prefixIcon: Icon(Icons.class_outlined, size: 18),
+          content: SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Perbarui jumlah SKS dan IPS untuk semester ini:',
+                  style: AppTypography.bodySm.copyWith(color: AppColors.onSurfaceVariant),
                 ),
-              ),
-              const SizedBox(height: 12),
-              Text('IPS (Indeks Prestasi Semester)', style: AppTypography.labelMd),
-              const SizedBox(height: 6),
-              TextField(
-                controller: ipsController,
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                decoration: const InputDecoration(
-                  hintText: 'Misal: 3.85',
-                  prefixIcon: Icon(Icons.trending_up, size: 18),
+                const SizedBox(height: 12),
+                Text('Jumlah SKS', style: AppTypography.labelMd),
+                const SizedBox(height: 6),
+                TextField(
+                  controller: sksController,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(
+                    hintText: 'Misal: 22',
+                    prefixIcon: Icon(Icons.class_outlined, size: 18),
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 12),
+                Text('IPS (Indeks Prestasi Semester)', style: AppTypography.labelMd),
+                const SizedBox(height: 6),
+                TextField(
+                  controller: ipsController,
+                  textInputAction: TextInputAction.done,
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(
+                    hintText: 'Misal: 3.85',
+                    prefixIcon: Icon(Icons.trending_up, size: 18),
+                  ),
+                ),
+              ],
+            ),
           ),
           actions: [
             TextButton(
@@ -115,11 +121,19 @@ class _SemesterHistorySheetState extends State<SemesterHistorySheet> {
       context: context,
       builder: (ctx) {
         return AlertDialog(
+          scrollable: true,
           backgroundColor: AppColors.surfaceContainerLowest,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           title: Row(
             children: [
-              const Icon(Icons.bolt_rounded, color: AppColors.primary),
+              Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: AppColors.primaryContainer.withValues(alpha: 0.6),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(Icons.bolt_rounded, color: AppColors.primary, size: 20),
+              ),
               const SizedBox(width: 8),
               Text(
                 'Isi Cepat IPK & SKS Lalu',
@@ -127,37 +141,42 @@ class _SemesterHistorySheetState extends State<SemesterHistorySheet> {
               ),
             ],
           ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Cocok jika kamu tidak ingin mengisi semester 1-4 satu per satu. Cukup masukkan total dari KHS/Transkrip terakhir:',
-                style: AppTypography.bodySm.copyWith(color: AppColors.onSurfaceVariant),
-              ),
-              const SizedBox(height: 14),
-              Text('IPK Sampai Semester Lalu', style: AppTypography.labelMd),
-              const SizedBox(height: 6),
-              TextField(
-                controller: ipkController,
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                decoration: const InputDecoration(
-                  hintText: 'Misal: 3.82',
-                  prefixIcon: Icon(Icons.star_outline_rounded, size: 18),
+          content: SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Cocok jika kamu tidak ingin mengisi semester 1-4 satu per satu. Cukup masukkan total dari KHS/Transkrip terakhir:',
+                  style: AppTypography.bodySm.copyWith(color: AppColors.onSurfaceVariant),
                 ),
-              ),
-              const SizedBox(height: 12),
-              Text('Total SKS yang Sudah Lulus', style: AppTypography.labelMd),
-              const SizedBox(height: 6),
-              TextField(
-                controller: sksController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  hintText: 'Misal: 88',
-                  prefixIcon: Icon(Icons.check_circle_outline, size: 18),
+                const SizedBox(height: 14),
+                Text('IPK Sampai Semester Lalu', style: AppTypography.labelMd),
+                const SizedBox(height: 6),
+                TextField(
+                  controller: ipkController,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(
+                    hintText: 'Misal: 3.82',
+                    prefixIcon: Icon(Icons.star_outline_rounded, size: 18),
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 12),
+                Text('Total SKS yang Sudah Lulus', style: AppTypography.labelMd),
+                const SizedBox(height: 6),
+                TextField(
+                  controller: sksController,
+                  textInputAction: TextInputAction.done,
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(
+                    hintText: 'Misal: 88',
+                    prefixIcon: Icon(Icons.check_circle_outline, size: 18),
+                  ),
+                ),
+              ],
+            ),
           ),
           actions: [
             TextButton(
@@ -177,7 +196,7 @@ class _SemesterHistorySheetState extends State<SemesterHistorySheet> {
                 Navigator.pop(ctx);
                 setState(() {});
               },
-              child: const Text('Terapkan Langsung'),
+              child: const Text('Terapkan Langsung 🌸'),
             ),
           ],
         );
@@ -197,7 +216,7 @@ class _SemesterHistorySheetState extends State<SemesterHistorySheet> {
         final totalSemesters = isD3 ? 6 : 8;
 
         return Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: AppColors.surfaceContainerLowest,
             borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
           ),
@@ -240,7 +259,7 @@ class _SemesterHistorySheetState extends State<SemesterHistorySheet> {
                               shape: BoxShape.circle,
                               color: AppColors.primaryContainer.withValues(alpha: 0.6),
                             ),
-                            child: const Icon(
+                            child: Icon(
                               Icons.history_edu_rounded,
                               color: AppColors.primary,
                               size: 22,
@@ -319,7 +338,7 @@ class _SemesterHistorySheetState extends State<SemesterHistorySheet> {
                                     ),
                                     if (isD3) ...[
                                       const SizedBox(width: 4),
-                                      const Icon(Icons.check_circle, size: 14, color: AppColors.primary),
+                                      Icon(Icons.check_circle, size: 14, color: AppColors.primary),
                                     ],
                                   ],
                                 ),
@@ -371,7 +390,7 @@ class _SemesterHistorySheetState extends State<SemesterHistorySheet> {
                                     ),
                                     if (!isD3) ...[
                                       const SizedBox(width: 4),
-                                      const Icon(Icons.check_circle, size: 14, color: AppColors.primary),
+                                      Icon(Icons.check_circle, size: 14, color: AppColors.primary),
                                     ],
                                   ],
                                 ),
@@ -397,7 +416,7 @@ class _SemesterHistorySheetState extends State<SemesterHistorySheet> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      gradient: const LinearGradient(
+                      gradient: LinearGradient(
                         colors: [
                           AppColors.primaryFixed,
                           AppColors.secondaryContainer,
@@ -445,7 +464,7 @@ class _SemesterHistorySheetState extends State<SemesterHistorySheet> {
                             value: (profile.degreeProgressPercentage / 100).clamp(0.0, 1.0),
                             minHeight: 8,
                             backgroundColor: Colors.white.withValues(alpha: 0.5),
-                            valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                            valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -484,7 +503,7 @@ class _SemesterHistorySheetState extends State<SemesterHistorySheet> {
                   OutlinedButton.icon(
                     style: OutlinedButton.styleFrom(
                       foregroundColor: AppColors.primary,
-                      side: const BorderSide(color: AppColors.primary, width: 1.2),
+                      side: BorderSide(color: AppColors.primary, width: 1.2),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                     ),
@@ -592,7 +611,7 @@ class _SemesterHistorySheetState extends State<SemesterHistorySheet> {
                                             color: AppColors.secondaryContainer,
                                             borderRadius: BorderRadius.circular(6),
                                           ),
-                                          child: const Text(
+                                          child: Text(
                                             'Semester Ini 🟡',
                                             style: TextStyle(
                                               fontSize: 9.5,
@@ -630,7 +649,7 @@ class _SemesterHistorySheetState extends State<SemesterHistorySheet> {
                                             isD3 && semNum == 6
                                                 ? 'Tugas Akhir / Magang'
                                                 : 'Mendatang ⚪',
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               fontSize: 9.5,
                                               color: AppColors.onSurfaceVariant,
                                             ),

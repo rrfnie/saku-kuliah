@@ -221,7 +221,7 @@ class _SplashOnboardingScreenState extends State<SplashOnboardingScreen> {
         decoration: BoxDecoration(
           color: AppColors.surfaceContainerLowest,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: const Color(0x22F4DCE4)),
+          border: Border.all(color: AppColors.dividerColor),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.03),
@@ -275,7 +275,7 @@ class _SplashOnboardingScreenState extends State<SplashOnboardingScreen> {
             const SizedBox(height: 3),
             Row(
               children: [
-                const Icon(Icons.person_outline, size: 12, color: AppColors.onSurfaceVariant),
+                Icon(Icons.person_outline, size: 12, color: AppColors.onSurfaceVariant),
                 const SizedBox(width: 3),
                 Expanded(
                   child: Text(
@@ -311,7 +311,7 @@ class _SplashOnboardingScreenState extends State<SplashOnboardingScreen> {
         decoration: BoxDecoration(
           color: AppColors.surfaceContainerLowest,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: const Color(0x22F4DCE4)),
+          border: Border.all(color: AppColors.dividerColor),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.03),
@@ -342,7 +342,7 @@ class _SplashOnboardingScreenState extends State<SplashOnboardingScreen> {
                     ),
                   ),
                 ),
-                const Icon(Icons.flag_rounded, size: 15, color: AppColors.primary),
+                Icon(Icons.flag_rounded, size: 15, color: AppColors.primary),
               ],
             ),
             const SizedBox(height: 5),
@@ -625,7 +625,7 @@ class _SplashOnboardingScreenState extends State<SplashOnboardingScreen> {
       decoration: BoxDecoration(
         color: AppColors.surfaceContainerLow,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color(0x33F4DCE4)),
+        border: Border.all(color: AppColors.cardBorder),
       ),
       child: Row(
         children: [
@@ -642,7 +642,7 @@ class _SplashOnboardingScreenState extends State<SplashOnboardingScreen> {
                 ),
               ],
             ),
-            child: const Icon(
+            child: Icon(
               Icons.verified_user_rounded,
               size: 15,
               color: AppColors.primary,

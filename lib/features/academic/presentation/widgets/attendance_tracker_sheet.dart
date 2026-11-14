@@ -1,8 +1,24 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/state/app_state.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/pastel_card.dart';
+
+class _CourseAttendanceInfo {
+  final String code;
+  final String name;
+  final int sks;
+  final String lecturer;
+
+  const _CourseAttendanceInfo({
+    required this.code,
+    required this.name,
+    required this.sks,
+    required this.lecturer,
+  });
+}
 
 /// Bottom Sheet Pelacak Presensi & Kalkulator Jatah Bolos Kuliah (Aturan 75% UAS)
 class AttendanceTrackerSheet extends StatefulWidget {
@@ -24,9 +40,8 @@ class AttendanceTrackerSheet extends StatefulWidget {
 class _AttendanceTrackerSheetState extends State<AttendanceTrackerSheet> {
   final SakuKuliahState _appState = SakuKuliahState.instance;
 
-  // Local state for attendance records per course
-  // In a real session, this is tracked per course: {code: {hadir: int, izin: int, alpa: int}}
-  late Map<String, Map<String, int>> _attendanceData;
+  // Local state for attendance records per course: {code: {hadir: int, izin: int, alpa: int}}
+  Map<String, Map<String, int>> _attendanceData = {};
 
   @override
   void initState() {
@@ -34,59 +49,128 @@ class _AttendanceTrackerSheetState extends State<AttendanceTrackerSheet> {
     _initAttendanceData();
   }
 
-  void _initAttendanceData() {
-    final courses = _appState.krsCourses;
-    _attendanceData = {};
+  List<_CourseAttendanceInfo> _getUnifiedCourses() {
+    final list = <_CourseAttendanceInfo>[];
+    final seen = <String>{};
 
-    if (courses.isNotEmpty) {
-      for (int i = 0; i < courses.length; i++) {
-        final c = courses[i];
-        // Give realistic default based on index
-        final hadir = 12 + (i % 3);
-        final izin = (i % 2);
-        final alpa = (i == 1) ? 1 : 0;
-        _attendanceData[c.courseCode] = {
-          'hadir': hadir.clamp(0, 16),
-          'izin': izin.clamp(0, 16),
-          'alpa': alpa.clamp(0, 16),
+    for (final c in _appState.krsCourses) {
+      final code = c.courseCode.trim().isNotEmpty ? c.courseCode.trim() : c.courseName.trim();
+      if (!seen.contains(code.toUpperCase())) {
+        seen.add(code.toUpperCase());
+        list.add(_CourseAttendanceInfo(
+          code: code,
+          name: c.courseName,
+          sks: c.sks,
+          lecturer: 'Dosen Pengampu',
+        ));
+      }
+    }
+
+    for (final s in _appState.schedules) {
+      final code = s.courseCode.trim().isNotEmpty ? s.courseCode.trim() : s.courseName.trim();
+      if (!seen.contains(code.toUpperCase())) {
+        seen.add(code.toUpperCase());
+        list.add(_CourseAttendanceInfo(
+          code: code,
+          name: s.courseName,
+          sks: s.sks,
+          lecturer: s.lecturer.isNotEmpty ? s.lecturer : 'Dosen Pengampu',
+        ));
+      }
+    }
+
+    return list;
+  }
+
+  Future<void> _initAttendanceData() async {
+    final unifiedCourses = _getUnifiedCourses();
+    final freshData = <String, Map<String, int>>{};
+
+    Map<String, dynamic> savedMap = {};
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final raw = prefs.getString('sakukuliah_attendance_counts');
+      if (raw != null && raw.isNotEmpty) {
+        savedMap = jsonDecode(raw) as Map<String, dynamic>;
+      }
+    } catch (_) {}
+
+    for (final c in unifiedCourses) {
+      if (savedMap.containsKey(c.code)) {
+        final item = savedMap[c.code] as Map<String, dynamic>;
+        freshData[c.code] = {
+          'hadir': ((item['hadir'] as num?)?.toInt() ?? 0).clamp(0, 16),
+          'izin': ((item['izin'] as num?)?.toInt() ?? 0).clamp(0, 16),
+          'alpa': ((item['alpa'] as num?)?.toInt() ?? 0).clamp(0, 16),
+        };
+      } else {
+        final krsMatch = _appState.krsCourses
+            .where((k) => k.courseCode.toUpperCase() == c.code.toUpperCase())
+            .firstOrNull;
+        final initialHadir = krsMatch?.attendancePresent ?? 0;
+        freshData[c.code] = {
+          'hadir': initialHadir.clamp(0, 16),
+          'izin': 0,
+          'alpa': 0,
         };
       }
+    }
+
+    if (mounted) {
+      setState(() {
+        _attendanceData = freshData;
+      });
     } else {
-      // Default courses if KRS hasn't been imported yet
-      _attendanceData = {
-        'TI-301': {'hadir': 13, 'izin': 1, 'alpa': 0},
-        'TI-302': {'hadir': 14, 'izin': 0, 'alpa': 0},
-        'TI-303': {'hadir': 12, 'izin': 1, 'alpa': 1},
-        'TI-304': {'hadir': 13, 'izin': 0, 'alpa': 1},
-        'TI-305': {'hadir': 14, 'izin': 0, 'alpa': 0},
-      };
+      _attendanceData = freshData;
     }
   }
 
   void _increment(String code, String type) {
     setState(() {
-      final current = _attendanceData[code] ?? {'hadir': 12, 'izin': 0, 'alpa': 0};
+      final current = _attendanceData[code] ?? {'hadir': 0, 'izin': 0, 'alpa': 0};
       final total = (current['hadir'] ?? 0) + (current['izin'] ?? 0) + (current['alpa'] ?? 0);
       if (total < 16) {
         current[type] = (current[type] ?? 0) + 1;
         _attendanceData[code] = current;
       }
     });
+    _saveAttendanceData();
+    _syncWithAppState(code);
   }
 
   void _decrement(String code, String type) {
     setState(() {
-      final current = _attendanceData[code] ?? {'hadir': 12, 'izin': 0, 'alpa': 0};
+      final current = _attendanceData[code] ?? {'hadir': 0, 'izin': 0, 'alpa': 0};
       if ((current[type] ?? 0) > 0) {
         current[type] = (current[type] ?? 0) - 1;
         _attendanceData[code] = current;
       }
     });
+    _saveAttendanceData();
+    _syncWithAppState(code);
+  }
+
+  Future<void> _saveAttendanceData() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('sakukuliah_attendance_counts', jsonEncode(_attendanceData));
+    } catch (_) {}
+  }
+
+  void _syncWithAppState(String code) {
+    final current = _attendanceData[code];
+    if (current == null) return;
+    final hadir = current['hadir'] ?? 0;
+    final izin = current['izin'] ?? 0;
+    final alpa = current['alpa'] ?? 0;
+    final total = hadir + izin + alpa;
+
+    _appState.updateCourseAttendance(code, hadir, total > 0 ? total : 16);
   }
 
   @override
   Widget build(BuildContext context) {
-    final courses = _appState.krsCourses;
+    final unifiedCourses = _getUnifiedCourses();
 
     // Calculate overall stats
     int totalHadir = 0;
@@ -99,11 +183,13 @@ class _AttendanceTrackerSheetState extends State<AttendanceTrackerSheet> {
       totalMeetings += (h + i + a);
     });
 
-    final overallRate = totalMeetings > 0 ? (totalHadir / totalMeetings) * 100 : 92.0;
+    final overallRate = totalMeetings > 0
+        ? (totalHadir / totalMeetings) * 100
+        : (unifiedCourses.isNotEmpty ? 100.0 : 0.0);
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.88,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.surfaceContainerLowest,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -136,7 +222,7 @@ class _AttendanceTrackerSheetState extends State<AttendanceTrackerSheet> {
                             color: AppColors.secondaryContainer,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Icon(
+                          child: Icon(
                             Icons.fact_check_rounded,
                             size: 18,
                             color: AppColors.onSecondaryContainer,
@@ -174,7 +260,7 @@ class _AttendanceTrackerSheetState extends State<AttendanceTrackerSheet> {
             ),
           ),
 
-          const Divider(height: 1, color: Color(0x22F4DCE4)),
+          Divider(height: 1, color: AppColors.dividerColor),
 
           // Scrollable Content
           Expanded(
@@ -188,14 +274,23 @@ class _AttendanceTrackerSheetState extends State<AttendanceTrackerSheet> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color(0xFFE8F5E9),
-                          Color(0xFFF1F8E9),
-                        ],
+                      gradient: LinearGradient(
+                        colors: unifiedCourses.isEmpty
+                            ? [
+                                AppColors.surfaceContainerHigh.withValues(alpha: 0.6),
+                                AppColors.surfaceContainerLowest,
+                              ]
+                            : (overallRate >= 75
+                                ? [const Color(0xFFE8F5E9), const Color(0xFFF1F8E9)]
+                                : [const Color(0xFFFFEBEE), const Color(0xFFFFF3E0)]),
                       ),
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: const Color(0xFFA5D6A7), width: 1.2),
+                      border: Border.all(
+                        color: unifiedCourses.isEmpty
+                            ? AppColors.outlineVariant
+                            : (overallRate >= 75 ? const Color(0xFFA5D6A7) : const Color(0xFFFFCDD2)),
+                        width: 1.2,
+                      ),
                     ),
                     child: Row(
                       children: [
@@ -208,11 +303,15 @@ class _AttendanceTrackerSheetState extends State<AttendanceTrackerSheet> {
                           ),
                           child: Center(
                             child: Text(
-                              '${overallRate.toStringAsFixed(0)}%',
-                              style: const TextStyle(
+                              unifiedCourses.isEmpty
+                                  ? '-'
+                                  : (totalMeetings == 0 ? '100%' : '${overallRate.toStringAsFixed(0)}%'),
+                              style: TextStyle(
                                 fontWeight: FontWeight.w900,
-                                fontSize: 15,
-                                color: Color(0xFF2E7D32),
+                                fontSize: unifiedCourses.isEmpty ? 20 : 15,
+                                color: unifiedCourses.isEmpty
+                                    ? AppColors.onSurfaceVariant
+                                    : (overallRate >= 75 ? const Color(0xFF2E7D32) : const Color(0xFFC62828)),
                               ),
                             ),
                           ),
@@ -222,22 +321,30 @@ class _AttendanceTrackerSheetState extends State<AttendanceTrackerSheet> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'Status Presensi Keseluruhan',
+                              Text(
+                                unifiedCourses.isEmpty
+                                    ? 'Belum Ada Data Presensi'
+                                    : (overallRate >= 75 ? 'Status Presensi Aman 🌸' : 'Status Presensi Perhatian ⚠️'),
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 13,
-                                  color: Color(0xFF1B5E20),
+                                  color: unifiedCourses.isEmpty
+                                      ? AppColors.onSurface
+                                      : (overallRate >= 75 ? const Color(0xFF1B5E20) : const Color(0xFFB71C1C)),
                                 ),
                               ),
                               const SizedBox(height: 2),
                               Text(
-                                overallRate >= 75
-                                    ? 'Aman! Kamu memenuhi syarat minimal 75% kehadiran untuk mengikuti seluruh ujian UAS 🌸✨'
-                                    : 'Perhatian! Kehadiran di bawah 75%, segera ikuti kelas pengganti ⚠️',
-                                style: const TextStyle(
+                                unifiedCourses.isEmpty
+                                    ? 'Tambahkan jadwal kuliah atau scan KRS untuk mulai memantau kehadiran dan batas bolos kuliah.'
+                                    : (totalMeetings == 0
+                                        ? 'Perkuliahan semester baru dimulai, pertahankan kehadiranmu yaa 🌸✨'
+                                        : (overallRate >= 75
+                                            ? 'Aman! Kamu memenuhi syarat minimal 75% kehadiran untuk mengikuti seluruh ujian UAS 🌸✨'
+                                            : 'Perhatian! Kehadiran di bawah 75%, segera ikuti kelas pengganti ⚠️')),
+                                style: TextStyle(
                                   fontSize: 11,
-                                  color: Color(0xFF33691E),
+                                  color: unifiedCourses.isEmpty ? AppColors.onSurfaceVariant : const Color(0xFF33691E),
                                   height: 1.3,
                                 ),
                               ),
@@ -260,7 +367,7 @@ class _AttendanceTrackerSheetState extends State<AttendanceTrackerSheet> {
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.info_outline_rounded, size: 18, color: AppColors.primary),
+                        Icon(Icons.info_outline_rounded, size: 18, color: AppColors.primary),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
@@ -284,14 +391,14 @@ class _AttendanceTrackerSheetState extends State<AttendanceTrackerSheet> {
                   const SizedBox(height: 8),
 
                   // Course Attendance Cards
-                  if (courses.isNotEmpty)
-                    ...courses.map((course) {
-                      final data = _attendanceData[course.courseCode] ?? {'hadir': course.attendancePresent, 'izin': 0, 'alpa': 0};
+                  if (unifiedCourses.isNotEmpty)
+                    ...unifiedCourses.map((course) {
+                      final data = _attendanceData[course.code] ?? {'hadir': 0, 'izin': 0, 'alpa': 0};
                       return _buildCourseAttendanceCard(
-                        title: course.courseName,
-                        code: course.courseCode,
+                        title: course.name,
+                        code: course.code,
                         sks: course.sks,
-                        lecturer: 'Dosen Pengampu',
+                        lecturer: course.lecturer,
                         hadir: data['hadir'] ?? 0,
                         izin: data['izin'] ?? 0,
                         alpa: data['alpa'] ?? 0,
@@ -303,7 +410,7 @@ class _AttendanceTrackerSheetState extends State<AttendanceTrackerSheet> {
                       child: Center(
                         child: Column(
                           children: [
-                            const Icon(Icons.fact_check_rounded, size: 36, color: AppColors.primaryContainer),
+                            Icon(Icons.fact_check_rounded, size: 36, color: AppColors.primaryContainer),
                             const SizedBox(height: 8),
                             Text(
                               'Belum ada mata kuliah 🌸',
@@ -385,7 +492,7 @@ class _AttendanceTrackerSheetState extends State<AttendanceTrackerSheet> {
                   ),
                   child: Text(
                     code,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.bold,
                       color: AppColors.onPrimaryContainer,
@@ -467,7 +574,7 @@ class _AttendanceTrackerSheetState extends State<AttendanceTrackerSheet> {
                     child: LinearProgressIndicator(
                       value: (hadir / totalPertemuan).clamp(0.0, 1.0),
                       minHeight: 8,
-                      backgroundColor: const Color(0x33F4DCE4),
+                      backgroundColor: AppColors.cardBorder,
                       valueColor: AlwaysStoppedAnimation<Color>(
                         persentase >= 75 ? AppColors.primary : const Color(0xFFE57373),
                       ),
@@ -477,7 +584,7 @@ class _AttendanceTrackerSheetState extends State<AttendanceTrackerSheet> {
                 const SizedBox(width: 10),
                 Text(
                   '${persentase.toStringAsFixed(0)}% ($hadir/$totalPertemuan)',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.bold,
                     color: AppColors.primary,

@@ -49,8 +49,10 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 280),
         switchInCurve: Curves.easeOutQuart,
@@ -78,20 +80,23 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
   }
 
   Widget _buildPastelBottomBar() {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.surfaceContainerLowest.withValues(alpha: 0.95),
-        boxShadow: const [
+        color: (isDark ? theme.colorScheme.surface : theme.cardColor).withValues(alpha: 0.95),
+        boxShadow: [
           BoxShadow(
-            color: Color.fromRGBO(217, 139, 174, 0.18),
+            color: isDark ? Colors.black.withValues(alpha: 0.3) : const Color.fromRGBO(217, 139, 174, 0.18),
             blurRadius: 24,
-            offset: Offset(0, -4),
+            offset: const Offset(0, -4),
             spreadRadius: -4,
           ),
         ],
-        border: const Border(
+        border: Border(
           top: BorderSide(
-            color: Color(0x22F4DCE4),
+            color: isDark ? const Color(0x22FFFFFF) : AppColors.dividerColor,
             width: 1,
           ),
         ),
@@ -117,13 +122,14 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
 
   Widget _buildNavItem(int index, IconData icon, String label) {
     final bool isSelected = _currentIndex == index;
+    final theme = Theme.of(context);
 
     return Expanded(
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           onTap: () => _onTabSelected(index),
-          splashColor: AppColors.primaryContainer.withValues(alpha: 0.3),
+          splashColor: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
           highlightColor: Colors.transparent,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -136,13 +142,13 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
                 height: 28,
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? AppColors.primaryContainer
+                      ? theme.colorScheme.primaryContainer
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(9999),
                   boxShadow: isSelected
                       ? [
                           BoxShadow(
-                            color: AppColors.primary.withValues(alpha: 0.18),
+                            color: theme.colorScheme.primary.withValues(alpha: 0.18),
                             blurRadius: 8,
                             offset: const Offset(0, 2),
                           ),
@@ -157,8 +163,8 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
                     icon,
                     size: 20,
                     color: isSelected
-                        ? AppColors.onPrimaryContainer
-                        : AppColors.onSurfaceVariant,
+                        ? theme.colorScheme.onPrimaryContainer
+                        : theme.colorScheme.onSurfaceVariant,
                   ),
                 ),
               ),
@@ -169,8 +175,8 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
                   fontSize: 11,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
                   color: isSelected
-                      ? AppColors.primary
-                      : AppColors.onSurfaceVariant,
+                      ? theme.colorScheme.primary
+                      : theme.colorScheme.onSurfaceVariant,
                 ),
               ),
             ],

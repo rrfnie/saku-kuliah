@@ -135,70 +135,12 @@ class DatabaseHelper {
       )
     ''');
 
-    // Inisialisasi Mock Seed Data
+    // Inisialisasi Mock Seed Data (Dibiarkan kosong untuk fresh install offline)
     await _seedInitialData(db);
   }
 
   Future<void> _seedInitialData(Database db) async {
-    // Seed Profil
-    await db.insert('student_profile', {
-      'name': AppConstants.defaultUserName,
-      'nim': AppConstants.defaultNim,
-      'major': AppConstants.defaultMajor,
-      'faculty': AppConstants.defaultFaculty,
-      'university': AppConstants.defaultUniversity,
-      'current_semester': AppConstants.defaultSemester,
-      'target_ipk': 3.90,
-      'cumulative_ipk': AppConstants.defaultIpk,
-      'completed_sks': AppConstants.defaultSksCompleted,
-      'total_sks': AppConstants.defaultSksTotal,
-    });
-
-    // Seed Jadwal Hari Senin
-    await db.insert('schedules', {
-      'day_of_week': 0, // Senin
-      'course_name': 'Desain Antarmuka & UX',
-      'course_code': 'IF3102',
-      'sks': 3,
-      'room': 'Lab Multimedia 402',
-      'lecturer': 'Dr. Sarah Amanda, M.Ds.',
-      'start_time': '08:00',
-      'end_time': '10:30',
-      'category': 'Praktikum',
-      'accent_color_hex': '#805063',
-    });
-
-    await db.insert('schedules', {
-      'day_of_week': 0, // Senin
-      'course_name': 'Metodologi Penelitian TI',
-      'course_code': 'IF3108',
-      'sks': 2,
-      'room': 'Ruang Teori B.204',
-      'lecturer': 'Prof. Hendra Wijaya',
-      'start_time': '13:30',
-      'end_time': '15:10',
-      'category': 'Teori',
-      'accent_color_hex': '#6B5A60',
-    });
-
-    // Seed Tugas
-    final taskId = await db.insert('tasks', {
-      'title': 'Laporan Riset Evaluasi Heuristik & Persona',
-      'course_name': 'Desain Antarmuka & UX',
-      'due_date': '2026-11-22',
-      'due_time': '23:59',
-      'priority': 'Tinggi',
-      'attachment_info': 'PDF Max 15MB',
-      'assignment_type': 'Individu',
-      'is_completed': 0,
-      'created_at': DateTime.now().toIso8601String(),
-    });
-
-    // Seed Subtugas
-    await db.insert('subtasks', {'task_id': taskId, 'title': 'Pilih 1 aplikasi e-commerce lokal', 'is_completed': 1});
-    await db.insert('subtasks', {'task_id': taskId, 'title': 'Lakukan audit 10 prinsip Nielsen', 'is_completed': 1});
-    await db.insert('subtasks', {'task_id': taskId, 'title': 'Dokumentasikan screenshot temuan', 'is_completed': 1});
-    await db.insert('subtasks', {'task_id': taskId, 'title': 'Susun kesimpulan & rekomendasi solusi', 'is_completed': 0});
+    // Fresh install tanpa data dummy
   }
 
   /// Ekspor seluruh data lokal ke format JSON untuk backup

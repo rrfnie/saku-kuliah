@@ -1,66 +1,75 @@
 import 'package:flutter/material.dart';
+import 'app_palettes.dart';
+import 'app_theme.dart';
 
-/// Palet warna feminine pastel resmi SakuKuliah sesuai pedoman DESIGN.md
+/// Palet warna resmi SakuKuliah dengan dukungan Multi-Palette & Dark Mode reaktif
 class AppColors {
   AppColors._();
 
-  // Core Brand Colors
-  static const Color primary = Color(0xFF805063);
-  static const Color onPrimary = Color(0xFFFFFFFF);
-  static const Color primaryContainer = Color(0xFFF4B8CD); // Blush Pink
-  static const Color onPrimaryContainer = Color(0xFF744658);
-  static const Color inversePrimary = Color(0xFFF2B6CB);
+  static bool get _isDark => AppTheme.isDark;
+  static AppThemePalette get _palette => AppTheme.currentPalette;
+
+  // Core Brand Colors (Dinamis berubah sesuai palet pilihan: Sakura, Matcha, Lilac, Sky, Caramel)
+  static Color get primary => _isDark ? _palette.primaryDark : _palette.primary;
+  static Color get onPrimary => _isDark ? _palette.onPrimaryDark : _palette.onPrimary;
+  static Color get primaryContainer => _isDark ? _palette.primaryContainerDark : _palette.primaryContainer;
+  static Color get onPrimaryContainer => _isDark ? _palette.onPrimaryContainerDark : _palette.onPrimaryContainer;
+  static Color get inversePrimary => _isDark ? _palette.primary : _palette.primaryDark;
 
   // Secondary Tones
-  static const Color secondary = Color(0xFF6B5A60);
-  static const Color onSecondary = Color(0xFFFFFFFF);
-  static const Color secondaryContainer = Color(0xFFF4DCE4); // Soft Pink
-  static const Color onSecondaryContainer = Color(0xFF716066);
+  static Color get secondary => _isDark ? _palette.secondaryDark : _palette.secondary;
+  static Color get onSecondary => _isDark ? _palette.onSecondaryDark : _palette.onSecondary;
+  static Color get secondaryContainer => _isDark ? _palette.secondaryContainerDark : _palette.secondaryContainer;
+  static Color get onSecondaryContainer => _isDark ? _palette.onSecondaryContainerDark : _palette.onSecondaryContainer;
 
   // Tertiary / Accent Tones
-  static const Color tertiary = Color(0xFF8B4969); // Dusty Rose
-  static const Color onTertiary = Color(0xFFFFFFFF);
-  static const Color tertiaryContainer = Color(0xFFFFB2D3);
-  static const Color onTertiaryContainer = Color(0xFF7F3E5E);
+  static Color get tertiary => _isDark ? _palette.tertiaryDark : _palette.tertiary;
+  static Color get onTertiary => _isDark ? _palette.onTertiaryDark : _palette.onTertiary;
+  static Color get tertiaryContainer => _isDark ? _palette.tertiaryContainerDark : _palette.tertiaryContainer;
+  static Color get onTertiaryContainer => _isDark ? _palette.onTertiaryContainerDark : _palette.onTertiaryContainer;
 
-  // Surface & Canvas Containers
-  static const Color background = Color(0xFFFEF7FF);
-  static const Color canvasGround = Color(0xFFFFF8FA); // Warm blush canvas
-  static const Color onBackground = Color(0xFF1E1A22);
+  // Surface & Canvas Containers (Sesuai palet terpilih)
+  static Color get background => _isDark ? const Color(0xFF140F15) : _palette.background;
+  static Color get canvasGround => _isDark ? const Color(0xFF19131A) : _palette.background;
+  static Color get onBackground => _isDark ? const Color(0xFFF6EEF8) : const Color(0xFF1E1A22);
 
-  static const Color surface = Color(0xFFFEF7FF);
-  static const Color surfaceDim = Color(0xFFDFD7E2);
-  static const Color surfaceBright = Color(0xFFFEF7FF);
-  static const Color surfaceContainerLowest = Color(0xFFFFFFFF); // Card ground
-  static const Color surfaceContainerLow = Color(0xFFF9F1FC);
-  static const Color surfaceContainer = Color(0xFFF3EBF6);
-  static const Color surfaceContainerHigh = Color(0xFFEEE5F0);
-  static const Color surfaceContainerHighest = Color(0xFFE8E0EA);
+  static Color get surface => _isDark ? const Color(0xFF1B141D) : _palette.background;
+  static Color get surfaceDim => _isDark ? const Color(0xFF161018) : const Color(0xFFDFD7E2);
+  static Color get surfaceBright => _isDark ? const Color(0xFF28202B) : _palette.background;
+  static Color get surfaceContainerLowest => _isDark ? const Color(0xFF221A25) : const Color(0xFFFFFFFF);
+  static Color get surfaceContainerLow => _isDark ? const Color(0xFF2A212E) : _palette.surfaceContainerLow;
+  static Color get surfaceContainer => _isDark ? const Color(0xFF332838) : _palette.surfaceContainer;
+  static Color get surfaceContainerHigh => _isDark ? const Color(0xFF3D3042) : _palette.surfaceContainerHigh;
+  static Color get surfaceContainerHighest => _isDark ? const Color(0xFF473A4D) : _palette.surfaceContainerHigh;
 
-  // Typography & Content Neutrals
-  static const Color onSurface = Color(0xFF1E1A22); // Dark Charcoal / Plum
-  static const Color onSurfaceVariant = Color(0xFF504447); // Muted slate
-  static const Color inverseSurface = Color(0xFF332F37);
-  static const Color inverseOnSurface = Color(0xFFF6EEF9);
-  static const Color outline = Color(0xFF827377);
-  static const Color outlineVariant = Color(0xFFD4C2C6);
-  static const Color surfaceTint = Color(0xFF805063);
+  // Typography & Content Neutrals (Terang jelas di mode gelap)
+  static Color get onSurface => _isDark ? const Color(0xFFF6EEF8) : const Color(0xFF1E1A22);
+  static Color get onSurfaceVariant => _isDark ? const Color(0xFFD4C3D2) : const Color(0xFF504447);
+  static Color get inverseSurface => _isDark ? const Color(0xFFEFE6EE) : const Color(0xFF332F37);
+  static Color get inverseOnSurface => _isDark ? const Color(0xFF322837) : const Color(0xFFF6EEF9);
+  static Color get outline => _isDark ? const Color(0xFF9E8B9A) : const Color(0xFF827377);
+  static Color get outlineVariant => _isDark ? const Color(0xFF4D3F4F) : primary.withValues(alpha: 0.18);
+  static Color get surfaceTint => primary;
 
-  // Fixed Accent Chips
-  static const Color primaryFixed = Color(0xFFFFD9E4);
-  static const Color primaryFixedDim = Color(0xFFF2B6CB);
-  static const Color onPrimaryFixed = Color(0xFF320F1F);
-  static const Color onPrimaryFixedVariant = Color(0xFF65394B);
+  // Card Borders & Dividers Dinamis
+  static Color get cardBorder => _isDark ? const Color(0x33D4C4D1) : primary.withValues(alpha: 0.18);
+  static Color get dividerColor => _isDark ? const Color(0x22FFFFFF) : primary.withValues(alpha: 0.12);
 
-  static const Color secondaryFixed = Color(0xFFF4DCE4);
-  static const Color secondaryFixedDim = Color(0xFFD7C1C8);
-  static const Color onSecondaryFixed = Color(0xFF25181E);
-  static const Color onSecondaryFixedVariant = Color(0xFF524249);
+  // Fixed Accent Chips (Dinamis berubah sesuai palet pilihan)
+  static Color get primaryFixed => _isDark ? _palette.primaryContainerDark : _palette.primaryContainer;
+  static Color get primaryFixedDim => _isDark ? _palette.primaryDark : _palette.primary;
+  static Color get onPrimaryFixed => _isDark ? _palette.onPrimaryContainerDark : _palette.onPrimaryContainer;
+  static Color get onPrimaryFixedVariant => _isDark ? _palette.primaryDark : _palette.primary;
 
-  static const Color tertiaryFixed = Color(0xFFFFD8E6);
-  static const Color tertiaryFixedDim = Color(0xFFFFAFD2);
-  static const Color onTertiaryFixed = Color(0xFF3A0524);
-  static const Color onTertiaryFixedVariant = Color(0xFF6F3251);
+  static Color get secondaryFixed => _isDark ? _palette.secondaryContainerDark : _palette.secondaryContainer;
+  static Color get secondaryFixedDim => _isDark ? _palette.secondaryDark : _palette.secondary;
+  static Color get onSecondaryFixed => _isDark ? _palette.onSecondaryContainerDark : _palette.onSecondaryContainer;
+  static Color get onSecondaryFixedVariant => _isDark ? _palette.secondaryDark : _palette.secondary;
+
+  static Color get tertiaryFixed => _isDark ? _palette.tertiaryContainerDark : _palette.tertiaryContainer;
+  static Color get tertiaryFixedDim => _isDark ? _palette.tertiaryDark : _palette.tertiary;
+  static Color get onTertiaryFixed => _isDark ? _palette.onTertiaryContainerDark : _palette.onTertiaryContainer;
+  static Color get onTertiaryFixedVariant => _isDark ? _palette.tertiaryDark : _palette.tertiary;
 
   // Functional Semantic Statuses
   static const Color error = Color(0xFFBA1A1A);
@@ -76,29 +85,46 @@ class AppColors {
   static const Color onWarning = Color(0xFF453300);
   static const Color warningContainer = Color(0xFFFEF3CD);
 
-  // Soft Ambient Drop Shadows (Warm diffuse pink tint)
-  static List<BoxShadow> get cardShadow => [
-        const BoxShadow(
-          color: Color.fromRGBO(217, 139, 174, 0.12),
-          blurRadius: 16,
-          offset: Offset(0, 4),
-          spreadRadius: -2,
-        ),
-        const BoxShadow(
-          color: Color.fromRGBO(52, 48, 56, 0.03),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-          spreadRadius: -1,
-        ),
-      ];
+  // Shadows (Mengikuti warna palet yang aktif)
+  static List<BoxShadow> get cardShadow => _isDark
+      ? [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.35),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
+            spreadRadius: -2,
+          ),
+        ]
+      : [
+          BoxShadow(
+            color: primary.withValues(alpha: 0.10),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
+            spreadRadius: -2,
+          ),
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.02),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+            spreadRadius: -1,
+          ),
+        ];
 
-  static List<BoxShadow> get elevatedShadow => [
-        const BoxShadow(
-          color: Color.fromRGBO(217, 139, 174, 0.24),
-          blurRadius: 24,
-          offset: Offset(0, 8),
-          spreadRadius: -4,
-        ),
-      ];
+  static List<BoxShadow> get elevatedShadow => _isDark
+      ? [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.5),
+            blurRadius: 24,
+            offset: const Offset(0, 8),
+            spreadRadius: -4,
+          ),
+        ]
+      : [
+          BoxShadow(
+            color: primary.withValues(alpha: 0.20),
+            blurRadius: 24,
+            offset: const Offset(0, 8),
+            spreadRadius: -4,
+          ),
+        ];
 }
-

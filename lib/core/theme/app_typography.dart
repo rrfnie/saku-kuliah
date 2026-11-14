@@ -1,95 +1,98 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'app_colors.dart';
+import 'app_theme.dart';
 
 /// Tipografi resmi SakuKuliah menggabungkan Epilogue (Headings) dan Inter (Body & Labels)
+/// Otomatis kontras dan terang jelas di mode gelap (Dark Mode)
 class AppTypography {
   AppTypography._();
 
+  static Color get _onSurface => AppTheme.isDark ? const Color(0xFFF6EEF8) : const Color(0xFF1E1A22);
+  static Color get _onSurfaceVariant => AppTheme.isDark ? const Color(0xFFD4C3D2) : const Color(0xFF504447);
+
   // Headings (Epilogue)
-  static TextStyle displayLg = GoogleFonts.epilogue(
+  static TextStyle get displayLg => GoogleFonts.epilogue(
     fontSize: 36,
     fontWeight: FontWeight.w700,
     height: 44 / 36,
     letterSpacing: -0.72,
-    color: AppColors.onSurface,
+    color: _onSurface,
   );
 
-  static TextStyle headlineLg = GoogleFonts.epilogue(
+  static TextStyle get headlineLg => GoogleFonts.epilogue(
     fontSize: 28,
     fontWeight: FontWeight.w600,
     height: 36 / 28,
     letterSpacing: -0.28,
-    color: AppColors.onSurface,
+    color: _onSurface,
   );
 
-  static TextStyle headlineLgMobile = GoogleFonts.epilogue(
+  static TextStyle get headlineLgMobile => GoogleFonts.epilogue(
     fontSize: 24,
     fontWeight: FontWeight.w600,
     height: 32 / 24,
     letterSpacing: -0.24,
-    color: AppColors.onSurface,
+    color: _onSurface,
   );
 
-  static TextStyle headlineMd = GoogleFonts.epilogue(
+  static TextStyle get headlineMd => GoogleFonts.epilogue(
     fontSize: 20,
     fontWeight: FontWeight.w600,
     height: 28 / 20,
-    color: AppColors.onSurface,
+    color: _onSurface,
   );
 
-  static TextStyle headlineSm = GoogleFonts.epilogue(
+  static TextStyle get headlineSm => GoogleFonts.epilogue(
     fontSize: 18,
     fontWeight: FontWeight.w600,
     height: 24 / 18,
-    color: AppColors.onSurface,
+    color: _onSurface,
   );
 
   // Body Text (Inter)
-  static TextStyle bodyLg = GoogleFonts.inter(
+  static TextStyle get bodyLg => GoogleFonts.inter(
     fontSize: 16,
     fontWeight: FontWeight.w400,
     height: 24 / 16,
-    color: AppColors.onSurface,
+    color: _onSurface,
   );
 
-  static TextStyle bodyMd = GoogleFonts.inter(
+  static TextStyle get bodyMd => GoogleFonts.inter(
     fontSize: 14,
     fontWeight: FontWeight.w400,
     height: 20 / 14,
-    color: AppColors.onSurfaceVariant,
+    color: _onSurfaceVariant,
   );
 
-  static TextStyle bodySm = GoogleFonts.inter(
+  static TextStyle get bodySm => GoogleFonts.inter(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     height: 16 / 12,
-    color: AppColors.onSurfaceVariant,
+    color: _onSurfaceVariant,
   );
 
   // Labels & Badges (Inter)
-  static TextStyle labelLg = GoogleFonts.inter(
+  static TextStyle get labelLg => GoogleFonts.inter(
     fontSize: 14,
     fontWeight: FontWeight.w600,
     height: 20 / 14,
     letterSpacing: 0.14,
-    color: AppColors.onSurface,
+    color: _onSurface,
   );
 
-  static TextStyle labelMd = GoogleFonts.inter(
+  static TextStyle get labelMd => GoogleFonts.inter(
     fontSize: 12,
     fontWeight: FontWeight.w600,
     height: 16 / 12,
     letterSpacing: 0.24,
-    color: AppColors.onSurface,
+    color: _onSurface,
   );
 
-  static TextStyle labelSm = GoogleFonts.inter(
+  static TextStyle get labelSm => GoogleFonts.inter(
     fontSize: 10,
     fontWeight: FontWeight.w600,
     height: 14 / 10,
     letterSpacing: 0.4,
-    color: AppColors.onSurfaceVariant,
+    color: _onSurfaceVariant,
   );
 }
-

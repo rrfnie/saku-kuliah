@@ -378,7 +378,7 @@ class _ScanKrsKhsSheetState extends State<ScanKrsKhsSheet> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Row(
           children: [
-            const Icon(Icons.paste_rounded, color: AppColors.primary, size: 20),
+            Icon(Icons.paste_rounded, color: AppColors.primary, size: 20),
             const SizedBox(width: 8),
             Text(
               isKrs ? 'Tempel Teks KRS dari SIAKAD' : 'Tempel Teks KHS dari SIAKAD',
@@ -1106,7 +1106,7 @@ class _ScanKrsKhsSheetState extends State<ScanKrsKhsSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.surfaceContainerLowest,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -1146,7 +1146,7 @@ class _ScanKrsKhsSheetState extends State<ScanKrsKhsSheet> {
                         color: AppColors.primaryContainer,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.document_scanner_rounded,
                         size: 20,
                         color: AppColors.onPrimaryContainer,
@@ -1275,18 +1275,18 @@ class _ScanKrsKhsSheetState extends State<ScanKrsKhsSheet> {
                 decoration: BoxDecoration(
                   color: AppColors.surfaceContainerLow,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0x33F4DCE4)),
+                  border: Border.all(color: AppColors.cardBorder),
                 ),
                 child: Column(
                   children: [
                     Container(
                       width: 52,
                       height: 52,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         color: AppColors.primaryContainer,
                         shape: BoxShape.circle,
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Icon(
                           Icons.radar_rounded,
                           size: 28,
@@ -1306,7 +1306,7 @@ class _ScanKrsKhsSheetState extends State<ScanKrsKhsSheet> {
                     const SizedBox(height: 12),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(9999),
-                      child: const SizedBox(
+                      child: SizedBox(
                         width: 180,
                         child: LinearProgressIndicator(
                           minHeight: 5,
@@ -1362,17 +1362,17 @@ class _ScanKrsKhsSheetState extends State<ScanKrsKhsSheet> {
                   decoration: BoxDecoration(
                     color: AppColors.surfaceContainerLow,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: const Color(0x33F4DCE4)),
+                    border: Border.all(color: AppColors.cardBorder),
                   ),
                   child: Row(
                     children: [
                       Container(
                         padding: const EdgeInsets.all(6),
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           color: AppColors.secondaryContainer,
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(Icons.paste_rounded, size: 16, color: AppColors.onSecondaryContainer),
+                        child: Icon(Icons.paste_rounded, size: 16, color: AppColors.onSecondaryContainer),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
@@ -1393,7 +1393,7 @@ class _ScanKrsKhsSheetState extends State<ScanKrsKhsSheet> {
                           ],
                         ),
                       ),
-                      const Icon(Icons.arrow_forward_ios_rounded, size: 12, color: AppColors.primary),
+                      Icon(Icons.arrow_forward_ios_rounded, size: 12, color: AppColors.primary),
                     ],
                   ),
                 ),
@@ -1410,7 +1410,7 @@ class _ScanKrsKhsSheetState extends State<ScanKrsKhsSheet> {
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.check_circle_outline_rounded, size: 16, color: AppColors.primary),
+                      Icon(Icons.check_circle_outline_rounded, size: 16, color: AppColors.primary),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
@@ -1475,7 +1475,7 @@ class _ScanKrsKhsSheetState extends State<ScanKrsKhsSheet> {
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        const Icon(Icons.search_off_rounded, size: 36, color: AppColors.primary),
+                        Icon(Icons.search_off_rounded, size: 36, color: AppColors.primary),
                         const SizedBox(height: 8),
                         Text(
                           'Teks KRS Tidak Terdeteksi Otomatis',
@@ -1581,13 +1581,13 @@ class _ScanKrsKhsSheetState extends State<ScanKrsKhsSheet> {
                           ),
                           // Edit Button
                           IconButton(
-                            icon: const Icon(Icons.edit_outlined, size: 18, color: AppColors.primary),
+                            icon: Icon(Icons.edit_outlined, size: 18, color: AppColors.primary),
                             tooltip: 'Edit Detail',
                             onPressed: () => _editKrsItemDialog(idx),
                           ),
                           // Delete Button
                           IconButton(
-                            icon: const Icon(Icons.delete_outline, size: 18, color: AppColors.error),
+                            icon: Icon(Icons.delete_outline, size: 18, color: AppColors.error),
                             tooltip: 'Hapus',
                             onPressed: () {
                               setState(() {
@@ -1614,7 +1614,7 @@ class _ScanKrsKhsSheetState extends State<ScanKrsKhsSheet> {
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
-                      const Icon(Icons.search_off_rounded, size: 36, color: AppColors.secondary),
+                      Icon(Icons.search_off_rounded, size: 36, color: AppColors.secondary),
                       const SizedBox(height: 8),
                       Text(
                         'Teks KHS Tidak Terdeteksi Otomatis',
@@ -1672,7 +1672,7 @@ class _ScanKrsKhsSheetState extends State<ScanKrsKhsSheet> {
                       decoration: BoxDecoration(
                         color: AppColors.primaryContainer.withOpacity(0.35),
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: const Color(0x33D98BAE)),
+                        border: Border.all(color: AppColors.cardBorder),
                       ),
                       child: Row(
                         children: [
@@ -1690,7 +1690,7 @@ class _ScanKrsKhsSheetState extends State<ScanKrsKhsSheet> {
                                       items: List.generate(8, (i) => i + 1).map((s) {
                                         return DropdownMenuItem(
                                           value: s,
-                                          child: Text('Semester $s', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary)),
+                                          child: Text('Semester $s', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary)),
                                         );
                                       }).toList(),
                                       onChanged: (val) {
@@ -1781,13 +1781,13 @@ class _ScanKrsKhsSheetState extends State<ScanKrsKhsSheet> {
                           ),
                           // Edit Button
                           IconButton(
-                            icon: const Icon(Icons.edit_outlined, size: 18, color: AppColors.primary),
+                            icon: Icon(Icons.edit_outlined, size: 18, color: AppColors.primary),
                             tooltip: 'Edit Nilai',
                             onPressed: () => _editKhsItemDialog(idx),
                           ),
                           // Delete Button
                           IconButton(
-                            icon: const Icon(Icons.delete_outline, size: 18, color: AppColors.error),
+                            icon: Icon(Icons.delete_outline, size: 18, color: AppColors.error),
                             tooltip: 'Hapus',
                             onPressed: () {
                               setState(() {
@@ -1831,7 +1831,7 @@ class _ScanKrsKhsSheetState extends State<ScanKrsKhsSheet> {
         decoration: BoxDecoration(
           color: AppColors.surfaceContainerLow,
           borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: const Color(0x33F4DCE4)),
+          border: Border.all(color: AppColors.cardBorder),
         ),
         child: Column(
           children: [

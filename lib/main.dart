@@ -1,8 +1,9 @@
 import 'dart:ui';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'core/services/notification_service.dart';
+import 'core/state/app_state.dart';
 import 'core/storage/preferences_helper.dart';
+import 'core/theme/app_colors.dart';
 import 'core/theme/app_theme.dart';
 import 'features/academic/presentation/academic_screen.dart';
 import 'features/calendar/presentation/academic_calendar_screen.dart';
@@ -83,44 +84,60 @@ class _SakuKuliahAppState extends State<SakuKuliahApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'SakuKuliah',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      scrollBehavior: const SmoothScrollBehavior(),
-      builder: (context, child) {
-        return Container(
-          color: const Color(0xFFEFE8F0), // Ambient soft lavender background di luar frame HP
-          alignment: Alignment.center,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 430),
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Color(0xFFFEF7FF),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x1F805063),
-                    blurRadius: 28,
-                    offset: Offset(0, 8),
-                  ),
-                ],
-              ),
-              child: child ?? const SizedBox(),
-            ),
+    return AnimatedBuilder(
+      animation: SakuKuliahState.instance,
+      builder: (context, _) {
+        final appState = SakuKuliahState.instance;
+
+        return MaterialApp(
+          title: 'SakuKuliah',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.buildTheme(
+            paletteType: appState.themePalette,
+            isDark: false,
           ),
+          darkTheme: AppTheme.buildTheme(
+            paletteType: appState.themePalette,
+            isDark: true,
+          ),
+          themeMode: appState.themeMode,
+          scrollBehavior: const SmoothScrollBehavior(),
+          builder: (context, child) {
+            final isDark = Theme.of(context).brightness == Brightness.dark;
+            return Container(
+              color: isDark ? const Color(0xFF0F0B10) : AppColors.surfaceContainerLow,
+              alignment: Alignment.center,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 430),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    boxShadow: [
+                      BoxShadow(
+                        color: isDark ? const Color(0x33000000) : AppColors.primary.withValues(alpha: 0.15),
+                        blurRadius: 28,
+                        offset: const Offset(0, 8),
+                      ),
+                    ],
+                  ),
+                  child: child ?? const SizedBox(),
+                ),
+              ),
+            );
+          },
+          home: _showSplashLoading
+              ? AppSplashLoadingScreen(
+                  onLoadingFinished: _finishSplashLoading,
+                )
+              : (_hasSeenOnboarding
+                  ? const MainAppRoot()
+                  : SplashOnboardingScreen(onFinishOnboarding: _finishOnboarding)),
+          routes: {
+            '/calendar': (context) => const AcademicCalendarScreen(),
+            '/notes': (context) => const NotesScreen(),
+            '/wallet': (context) => const WalletScreen(),
+          },
         );
-      },
-      home: _showSplashLoading
-          ? AppSplashLoadingScreen(
-              onLoadingFinished: _finishSplashLoading,
-            )
-          : (_hasSeenOnboarding
-              ? const MainAppRoot()
-              : SplashOnboardingScreen(onFinishOnboarding: _finishOnboarding)),
-      routes: {
-        '/calendar': (context) => const AcademicCalendarScreen(),
-        '/notes': (context) => const NotesScreen(),
-        '/wallet': (context) => const WalletScreen(),
       },
     );
   }

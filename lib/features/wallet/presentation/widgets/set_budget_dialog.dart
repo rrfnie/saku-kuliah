@@ -59,11 +59,11 @@ class _SetBudgetDialogState extends State<SetBudgetDialog> {
         children: [
           Container(
             padding: const EdgeInsets.all(8),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: AppColors.primaryContainer,
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.savings_rounded, color: AppColors.primary, size: 20),
+            child: Icon(Icons.savings_rounded, color: AppColors.primary, size: 20),
           ),
           const SizedBox(width: 10),
           Text(

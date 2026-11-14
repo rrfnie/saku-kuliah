@@ -103,7 +103,7 @@ class _FirstTimeSetupSheetState extends State<FirstTimeSetupSheet> {
     final bottomInset = MediaQuery.of(context).viewInsets.bottom;
 
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.surfaceContainerLowest,
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
@@ -138,11 +138,11 @@ class _FirstTimeSetupSheetState extends State<FirstTimeSetupSheet> {
                       height: 46,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        boxShadow: const [
+                        boxShadow: [
                           BoxShadow(
-                            color: Color(0x15805063),
+                            color: AppColors.primary.withValues(alpha: 0.08),
                             blurRadius: 8,
-                            offset: Offset(0, 2),
+                            offset: const Offset(0, 2),
                           ),
                         ],
                       ),

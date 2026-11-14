@@ -34,18 +34,6 @@ class _AcademicIntelligenceSheetState extends State<AcademicIntelligenceSheet>
   // Tab untuk simulasi target nilai: target IPK yang diinginkan
   double _targetIpkInput = 3.50;
 
-  final Map<String, double> _gradePoints = {
-    'A': 4.00,
-    'A-': 3.70,
-    'B+': 3.30,
-    'B': 3.00,
-    'B-': 2.70,
-    'C+': 2.30,
-    'C': 2.00,
-    'D': 1.00,
-    'E': 0.00,
-  };
-
   @override
   void initState() {
     super.initState();
@@ -157,7 +145,7 @@ class _AcademicIntelligenceSheetState extends State<AcademicIntelligenceSheet>
           constraints: BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height * 0.92,
           ),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: AppColors.background,
             borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
           ),
@@ -184,7 +172,7 @@ class _AcademicIntelligenceSheetState extends State<AcademicIntelligenceSheet>
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
-                        gradient: const LinearGradient(
+                        gradient: LinearGradient(
                           colors: [AppColors.primary, AppColors.tertiary],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
@@ -402,7 +390,7 @@ class _AcademicIntelligenceSheetState extends State<AcademicIntelligenceSheet>
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.route_rounded, size: 16, color: AppColors.primary),
+                    Icon(Icons.route_rounded, size: 16, color: AppColors.primary),
                     const SizedBox(width: 6),
                     Text(
                       'Peta Jalan Predikat',
@@ -414,11 +402,6 @@ class _AcademicIntelligenceSheetState extends State<AcademicIntelligenceSheet>
                 ...milestones.map((m) {
                   final threshold = m['threshold'] as double;
                   final reached = currentIpk >= threshold;
-                  final isNext = !reached &&
-                      milestones
-                          .where((x) => currentIpk >= (x['threshold'] as double))
-                          .length ==
-                          milestones.indexOf(m);
                   final gap = (threshold - currentIpk).clamp(0.0, 4.0);
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 8),
@@ -435,7 +418,7 @@ class _AcademicIntelligenceSheetState extends State<AcademicIntelligenceSheet>
                           ),
                           child: Center(
                             child: reached
-                                ? const Icon(Icons.check_rounded, size: 16, color: AppColors.primary)
+                                ? Icon(Icons.check_rounded, size: 16, color: AppColors.primary)
                                 : Text(
                                     m['emoji'] as String,
                                     style: const TextStyle(fontSize: 13),
@@ -501,7 +484,7 @@ class _AcademicIntelligenceSheetState extends State<AcademicIntelligenceSheet>
                       color: AppColors.successContainer,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Icon(Icons.shield_rounded, color: AppColors.onSuccess, size: 22),
+                    child: Icon(Icons.shield_rounded, color: AppColors.onSuccess, size: 22),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -533,7 +516,7 @@ class _AcademicIntelligenceSheetState extends State<AcademicIntelligenceSheet>
           ] else ...[
             Row(
               children: [
-                const Icon(Icons.warning_amber_rounded, size: 16, color: AppColors.error),
+                Icon(Icons.warning_amber_rounded, size: 16, color: AppColors.error),
                 const SizedBox(width: 6),
                 Text(
                   'Peringatan Akademik (${warnings.length})',
@@ -605,14 +588,6 @@ class _AcademicIntelligenceSheetState extends State<AcademicIntelligenceSheet>
   }
 
   Widget _buildPredikatProgressBar(double ipk) {
-    // 4 zona: 0-2 (merah), 2-2.75 (kuning), 2.75-3.51 (biru), 3.51-4.0 (pink)
-    final segments = [
-      {'from': 0.0, 'to': 2.0, 'color': AppColors.error, 'label': 'Cukup'},
-      {'from': 2.0, 'to': 2.75, 'color': AppColors.warning, 'label': 'Memuaskan'},
-      {'from': 2.75, 'to': 3.51, 'color': AppColors.primary, 'label': 'Sgt Memuaskan'},
-      {'from': 3.51, 'to': 4.0, 'color': const Color(0xFFB5538C), 'label': 'Cumlaude'},
-    ];
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -725,7 +700,7 @@ class _AcademicIntelligenceSheetState extends State<AcademicIntelligenceSheet>
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.show_chart_rounded, size: 16, color: AppColors.primary),
+                    Icon(Icons.show_chart_rounded, size: 16, color: AppColors.primary),
                     const SizedBox(width: 6),
                     Text(
                       'Grafik IPS per Semester',
@@ -757,7 +732,7 @@ class _AcademicIntelligenceSheetState extends State<AcademicIntelligenceSheet>
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(Icons.bar_chart_rounded, size: 42, color: AppColors.surfaceContainerHigh),
+                          Icon(Icons.bar_chart_rounded, size: 42, color: AppColors.surfaceContainerHigh),
                           const SizedBox(height: 8),
                           Text(
                             'Belum ada data riwayat nilai 📊',
@@ -791,7 +766,7 @@ class _AcademicIntelligenceSheetState extends State<AcademicIntelligenceSheet>
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.analytics_rounded, size: 16, color: AppColors.primary),
+                      Icon(Icons.analytics_rounded, size: 16, color: AppColors.primary),
                       const SizedBox(width: 6),
                       Text(
                         'Statistik Akademik',
@@ -957,7 +932,7 @@ class _AcademicIntelligenceSheetState extends State<AcademicIntelligenceSheet>
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.my_location_rounded, size: 16, color: AppColors.primary),
+                    Icon(Icons.my_location_rounded, size: 16, color: AppColors.primary),
                     const SizedBox(width: 6),
                     Text(
                       'Target IPK Saya',
@@ -1069,7 +1044,7 @@ class _AcademicIntelligenceSheetState extends State<AcademicIntelligenceSheet>
                   _buildInfoRow('IPK Sekarang', currentIpk.toStringAsFixed(2)),
                   _buildInfoRow('Target IPK', _targetIpkInput.toStringAsFixed(2)),
                   _buildInfoRow('SKS Semester Ini', '$semSks SKS'),
-                  const Divider(height: 16, color: Color(0x22F4DCE4)),
+                  Divider(height: 16, color: AppColors.dividerColor),
                   _buildInfoRow(
                     'IPS yang Harus Dicapai',
                     requiredIps <= 4.0 ? requiredIps.toStringAsFixed(2) : '>4.00',
@@ -1109,7 +1084,7 @@ class _AcademicIntelligenceSheetState extends State<AcademicIntelligenceSheet>
           if (courses.isNotEmpty) ...[
             Row(
               children: [
-                const Icon(Icons.list_alt_rounded, size: 16, color: AppColors.primary),
+                Icon(Icons.list_alt_rounded, size: 16, color: AppColors.primary),
                 const SizedBox(width: 6),
                 Text(
                   'Rincian per Mata Kuliah',
@@ -1270,7 +1245,7 @@ class _LineChartPainter extends CustomPainter {
       ..strokeWidth = 0.8
       ..style = PaintingStyle.stroke;
 
-    final labelStyle = const TextStyle(
+    final labelStyle = TextStyle(
       color: AppColors.onSurfaceVariant,
       fontSize: 9,
       fontWeight: FontWeight.w500,
@@ -1360,7 +1335,7 @@ class _LineChartPainter extends CustomPainter {
       // IPS label above dot
       final ipsLabel = TextSpan(
         text: p.ips.toStringAsFixed(2),
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.primary,
           fontSize: 8.5,
           fontWeight: FontWeight.bold,
@@ -1372,7 +1347,7 @@ class _LineChartPainter extends CustomPainter {
       // Sem X label below chart
       final semLabel = TextSpan(
         text: 'S${p.semester}',
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.onSurfaceVariant,
           fontSize: 9,
         ),

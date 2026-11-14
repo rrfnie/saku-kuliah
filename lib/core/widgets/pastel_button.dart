@@ -60,12 +60,12 @@ class _PastelButtonState extends State<PastelButton> {
         break;
       case PastelButtonType.outlined:
         bgColor = Colors.transparent;
-        textColor = AppColors.onSurface;
-        border = Border.all(color: AppColors.primaryContainer, width: 1.5);
+        textColor = Theme.of(context).colorScheme.onSurface;
+        border = Border.all(color: Theme.of(context).colorScheme.primary, width: 1.5);
         break;
       case PastelButtonType.ghost:
         bgColor = Colors.transparent;
-        textColor = AppColors.onSurfaceVariant;
+        textColor = Theme.of(context).colorScheme.onSurfaceVariant;
         border = null;
         break;
     }

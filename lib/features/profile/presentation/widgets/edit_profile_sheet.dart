@@ -161,7 +161,7 @@ class _EditProfileSheetState extends State<EditProfileSheet> {
     return Center(
       child: Text(
         initial,
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.onPrimaryContainer,
           fontWeight: FontWeight.bold,
           fontSize: 32,
@@ -173,7 +173,7 @@ class _EditProfileSheetState extends State<EditProfileSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.surfaceContainerLowest,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -215,7 +215,7 @@ class _EditProfileSheetState extends State<EditProfileSheet> {
                           color: AppColors.primaryContainer,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.person_rounded,
                           size: 18,
                           color: AppColors.onPrimaryContainer,
@@ -254,11 +254,11 @@ class _EditProfileSheetState extends State<EditProfileSheet> {
                               shape: BoxShape.circle,
                               color: AppColors.primaryContainer,
                               border: Border.all(color: Colors.white, width: 3),
-                              boxShadow: const [
+                              boxShadow: [
                                 BoxShadow(
-                                  color: Color(0x22805063),
+                                  color: AppColors.primary.withValues(alpha: 0.15),
                                   blurRadius: 12,
-                                  offset: Offset(0, 4),
+                                  offset: const Offset(0, 4),
                                 ),
                               ],
                             ),
@@ -274,7 +274,7 @@ class _EditProfileSheetState extends State<EditProfileSheet> {
                             onTap: _pickAvatarImage,
                             child: Container(
                               padding: const EdgeInsets.all(6),
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: AppColors.primary,
                                 boxShadow: [
@@ -305,7 +305,7 @@ class _EditProfileSheetState extends State<EditProfileSheet> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.photo_library_rounded, size: 15, color: AppColors.primary),
+                            Icon(Icons.photo_library_rounded, size: 15, color: AppColors.primary),
                             const SizedBox(width: 5),
                             Text(
                               'Pilih Foto dari Galeri / File',

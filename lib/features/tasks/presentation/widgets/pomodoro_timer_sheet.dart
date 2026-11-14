@@ -29,20 +29,42 @@ class _PomodoroTimerSheetState extends State<PomodoroTimerSheet> {
   bool _isRunning = false;
   int _completedSessions = 0;
 
-  final List<String> _subjects = [
-    'Tugas Kuliah Umum 📚',
-    'Desain Antarmuka & UX 🎨',
-    'Sistem Kecerdasan Buatan 🤖',
-    'Metodologi Penelitian TI 📝',
-    'Pemrograman Web Lanjut 💻',
-    'Review Materi Ujian 🌸',
-  ];
+  late final List<String> _subjects;
   late String _selectedSubject;
 
   @override
   void initState() {
     super.initState();
     _remainingSeconds = 25 * 60;
+    
+    // Ambil matkul asli yang diinput user dari KRS & Jadwal Kuliah
+    final userCourseNames = <String>{};
+    for (final c in SakuKuliahState.instance.krsCourses) {
+      if (c.courseName.trim().isNotEmpty) {
+        userCourseNames.add(c.courseName.trim());
+      }
+    }
+    for (final s in SakuKuliahState.instance.schedules) {
+      if (s.courseName.trim().isNotEmpty) {
+        userCourseNames.add(s.courseName.trim());
+      }
+    }
+
+    final list = <String>[];
+    // Masukkan matkul asli user ke pilihan teratas
+    for (final name in userCourseNames) {
+      list.add('📚 $name');
+    }
+
+    // Pilihan umum netral yang cocok untuk semua jurusan (Kedokteran, Hukum, dll.)
+    list.addAll([
+      'Fokus Belajar Mandiri 📚',
+      'Mengerjakan Tugas Kuliah 📝',
+      'Review & Persiapan Ujian 🌸',
+      'Membaca Materi & Jurnal 📖',
+    ]);
+
+    _subjects = list;
     _selectedSubject = _subjects.first;
   }
 
@@ -156,7 +178,7 @@ class _PomodoroTimerSheetState extends State<PomodoroTimerSheet> {
     final progress = 1.0 - (_remainingSeconds / totalTarget);
 
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.surfaceContainerLowest,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -189,7 +211,7 @@ class _PomodoroTimerSheetState extends State<PomodoroTimerSheet> {
                       color: AppColors.primaryContainer,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.hourglass_top_rounded,
                       size: 18,
                       color: AppColors.onPrimaryContainer,
@@ -224,7 +246,7 @@ class _PomodoroTimerSheetState extends State<PomodoroTimerSheet> {
             ],
           ),
 
-          const Divider(height: 18, color: Color(0x22F4DCE4)),
+          Divider(height: 18, color: AppColors.dividerColor),
 
           // Mode Selector Tabs (Fokus vs Rehat)
           Row(
@@ -315,7 +337,7 @@ class _PomodoroTimerSheetState extends State<PomodoroTimerSheet> {
                   child: CircularProgressIndicator(
                     value: progress,
                     strokeWidth: 10,
-                    backgroundColor: const Color(0x33F4DCE4),
+                    backgroundColor: AppColors.cardBorder,
                     valueColor: AlwaysStoppedAnimation<Color>(
                       _isBreakMode ? AppColors.secondary : AppColors.primary,
                     ),
@@ -326,7 +348,7 @@ class _PomodoroTimerSheetState extends State<PomodoroTimerSheet> {
                   children: [
                     Text(
                       _formatTime(_remainingSeconds),
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'monospace',
                         fontSize: 38,
                         fontWeight: FontWeight.w900,
@@ -380,7 +402,7 @@ class _PomodoroTimerSheetState extends State<PomodoroTimerSheet> {
               OutlinedButton.icon(
                 style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.onSurfaceVariant,
-                  side: const BorderSide(color: AppColors.outlineVariant),
+                  side: BorderSide(color: AppColors.outlineVariant),
                   shape: const StadiumBorder(),
                   padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
                 ),

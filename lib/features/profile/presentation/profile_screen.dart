@@ -21,6 +21,7 @@ import '../../tasks/presentation/widgets/pomodoro_timer_sheet.dart';
 import '../../wallet/presentation/wallet_screen.dart';
 import 'widgets/edit_profile_sheet.dart';
 import 'widgets/student_id_card_widget.dart';
+import 'widgets/theme_selector_card.dart';
 import 'user_guide_screen.dart';
 import '../../vault/presentation/student_vault_screen.dart';
 
@@ -61,11 +62,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Container(
                 padding: const EdgeInsets.all(8),
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: AppColors.primaryContainer,
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.file_download_rounded, color: AppColors.primary, size: 20),
+                child: Icon(Icons.file_download_rounded, color: AppColors.primary, size: 20),
               ),
               const SizedBox(width: 10),
               Text(
@@ -137,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       builder: (bottomContext) {
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: AppColors.surfaceContainerLowest,
             borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
           ),
@@ -160,11 +161,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Container(
                     padding: const EdgeInsets.all(8),
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: AppColors.secondaryContainer,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.settings_backup_restore_rounded, color: AppColors.onSecondaryContainer, size: 20),
+                    child: Icon(Icons.settings_backup_restore_rounded, color: AppColors.onSecondaryContainer, size: 20),
                   ),
                   const SizedBox(width: 10),
                   Text(
@@ -183,17 +184,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ListTile(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
-                  side: const BorderSide(color: Color(0x33F4DCE4)),
+                  side: BorderSide(color: AppColors.cardBorder),
                 ),
                 tileColor: AppColors.surfaceContainerLow,
                 leading: Container(
                   width: 40,
                   height: 40,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: AppColors.primaryContainer,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.upload_file_rounded, color: AppColors.onPrimaryContainer),
+                  child: Icon(Icons.upload_file_rounded, color: AppColors.onPrimaryContainer),
                 ),
                 title: Text(
                   'Pilih File JSON (.json)',
@@ -203,7 +204,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   'Buka berkas sakukuliah_backup_*.json dari perangkat',
                   style: AppTypography.bodySm.copyWith(fontSize: 11),
                 ),
-                trailing: const Icon(Icons.chevron_right_rounded, color: AppColors.primary),
+                trailing: Icon(Icons.chevron_right_rounded, color: AppColors.primary),
                 onTap: () async {
                   Navigator.pop(bottomContext);
                   try {
@@ -225,9 +226,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         if (mounted) {
                           if (success) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
+                              SnackBar(
                                 backgroundColor: AppColors.primary,
-                                content: Text('Data backup berhasil dipulihkan seluruhnya! 🌸✨'),
+                                content: const Text('Data backup berhasil dipulihkan seluruhnya! 🌸✨'),
                               ),
                             );
                           } else {
@@ -254,17 +255,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ListTile(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
-                  side: const BorderSide(color: Color(0x33F4DCE4)),
+                  side: BorderSide(color: AppColors.cardBorder),
                 ),
                 tileColor: AppColors.surfaceContainerLow,
                 leading: Container(
                   width: 40,
                   height: 40,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: AppColors.secondaryContainer,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.paste_rounded, color: AppColors.onSecondaryContainer),
+                  child: Icon(Icons.paste_rounded, color: AppColors.onSecondaryContainer),
                 ),
                 title: Text(
                   'Tempel Teks JSON (Paste)',
@@ -274,7 +275,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   'Tempel teks JSON dari clipboard jika menyalin sebelumnya',
                   style: AppTypography.bodySm.copyWith(fontSize: 11),
                 ),
-                trailing: const Icon(Icons.chevron_right_rounded, color: AppColors.primary),
+                trailing: Icon(Icons.chevron_right_rounded, color: AppColors.primary),
                 onTap: () {
                   Navigator.pop(bottomContext);
                   _showPasteJsonDialog();
@@ -325,9 +326,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   if (mounted) {
                     if (success) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
+                        SnackBar(
                           backgroundColor: AppColors.primary,
-                          content: Text('Data backup berhasil dipulihkan seluruhnya! 🌸✨'),
+                          content: const Text('Data backup berhasil dipulihkan seluruhnya! 🌸✨'),
                         ),
                       );
                     } else {
@@ -410,7 +411,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         final profile = _appState.studentProfile;
 
         return Scaffold(
-          backgroundColor: AppColors.background,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
             title: const Text('Profil & Pengaturan Offline'),
           ),
@@ -476,12 +477,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
 
+                  const SizedBox(height: 18),
+
+                  // Tema & Mode Gelap / Terang (Baru ✨)
+                  const FadeSlideEntry(
+                    delay: Duration(milliseconds: 210),
+                    child: ThemeSelectorCard(),
+                  ),
+
                   const SizedBox(height: 22),
 
                   // Fitur Pintar Mahasiswa
                   Row(
                     children: [
-                      const Icon(Icons.auto_awesome_rounded, size: 18, color: AppColors.primary),
+                      Icon(Icons.auto_awesome_rounded, size: 18, color: AppColors.primary),
                       const SizedBox(width: 6),
                       Text(
                         'Fitur Pintar Mahasiswa',
@@ -506,11 +515,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           leading: Container(
                             width: 38,
                             height: 38,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: AppColors.primaryContainer,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.folder_special_rounded, color: AppColors.primary),
+                            child: Icon(Icons.folder_special_rounded, color: AppColors.primary),
                           ),
                           title: Text(
                             'Brankas Dokumen Mahasiswa (Vault) 🗄️',
@@ -520,20 +529,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             'Simpan scan KTP, KTM, Transkrip & Sertifikat (100% Offline & Salin NIK/NIM).',
                             style: AppTypography.bodySm.copyWith(fontSize: 11),
                           ),
-                          trailing: const Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
+                          trailing: Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
                         ),
-                        const Divider(height: 1, indent: 64, color: Color(0x22F4DCE4)),
+                        Divider(height: 1, indent: 64, color: AppColors.dividerColor),
                         // Pelacak Presensi & Batas Bolos
                         ListTile(
                           onTap: () => AttendanceTrackerSheet.show(context),
                           leading: Container(
                             width: 38,
                             height: 38,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: AppColors.secondaryContainer,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.fact_check_rounded, color: AppColors.onSecondaryContainer),
+                            child: Icon(Icons.fact_check_rounded, color: AppColors.onSecondaryContainer),
                           ),
                           title: Text(
                             'Pelacak Presensi & Batas Bolos (75%)',
@@ -543,20 +552,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             'Kalkulator sisa jatah absen aman agar tidak terancam gagal ikut UAS.',
                             style: AppTypography.bodySm.copyWith(fontSize: 11),
                           ),
-                          trailing: const Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
+                          trailing: Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
                         ),
-                        const Divider(height: 1, indent: 64, color: Color(0x22F4DCE4)),
+                        Divider(height: 1, indent: 64, color: AppColors.dividerColor),
                         // Mode Ambis Belajar (Pomodoro)
                         ListTile(
                           onTap: () => PomodoroTimerSheet.show(context),
                           leading: Container(
                             width: 38,
                             height: 38,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: AppColors.tertiaryContainer,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.hourglass_top_rounded, color: AppColors.onTertiaryContainer),
+                            child: Icon(Icons.hourglass_top_rounded, color: AppColors.onTertiaryContainer),
                           ),
                           title: Text(
                             'Mode Ambis Belajar (Pomodoro Pastel)',
@@ -566,20 +575,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             'Timer fokus 25 menit belajar + 5 menit rehat untuk nugas & belajar.',
                             style: AppTypography.bodySm.copyWith(fontSize: 11),
                           ),
-                          trailing: const Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
+                          trailing: Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
                         ),
-                        const Divider(height: 1, indent: 64, color: Color(0x22F4DCE4)),
+                        Divider(height: 1, indent: 64, color: AppColors.dividerColor),
                         // Simulasi IPK
                         ListTile(
                           onTap: () => IpkSimulatorSheet.show(context),
                           leading: Container(
                             width: 38,
                             height: 38,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: AppColors.primaryContainer,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.calculate_rounded, color: AppColors.onPrimaryContainer),
+                            child: Icon(Icons.calculate_rounded, color: AppColors.onPrimaryContainer),
                           ),
                           title: Text(
                             'Simulasi Target & Prediksi IPK',
@@ -589,9 +598,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             'Hitung proyeksi IPK kumulatif jika dapat nilai tertentu di semester ini.',
                             style: AppTypography.bodySm.copyWith(fontSize: 11),
                           ),
-                          trailing: const Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
+                          trailing: Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
                         ),
-                        const Divider(height: 1, indent: 64, color: Color(0x22F4DCE4)),
+                        Divider(height: 1, indent: 64, color: AppColors.dividerColor),
                         // Kalender Akademik
                         ListTile(
                           onTap: () {
@@ -603,11 +612,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           leading: Container(
                             width: 38,
                             height: 38,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: AppColors.secondaryContainer,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.calendar_month_rounded, color: AppColors.onSecondaryContainer),
+                            child: Icon(Icons.calendar_month_rounded, color: AppColors.onSecondaryContainer),
                           ),
                           title: Text(
                             'Kalender Akademik & Hari Libur',
@@ -617,9 +626,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             'Jadwal UTS, UAS, KRS, dan agenda kegiatan semester 2026/2027.',
                             style: AppTypography.bodySm.copyWith(fontSize: 11),
                           ),
-                          trailing: const Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
+                          trailing: Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
                         ),
-                        const Divider(height: 1, indent: 64, color: Color(0x22F4DCE4)),
+                        Divider(height: 1, indent: 64, color: AppColors.dividerColor),
                         // Catatan Kuliah
                         ListTile(
                           onTap: () {
@@ -631,11 +640,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           leading: Container(
                             width: 38,
                             height: 38,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: AppColors.tertiaryContainer,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.auto_stories_rounded, color: AppColors.onTertiaryContainer),
+                            child: Icon(Icons.auto_stories_rounded, color: AppColors.onTertiaryContainer),
                           ),
                           title: Text(
                             'Catatan & Rangkuman Materi Kuliah',
@@ -645,9 +654,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             'Kumpulan ringkasan materi, catatan dosen, dan materi offline.',
                             style: AppTypography.bodySm.copyWith(fontSize: 11),
                           ),
-                          trailing: const Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
+                          trailing: Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
                         ),
-                        const Divider(height: 1, indent: 64, color: Color(0x22F4DCE4)),
+                        Divider(height: 1, indent: 64, color: AppColors.dividerColor),
                         // Dompet Pastel Mahasiswa
                         ListTile(
                           onTap: () {
@@ -659,11 +668,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           leading: Container(
                             width: 38,
                             height: 38,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: AppColors.primaryContainer,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.account_balance_wallet_rounded, color: AppColors.onPrimaryContainer),
+                            child: Icon(Icons.account_balance_wallet_rounded, color: AppColors.onPrimaryContainer),
                           ),
                           title: Text(
                             'Dompet Pastel & Uang Saku Mahasiswa 👛',
@@ -673,7 +682,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             'Atur jatah jajan harian aman, tagihan UKT, kas kelas & uang saku.',
                             style: AppTypography.bodySm.copyWith(fontSize: 11),
                           ),
-                          trailing: const Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
+                          trailing: Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
                         ),
                       ],
                     ),
@@ -687,7 +696,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.folder_special_rounded, size: 18, color: AppColors.primary),
+                          Icon(Icons.folder_special_rounded, size: 18, color: AppColors.primary),
                           const SizedBox(width: 6),
                           Text(
                             'Penyimpanan & Cadangan Data',
@@ -723,11 +732,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           leading: Container(
                             width: 38,
                             height: 38,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: AppColors.primaryContainer,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.document_scanner_rounded, color: AppColors.onPrimaryContainer),
+                            child: Icon(Icons.document_scanner_rounded, color: AppColors.onPrimaryContainer),
                           ),
                           title: Text(
                             'Scan & Impor KRS / KHS',
@@ -737,20 +746,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             'Ekstraksi jadwal kuliah & nilai langsung dari foto atau PDF SIAKAD.',
                             style: AppTypography.bodySm.copyWith(fontSize: 11),
                           ),
-                          trailing: const Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
+                          trailing: Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
                         ),
-                        const Divider(height: 1, indent: 64, color: Color(0x22F4DCE4)),
+                        Divider(height: 1, indent: 64, color: AppColors.dividerColor),
                         // Backup Row
                         ListTile(
                           onTap: _handleBackupData,
                           leading: Container(
                             width: 38,
                             height: 38,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: AppColors.primaryContainer,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.file_download_rounded, color: AppColors.onPrimaryContainer),
+                            child: Icon(Icons.file_download_rounded, color: AppColors.onPrimaryContainer),
                           ),
                           title: Text(
                             'Cadangkan Data (Backup JSON)',
@@ -760,20 +769,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             'Ekspor seluruh jadwal, tugas & nilai ke penyimpanan HP tanpa kuota internet.',
                             style: AppTypography.bodySm.copyWith(fontSize: 11),
                           ),
-                          trailing: const Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
+                          trailing: Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
                         ),
-                        const Divider(height: 1, indent: 64, color: Color(0x22F4DCE4)),
+                        Divider(height: 1, indent: 64, color: AppColors.dividerColor),
                         // Restore Row
                         ListTile(
                           onTap: _handleRestoreData,
                           leading: Container(
                             width: 38,
                             height: 38,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: AppColors.secondaryContainer,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.file_upload_rounded, color: AppColors.onSecondaryContainer),
+                            child: Icon(Icons.file_upload_rounded, color: AppColors.onSecondaryContainer),
                           ),
                           title: Text(
                             'Pulihkan Data (Restore)',
@@ -783,9 +792,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             'Muat file JSON cadangan untuk memulihkan jadwal semester sebelumnya.',
                             style: AppTypography.bodySm.copyWith(fontSize: 11),
                           ),
-                          trailing: const Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
+                          trailing: Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
                         ),
-                        const Divider(height: 1, indent: 64, color: Color(0x22F4DCE4)),
+                        Divider(height: 1, indent: 64, color: AppColors.dividerColor),
                         // Reset / Kosongkan Data
                         ListTile(
                           onTap: _handleClearAllData,
@@ -811,7 +820,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           trailing: Icon(Icons.chevron_right, size: 18, color: Colors.red.shade300),
                         ),
-                        const Divider(height: 1, color: Color(0x22F4DCE4)),
+                        Divider(height: 1, color: AppColors.dividerColor),
                         // Storage Usage Info
                         Container(
                           padding: const EdgeInsets.all(14),
@@ -821,11 +830,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Container(
                                 width: 36,
                                 height: 36,
-                                decoration: const BoxDecoration(
+                                decoration: BoxDecoration(
                                   color: AppColors.surfaceContainer,
                                   shape: BoxShape.circle,
                                 ),
-                                child: const Icon(Icons.storage_rounded, size: 18, color: AppColors.primary),
+                                child: Icon(Icons.storage_rounded, size: 18, color: AppColors.primary),
                               ),
                               const SizedBox(width: 12),
                               Expanded(
@@ -851,7 +860,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     const SizedBox(height: 4),
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(9999),
-                                      child: const LinearProgressIndicator(
+                                      child: LinearProgressIndicator(
                                         value: 0.14,
                                         minHeight: 4,
                                         backgroundColor: AppColors.surfaceContainer,
@@ -880,7 +889,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   // Section 2: App Preferences
                   Row(
                     children: [
-                      const Icon(Icons.tune_rounded, size: 18, color: AppColors.primary),
+                      Icon(Icons.tune_rounded, size: 18, color: AppColors.primary),
                       const SizedBox(width: 6),
                       Text(
                         'Preferensi Aplikasi',
@@ -909,11 +918,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           secondary: Container(
                             width: 36,
                             height: 36,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: AppColors.secondaryContainer,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.notifications_active_rounded, size: 18, color: AppColors.onSecondaryContainer),
+                            child: Icon(Icons.notifications_active_rounded, size: 18, color: AppColors.onSecondaryContainer),
                           ),
                           onChanged: (val) {
                             setState(() {
@@ -921,7 +930,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             });
                           },
                         ),
-                        const Divider(height: 1, indent: 64, color: Color(0x22F4DCE4)),
+                        Divider(height: 1, indent: 64, color: AppColors.dividerColor),
                         // Toggle Task Reminder
                         SwitchListTile(
                           value: _taskReminderEnabled,
@@ -937,11 +946,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           secondary: Container(
                             width: 36,
                             height: 36,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: AppColors.tertiaryContainer,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.alarm_rounded, size: 18, color: AppColors.onTertiaryContainer),
+                            child: Icon(Icons.alarm_rounded, size: 18, color: AppColors.onTertiaryContainer),
                           ),
                           onChanged: (val) {
                             setState(() {
@@ -955,7 +964,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   // Section 3: Tentang & Panduan
                   Row(
                     children: [
-                      const Icon(Icons.info_outline_rounded, size: 18, color: AppColors.primary),
+                      Icon(Icons.info_outline_rounded, size: 18, color: AppColors.primary),
                       const SizedBox(width: 6),
                       Text(
                         'Tentang SakuKuliah',
@@ -981,11 +990,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           leading: Container(
                             width: 36,
                             height: 36,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: AppColors.primaryContainer,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.auto_stories_rounded, size: 18, color: AppColors.onPrimaryContainer),
+                            child: Icon(Icons.auto_stories_rounded, size: 18, color: AppColors.onPrimaryContainer),
                           ),
                           title: Text(
                             'Panduan Fitur & Pengenalan',
@@ -995,18 +1004,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             'Pelajari cara maksimalin fitur jadwal, tugas, dan IPK',
                             style: AppTypography.bodySm.copyWith(fontSize: 11),
                           ),
-                          trailing: const Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
+                          trailing: Icon(Icons.chevron_right, size: 18, color: AppColors.onSurfaceVariant),
                         ),
-                        const Divider(height: 1, indent: 64, color: Color(0x22F4DCE4)),
+                        Divider(height: 1, indent: 64, color: AppColors.dividerColor),
                         ListTile(
                           leading: Container(
                             width: 36,
                             height: 36,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: AppColors.secondaryContainer,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.verified_user_rounded, size: 18, color: AppColors.onSecondaryContainer),
+                            child: Icon(Icons.verified_user_rounded, size: 18, color: AppColors.onSecondaryContainer),
                           ),
                           title: Text(
                             'Versi Aplikasi & Privasi',
@@ -1096,9 +1105,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               decoration: BoxDecoration(
                 color: AppColors.surfaceContainerLow,
                 shape: BoxShape.circle,
-                border: Border.all(color: const Color(0x33F4DCE4)),
+                border: Border.all(color: AppColors.cardBorder),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.edit_outlined,
                 size: 16,
                 color: AppColors.primary,

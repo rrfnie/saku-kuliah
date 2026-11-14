@@ -37,7 +37,7 @@ class CampusNotificationSheet extends StatelessWidget {
       constraints: BoxConstraints(
         maxHeight: MediaQuery.of(context).size.height * 0.85,
       ),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.surfaceContainerLowest,
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
@@ -67,11 +67,11 @@ class CampusNotificationSheet extends StatelessWidget {
                   children: [
                     Container(
                       padding: const EdgeInsets.all(8),
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         color: AppColors.primaryContainer,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.notifications_active_rounded, color: AppColors.primary, size: 20),
+                      child: Icon(Icons.notifications_active_rounded, color: AppColors.primary, size: 20),
                     ),
                     const SizedBox(width: 10),
                     Column(
@@ -96,7 +96,7 @@ class CampusNotificationSheet extends StatelessWidget {
               ],
             ),
           ),
-          const Divider(height: 1, color: Color(0x22F4DCE4)),
+          Divider(height: 1, color: AppColors.dividerColor),
 
           // Scrollable Notifications List
           Expanded(
@@ -205,7 +205,7 @@ class CampusNotificationSheet extends StatelessWidget {
                     child: Center(
                       child: Column(
                         children: [
-                          const Icon(Icons.check_circle_outline_rounded, size: 40, color: AppColors.success),
+                          Icon(Icons.check_circle_outline_rounded, size: 40, color: AppColors.success),
                           const SizedBox(height: 10),
                           Text(
                             'Semua Tugas & Ujian Bersih! 🎉',
@@ -231,7 +231,7 @@ class CampusNotificationSheet extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.offline_pin_rounded, size: 16, color: AppColors.primary),
+                      Icon(Icons.offline_pin_rounded, size: 16, color: AppColors.primary),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
@@ -347,7 +347,7 @@ class CampusNotificationSheet extends StatelessWidget {
             ),
             if (onTap != null) ...[
               const SizedBox(width: 6),
-              const Icon(Icons.chevron_right_rounded, size: 16, color: AppColors.outline),
+              Icon(Icons.chevron_right_rounded, size: 16, color: AppColors.outline),
             ],
           ],
         ),

@@ -57,7 +57,7 @@ class _AddCampusBillSheetState extends State<AddCampusBillSheet> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
+            colorScheme: ColorScheme.light(
               primary: AppColors.primary,
               onPrimary: Colors.white,
               surface: AppColors.surfaceContainerLowest,
@@ -96,7 +96,7 @@ class _AddCampusBillSheetState extends State<AddCampusBillSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.surfaceContainerLowest,
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
@@ -183,7 +183,7 @@ class _AddCampusBillSheetState extends State<AddCampusBillSheet> {
                   fillColor: AppColors.surfaceContainerLow,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: Color(0x33F4DCE4)),
+                    borderSide: BorderSide(color: AppColors.cardBorder),
                   ),
                 ),
                 items: _categories.map((cat) {
@@ -208,14 +208,14 @@ class _AddCampusBillSheetState extends State<AddCampusBillSheet> {
                   decoration: BoxDecoration(
                     color: AppColors.surfaceContainerLow,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: const Color(0x33F4DCE4)),
+                    border: Border.all(color: AppColors.cardBorder),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.alarm_rounded, size: 16, color: AppColors.primary),
+                          Icon(Icons.alarm_rounded, size: 16, color: AppColors.primary),
                           const SizedBox(width: 8),
                           Text(
                             DateFormat('dd MMMM yyyy').format(_dueDate),
@@ -223,7 +223,7 @@ class _AddCampusBillSheetState extends State<AddCampusBillSheet> {
                           ),
                         ],
                       ),
-                      const Icon(Icons.arrow_drop_down, color: AppColors.onSurfaceVariant),
+                      Icon(Icons.arrow_drop_down, color: AppColors.onSurfaceVariant),
                     ],
                   ),
                 ),

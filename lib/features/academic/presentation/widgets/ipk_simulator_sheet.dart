@@ -84,7 +84,7 @@ class _IpkSimulatorSheetState extends State<IpkSimulatorSheet> {
     final isCumlaude = ipk >= 3.50;
 
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.surfaceContainerLowest,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -117,7 +117,7 @@ class _IpkSimulatorSheetState extends State<IpkSimulatorSheet> {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.calculate_rounded, color: AppColors.primary, size: 22),
+                    Icon(Icons.calculate_rounded, color: AppColors.primary, size: 22),
                     const SizedBox(width: 8),
                     Text(
                       'Simulasi & Kalkulator IPK',
@@ -142,7 +142,7 @@ class _IpkSimulatorSheetState extends State<IpkSimulatorSheet> {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
+                gradient: LinearGradient(
                   colors: [
                     AppColors.primaryFixed,
                     AppColors.secondaryContainer,
@@ -215,7 +215,7 @@ class _IpkSimulatorSheetState extends State<IpkSimulatorSheet> {
                 child: Center(
                   child: Column(
                     children: [
-                      const Icon(Icons.school_outlined, size: 40, color: AppColors.onSurfaceVariant),
+                      Icon(Icons.school_outlined, size: 40, color: AppColors.onSurfaceVariant),
                       const SizedBox(height: 8),
                       Text(
                         'Belum ada mata kuliah KRS aktif 🌸',
@@ -267,7 +267,7 @@ class _IpkSimulatorSheetState extends State<IpkSimulatorSheet> {
                           decoration: BoxDecoration(
                             color: AppColors.surfaceContainerLow,
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: const Color(0x33F4DCE4)),
+                            border: Border.all(color: AppColors.cardBorder),
                           ),
                           child: DropdownButton<String>(
                             value: course['grade'] as String,

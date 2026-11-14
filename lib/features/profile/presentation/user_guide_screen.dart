@@ -9,10 +9,10 @@ class UserGuideScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20, color: AppColors.onSurface),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, size: 20, color: AppColors.onSurface),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
@@ -83,7 +83,7 @@ class UserGuideScreen extends StatelessWidget {
             // Section Header
             Row(
               children: [
-                const Icon(Icons.stars_rounded, size: 18, color: AppColors.primary),
+                Icon(Icons.stars_rounded, size: 18, color: AppColors.primary),
                 const SizedBox(width: 8),
                 Text(
                   'Panduan Penggunaan Fitur',
@@ -263,7 +263,7 @@ class UserGuideScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColors.surfaceContainerLowest,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: const Color(0x33F4DCE4)),
+                border: Border.all(color: AppColors.cardBorder),
               ),
               child: Column(
                 children: [
@@ -368,7 +368,7 @@ class UserGuideScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          const Divider(height: 1, color: Color(0x18F4DCE4)),
+          Divider(height: 1, color: AppColors.dividerColor),
           const SizedBox(height: 12),
           Column(
             children: List.generate(steps.length, (idx) {

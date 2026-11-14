@@ -44,6 +44,22 @@ jobs:
           path: build/app/outputs/flutter-apk/*.apk
           retention-days: 30
 
+      - name: Rilis APK Langsung (Direct Download)
+        uses: softprops/action-gh-release@v2
+        if: success()
+        with:
+          tag_name: v1.0.0-b${{ github.run_number }}
+          name: "SakuKuliah v1.0.0 (Build ${{ github.run_number }}) 🌸"
+          files: build/app/outputs/flutter-apk/app-release.apk
+          body: |
+            ### SakuKuliah APK Siap Install di HP 🌸✨
+            - 🎨 **5 Palet Tema Pastel Aesthetic:** Blush Sakura 🌸, Matcha Latte 🍵, Lilac Dream 💜, Baby Blue Sky ☁️, Warm Caramel ☕.
+            - 🌙 **Cozy Midnight Dark Mode:** Teks kontras tinggi dan jernih, bebas silau.
+            - 📱 **Responsif & Anti-Kepotong:** Perbaikan header jadwal, IPK, transkrip KHS, dan deadline tugas.
+            - ⚡ **Offline-first & Tanpa Login:** Data aman 100% tersimpan di HP.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload Log Jika Gagal
         if: failure()
         uses: actions/upload-artifact@v4

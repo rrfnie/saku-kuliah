@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/app_constants.dart';
 import '../services/notification_service.dart';
+import '../theme/app_palettes.dart';
 import '../../features/academic/models/course_krs_model.dart';
 import '../../features/academic/models/semester_record_model.dart';
 import '../../features/calendar/models/academic_event_model.dart';
@@ -36,6 +37,30 @@ class SakuKuliahState extends ChangeNotifier {
   List<CampusBillModel> campusBills = [];
   List<StudentDocumentModel> documents = [];
   double monthlyBudget = 0.0;
+
+  // Tema & Tampilan Aplikasi
+  ThemeMode themeMode = ThemeMode.system;
+  AppPaletteType themePalette = AppPaletteType.sakura;
+
+  void setThemeMode(ThemeMode mode) {
+    themeMode = mode;
+    notifyListeners();
+    _saveThemePreferences();
+  }
+
+  void setThemePalette(AppPaletteType palette) {
+    themePalette = palette;
+    notifyListeners();
+    _saveThemePreferences();
+  }
+
+  Future<void> _saveThemePreferences() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('sakukuliah_theme_mode', themeMode.name);
+      await prefs.setString('sakukuliah_theme_palette', themePalette.name);
+    } catch (_) {}
+  }
 
   void _loadInitialMockData() {
     // Profil Baru Bersih (Fresh Install)
@@ -109,6 +134,16 @@ class SakuKuliahState extends ChangeNotifier {
     notifyListeners();
     _saveSchedules();
     NotificationService.instance.cancelNotification(1000 + id);
+  }
+
+  void updateSchedule(ScheduleModel schedule) {
+    final index = schedules.indexWhere((item) => item.id == schedule.id);
+    if (index != -1) {
+      schedules[index] = schedule;
+      notifyListeners();
+      _saveSchedules();
+      NotificationService.instance.scheduleClassReminder(schedule);
+    }
   }
 
   // Tugas & Deadline
@@ -210,6 +245,27 @@ class SakuKuliahState extends ChangeNotifier {
         gradePoint: gradePoint,
         attendancePresent: old.attendancePresent,
         attendanceTotal: old.attendanceTotal,
+        status: old.status,
+      );
+      notifyListeners();
+      _saveKrsCourses();
+    }
+  }
+
+  void updateCourseAttendance(String courseCode, int present, int total) {
+    final idx = krsCourses.indexWhere((c) => c.courseCode.toUpperCase() == courseCode.toUpperCase());
+    if (idx != -1) {
+      final old = krsCourses[idx];
+      krsCourses[idx] = CourseKrsModel(
+        id: old.id,
+        semesterNumber: old.semesterNumber,
+        courseName: old.courseName,
+        courseCode: old.courseCode,
+        sks: old.sks,
+        targetGrade: old.targetGrade,
+        gradePoint: old.gradePoint,
+        attendancePresent: present,
+        attendanceTotal: total > 0 ? total : 16,
         status: old.status,
       );
       notifyListeners();
@@ -538,6 +594,22 @@ class SakuKuliahState extends ChangeNotifier {
         documents = list
             .map((e) => StudentDocumentModel.fromJson(Map<String, dynamic>.from(e as Map)))
             .toList();
+      }
+
+      // 12. Tema & Tampilan Aplikasi
+      final modeStr = prefs.getString('sakukuliah_theme_mode');
+      if (modeStr != null) {
+        themeMode = ThemeMode.values.firstWhere(
+          (m) => m.name == modeStr,
+          orElse: () => ThemeMode.system,
+        );
+      }
+      final paletteStr = prefs.getString('sakukuliah_theme_palette');
+      if (paletteStr != null) {
+        themePalette = AppPaletteType.values.firstWhere(
+          (p) => p.name == paletteStr,
+          orElse: () => AppPaletteType.sakura,
+        );
       }
 
       notifyListeners();

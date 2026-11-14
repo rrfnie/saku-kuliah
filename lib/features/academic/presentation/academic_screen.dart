@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../core/constants/app_constants.dart';
 import '../../../core/state/app_state.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_typography.dart';
@@ -9,6 +8,7 @@ import '../../../core/widgets/pastel_button.dart';
 import '../../../core/widgets/pastel_card.dart';
 import '../../../core/widgets/status_badge.dart';
 import '../models/course_krs_model.dart';
+import 'widgets/attendance_tracker_sheet.dart';
 import 'widgets/ipk_simulator_sheet.dart';
 import 'widgets/scan_krs_khs_sheet.dart';
 import 'widgets/semester_history_sheet.dart';
@@ -45,18 +45,18 @@ class _AcademicScreenState extends State<AcademicScreen> {
         final progress = profile.totalSks > 0 ? (profile.completedSks / profile.totalSks) : 0.0;
 
         return Scaffold(
-          backgroundColor: AppColors.background,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
             title: const Text('Akademik & Nilai'),
             actions: [
               IconButton(
                 tooltip: 'Scan KRS / KHS',
-                icon: const Icon(Icons.document_scanner_rounded, color: AppColors.primary),
+                icon: Icon(Icons.document_scanner_rounded, color: AppColors.primary),
                 onPressed: () => ScanKrsKhsSheet.show(context),
               ),
               IconButton(
                 tooltip: 'Riwayat KHS & Transkrip',
-                icon: const Icon(Icons.history_edu_rounded, color: AppColors.primary),
+                icon: Icon(Icons.history_edu_rounded, color: AppColors.primary),
                 onPressed: () => SemesterHistorySheet.show(context),
               ),
             ],
@@ -67,55 +67,67 @@ class _AcademicScreenState extends State<AcademicScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Semester Selector Dropdown Pill & Riwayat KHS Button
+                  // Semester Selector Dropdown Pill & Riwayat KHS Button (Responsive & Adaptive)
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: AppColors.surfaceContainerLow,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: const Color(0x33F4DCE4)),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.school, size: 16, color: AppColors.primary),
-                            const SizedBox(width: 8),
-                            Text(
-                              '${profile.degreeLevel} • Sem ${profile.currentSemester} • ${profile.academicYear}',
-                              style: AppTypography.labelMd.copyWith(
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.onSurface,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () => SemesterHistorySheet.show(context),
+                      // Jenjang, Semester & Tahun Akademik Pill
+                      Expanded(
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
                           decoration: BoxDecoration(
-                            color: AppColors.primaryContainer.withValues(alpha: 0.6),
+                            color: AppColors.surfaceContainerLow,
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
+                            border: Border.all(color: AppColors.cardBorder),
                           ),
                           child: Row(
-                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(Icons.history_edu_rounded, size: 14, color: AppColors.primary),
-                              const SizedBox(width: 4),
-                              Text(
-                                'Riwayat KHS 📜',
-                                style: AppTypography.labelSm.copyWith(
-                                  color: AppColors.primary,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11,
+                              Icon(Icons.school_rounded, size: 16, color: AppColors.primary),
+                              const SizedBox(width: 6),
+                              Expanded(
+                                child: Text(
+                                  '${profile.degreeLevel.startsWith("D3") ? "D3" : (profile.degreeLevel.startsWith("S1") ? "S1" : profile.degreeLevel)} • Sem ${profile.currentSemester} • ${profile.academicYear}',
+                                  style: AppTypography.labelMd.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 11.5,
+                                    color: AppColors.onSurface,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      // Tombol Riwayat KHS
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () => SemesterHistorySheet.show(context),
+                          borderRadius: BorderRadius.circular(12),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                            decoration: BoxDecoration(
+                              color: AppColors.primaryContainer.withValues(alpha: 0.6),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.history_edu_rounded, size: 14, color: AppColors.primary),
+                                const SizedBox(width: 4),
+                                Text(
+                                  'Riwayat KHS 📜',
+                                  style: AppTypography.labelSm.copyWith(
+                                    color: AppColors.primary,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 11,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -142,45 +154,47 @@ class _AcademicScreenState extends State<AcademicScreen> {
                     onTap: _openIpkSimulator,
                     padding: const EdgeInsets.all(14),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                              width: 40,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                color: AppColors.primaryContainer,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: const Icon(
-                                Icons.calculate_rounded,
-                                size: 22,
-                                color: AppColors.onPrimaryContainer,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Simulasi & Kalkulator IPK',
-                                  style: AppTypography.labelLg.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  'Rancang target nilai & uji skenario kelulusan',
-                                  style: AppTypography.bodySm.copyWith(
-                                    fontSize: 11,
-                                    color: AppColors.onSurfaceVariant,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                        Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryContainer,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Icon(
+                            Icons.calculate_rounded,
+                            size: 22,
+                            color: AppColors.onPrimaryContainer,
+                          ),
                         ),
-                        const Icon(Icons.chevron_right, size: 20, color: AppColors.primary),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Simulasi & Kalkulator IPK',
+                                style: AppTypography.labelLg.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                'Rancang target nilai & uji skenario kelulusan',
+                                style: AppTypography.bodySm.copyWith(
+                                  fontSize: 11,
+                                  color: AppColors.onSurfaceVariant,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Icon(Icons.chevron_right, size: 20, color: AppColors.primary),
                       ],
                     ),
                   ),
@@ -188,6 +202,7 @@ class _AcademicScreenState extends State<AcademicScreen> {
 
                   // Presensi Kuliah Metric Card
                   PastelCard(
+                    onTap: () => AttendanceTrackerSheet.show(context),
                     padding: const EdgeInsets.all(14),
                     child: Row(
                       children: [
@@ -198,7 +213,7 @@ class _AcademicScreenState extends State<AcademicScreen> {
                             color: AppColors.secondaryContainer,
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: const Icon(
+                          child: Icon(
                             Icons.fact_check_rounded,
                             size: 20,
                             color: AppColors.onSecondaryContainer,
@@ -259,6 +274,7 @@ class _AcademicScreenState extends State<AcademicScreen> {
                             ],
                           ),
                         ),
+                        Icon(Icons.chevron_right, size: 20, color: AppColors.secondary),
                       ],
                     ),
                   ),
@@ -266,33 +282,40 @@ class _AcademicScreenState extends State<AcademicScreen> {
 
                   // Course Grade Management (KRS Aktif)
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            'Mata Kuliah Semester ${profile.currentSemester}',
-                            style: AppTypography.headlineSm.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(width: 6),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                            decoration: BoxDecoration(
-                              color: AppColors.surfaceContainerHigh,
-                              borderRadius: BorderRadius.circular(9999),
-                            ),
-                            child: Text(
-                              '${courses.length} Matkul',
-                              style: AppTypography.labelSm.copyWith(
-                                fontSize: 10,
-                                color: AppColors.onSurfaceVariant,
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Flexible(
+                              child: Text(
+                                'Mata Kuliah Semester ${profile.currentSemester}',
+                                style: AppTypography.headlineSm.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(width: 6),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: AppColors.surfaceContainerHigh,
+                                borderRadius: BorderRadius.circular(9999),
+                              ),
+                              child: Text(
+                                '${courses.length} Matkul',
+                                style: AppTypography.labelSm.copyWith(
+                                  fontSize: 10,
+                                  color: AppColors.onSurfaceVariant,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
+                      const SizedBox(width: 8),
                       Text(
                         '$totalSks SKS Total',
                         style: AppTypography.labelSm.copyWith(
@@ -310,7 +333,7 @@ class _AcademicScreenState extends State<AcademicScreen> {
                       child: Center(
                         child: Column(
                           children: [
-                            const Icon(Icons.menu_book_rounded, size: 36, color: AppColors.primaryContainer),
+                            Icon(Icons.menu_book_rounded, size: 36, color: AppColors.primaryContainer),
                             const SizedBox(height: 8),
                             Text(
                               'Belum ada mata kuliah semester ini 🌸',
@@ -344,7 +367,7 @@ class _AcademicScreenState extends State<AcademicScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Expanded(
                                   child: Column(
@@ -353,7 +376,10 @@ class _AcademicScreenState extends State<AcademicScreen> {
                                       Text(
                                         course.courseName,
                                         style: AppTypography.labelLg.copyWith(fontWeight: FontWeight.bold),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
+                                      const SizedBox(height: 2),
                                       Text(
                                         '${course.courseCode} • ${course.sks} SKS',
                                         style: AppTypography.bodySm.copyWith(
@@ -364,6 +390,7 @@ class _AcademicScreenState extends State<AcademicScreen> {
                                     ],
                                   ),
                                 ),
+                                const SizedBox(width: 8),
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                                   decoration: BoxDecoration(
@@ -383,25 +410,31 @@ class _AcademicScreenState extends State<AcademicScreen> {
                             ),
                             const SizedBox(height: 8),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      hasWarning ? Icons.warning_amber_rounded : Icons.co_present_rounded,
-                                      size: 15,
-                                      color: hasWarning ? AppColors.error : AppColors.primary,
-                                    ),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      'Kehadiran: ${course.attendancePercentage.toStringAsFixed(0)}% (${course.attendancePresent}/${course.attendanceTotal})',
-                                      style: AppTypography.bodySm.copyWith(
-                                        fontSize: 11,
-                                        color: hasWarning ? AppColors.error : AppColors.onSurfaceVariant,
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        hasWarning ? Icons.warning_amber_rounded : Icons.co_present_rounded,
+                                        size: 15,
+                                        color: hasWarning ? AppColors.error : AppColors.primary,
                                       ),
-                                    ),
-                                  ],
+                                      const SizedBox(width: 4),
+                                      Flexible(
+                                        child: Text(
+                                          'Kehadiran: ${course.attendancePercentage.toStringAsFixed(0)}% (${course.attendancePresent}/${course.attendanceTotal})',
+                                          style: AppTypography.bodySm.copyWith(
+                                            fontSize: 11,
+                                            color: hasWarning ? AppColors.error : AppColors.onSurfaceVariant,
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
+                                const SizedBox(width: 6),
                                 hasWarning
                                     ? StatusBadge.urgent(label: 'Butuh 1x hadir lagi')
                                     : StatusBadge(
@@ -436,7 +469,7 @@ class _AcademicScreenState extends State<AcademicScreen> {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           colors: [
             AppColors.primaryFixed,
             AppColors.secondaryContainer,
@@ -465,19 +498,19 @@ class _AcademicScreenState extends State<AcademicScreen> {
                   if (ipk >= 3.50)
                     StatusBadge.cumlaude(label: 'Dengan Pujian (Cumlaude)')
                   else if (ipk >= 3.00)
-                    const StatusBadge(
+                    StatusBadge(
                       label: 'Sangat Memuaskan',
                       backgroundColor: AppColors.secondaryContainer,
                       textColor: AppColors.onSecondaryContainer,
                     )
                   else if (ipk > 0)
-                    const StatusBadge(
+                    StatusBadge(
                       label: 'Memuaskan',
                       backgroundColor: AppColors.surfaceContainerHigh,
                       textColor: AppColors.onSurfaceVariant,
                     )
                   else
-                    const StatusBadge(
+                    StatusBadge(
                       label: 'Mulai Semester Ini 🌱',
                       backgroundColor: AppColors.surfaceContainerLow,
                       textColor: AppColors.primary,
@@ -532,7 +565,7 @@ class _AcademicScreenState extends State<AcademicScreen> {
                         value: (ipk / 4.0).clamp(0.0, 1.0),
                         strokeWidth: 4,
                         backgroundColor: AppColors.surfaceContainerHighest,
-                        valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
                       ),
                     ),
                     Text(
@@ -564,7 +597,7 @@ class _AcademicScreenState extends State<AcademicScreen> {
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.trending_up, size: 15, color: AppColors.primary),
+                          Icon(Icons.trending_up, size: 15, color: AppColors.primary),
                           const SizedBox(width: 4),
                           Text(
                             'IPS Terakhir',
@@ -604,7 +637,7 @@ class _AcademicScreenState extends State<AcademicScreen> {
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.check_circle_outline, size: 15, color: AppColors.tertiary),
+                          Icon(Icons.check_circle_outline, size: 15, color: AppColors.tertiary),
                           const SizedBox(width: 4),
                           Text(
                             'SKS Lulus',

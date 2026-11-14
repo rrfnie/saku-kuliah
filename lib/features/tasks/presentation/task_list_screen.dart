@@ -65,7 +65,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
         }
 
         return Scaffold(
-          backgroundColor: AppColors.background,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
             title: Text(_viewMode == 0 ? 'Daftar Tugas & Deadline' : 'Catatan & Materi Kuliah'),
             actions: [
@@ -84,7 +84,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
               if (_viewMode == 0)
                 IconButton(
                   tooltip: 'Tambah Tugas',
-                  icon: const Icon(Icons.add_task_rounded, color: AppColors.primary),
+                  icon: Icon(Icons.add_task_rounded, color: AppColors.primary),
                   onPressed: () {
                     AddTaskSheet.show(context, onSave: (task) {
                       _appState.addTask(task);
@@ -97,7 +97,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
               else
                 IconButton(
                   tooltip: 'Tambah Catatan',
-                  icon: const Icon(Icons.note_add_rounded, color: AppColors.primary),
+                  icon: Icon(Icons.note_add_rounded, color: AppColors.primary),
                   onPressed: () {
                     AddNoteSheet.show(context, onSave: (note) {
                       _appState.addNote(note);
@@ -241,7 +241,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(9999),
                               side: BorderSide(
-                                color: isSelected ? AppColors.primary : const Color(0x33F4DCE4),
+                                color: isSelected ? AppColors.primary : AppColors.cardBorder,
                               ),
                             ),
                             showCheckmark: false,
@@ -258,7 +258,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
                       child: Center(
                         child: Column(
                           children: [
-                            const Icon(Icons.task_alt_rounded, size: 36, color: AppColors.primary),
+                            Icon(Icons.task_alt_rounded, size: 36, color: AppColors.primary),
                             const SizedBox(height: 8),
                             Text(
                               'Tidak ada tugas pada filter ini 🌸',
@@ -354,7 +354,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
                                           ],
                                         ),
                                         IconButton(
-                                          icon: const Icon(Icons.delete_outline, size: 18, color: AppColors.error),
+                                          icon: Icon(Icons.delete_outline, size: 18, color: AppColors.error),
                                           onPressed: () {
                                             _appState.deleteTask(task.id!);
                                             ScaffoldMessenger.of(context).showSnackBar(
@@ -396,14 +396,14 @@ class _TaskListScreenState extends State<TaskListScreen> {
                                     const SizedBox(height: 6),
                                     Row(
                                       children: [
-                                        const Icon(Icons.description_outlined, size: 14, color: AppColors.onSurfaceVariant),
+                                        Icon(Icons.description_outlined, size: 14, color: AppColors.onSurfaceVariant),
                                         const SizedBox(width: 4),
                                         Text(
                                           task.attachmentInfo ?? 'Berkas',
                                           style: AppTypography.bodySm.copyWith(fontSize: 11),
                                         ),
                                         const SizedBox(width: 10),
-                                        const Icon(Icons.person_outline, size: 14, color: AppColors.onSurfaceVariant),
+                                        Icon(Icons.person_outline, size: 14, color: AppColors.onSurfaceVariant),
                                         const SizedBox(width: 4),
                                         Text(
                                           task.assignmentType,
@@ -443,7 +443,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
                                               value: progress,
                                               minHeight: 5,
                                               backgroundColor: AppColors.surfaceContainerHigh,
-                                              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                                              valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
                                             ),
                                           ),
                                         ],

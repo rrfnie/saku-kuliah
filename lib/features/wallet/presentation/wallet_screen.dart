@@ -107,7 +107,7 @@ class _WalletScreenState extends State<WalletScreen> {
                   color: AppColors.error.withValues(alpha: 0.12),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.delete_forever_rounded, color: AppColors.error, size: 20),
+                child: Icon(Icons.delete_forever_rounded, color: AppColors.error, size: 20),
               ),
               const SizedBox(width: 8),
               Text(
@@ -211,18 +211,18 @@ class _WalletScreenState extends State<WalletScreen> {
         final budgetRatio = monthlyBudget > 0 ? (totalExpense / monthlyBudget).clamp(0.0, 1.0) : 0.0;
 
         return Scaffold(
-          backgroundColor: AppColors.background,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
             title: const Text('Dompet Pastel Mahasiswa 👛'),
             actions: [
               IconButton(
                 tooltip: 'Tambah Tagihan Kampus',
-                icon: const Icon(Icons.receipt_long_rounded, color: AppColors.primary),
+                icon: Icon(Icons.receipt_long_rounded, color: AppColors.primary),
                 onPressed: _openAddCampusBill,
               ),
               IconButton(
                 tooltip: 'Atur Anggaran Bulanan',
-                icon: const Icon(Icons.tune_rounded, color: AppColors.primary),
+                icon: Icon(Icons.tune_rounded, color: AppColors.primary),
                 onPressed: _openSetBudget,
               ),
             ],
@@ -274,22 +274,22 @@ class _WalletScreenState extends State<WalletScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           colors: [
-            Color(0xFFFFF0F5), // Lavender soft blush
-            Color(0xFFFBE4EC), // Pastel pink
-            Color(0xFFF5E8F7), // Soft lilac
+            AppColors.surfaceContainerLowest,
+            AppColors.primaryContainer.withValues(alpha: 0.45),
+            AppColors.secondaryContainer.withValues(alpha: 0.35),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: const Color(0x44F4DCE4), width: 1.5),
-        boxShadow: const [
+        border: Border.all(color: AppColors.cardBorder, width: 1.5),
+        boxShadow: [
           BoxShadow(
-            color: Color(0x18805063),
+            color: AppColors.primary.withValues(alpha: 0.12),
             blurRadius: 18,
-            offset: Offset(0, 6),
+            offset: const Offset(0, 6),
           ),
         ],
       ),
@@ -307,7 +307,7 @@ class _WalletScreenState extends State<WalletScreen> {
                       color: Colors.white,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.account_balance_wallet_rounded, size: 18, color: AppColors.primary),
+                    child: Icon(Icons.account_balance_wallet_rounded, size: 18, color: AppColors.primary),
                   ),
                   const SizedBox(width: 8),
                   Text(
@@ -364,11 +364,11 @@ class _WalletScreenState extends State<WalletScreen> {
                     children: [
                       Container(
                         padding: const EdgeInsets.all(6),
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           color: AppColors.secondaryContainer,
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(Icons.arrow_downward_rounded, size: 14, color: AppColors.onSecondaryContainer),
+                        child: Icon(Icons.arrow_downward_rounded, size: 14, color: AppColors.onSecondaryContainer),
                       ),
                       const SizedBox(width: 8),
                       Expanded(
@@ -394,18 +394,18 @@ class _WalletScreenState extends State<WalletScreen> {
                     ],
                   ),
                 ),
-                Container(height: 28, width: 1, color: const Color(0x33F4DCE4)),
+                Container(height: 28, width: 1, color: AppColors.cardBorder),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Row(
                     children: [
                       Container(
                         padding: const EdgeInsets.all(6),
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           color: AppColors.primaryContainer,
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(Icons.arrow_upward_rounded, size: 14, color: AppColors.primary),
+                        child: Icon(Icons.arrow_upward_rounded, size: 14, color: AppColors.primary),
                       ),
                       const SizedBox(width: 8),
                       Expanded(
@@ -463,10 +463,10 @@ class _WalletScreenState extends State<WalletScreen> {
                     backgroundColor: Colors.white.withValues(alpha: 0.9),
                     foregroundColor: AppColors.secondary,
                     padding: const EdgeInsets.symmetric(vertical: 12),
-                    side: const BorderSide(color: Color(0x44F4DCE4)),
+                    side: BorderSide(color: AppColors.cardBorder),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                   ),
-                  icon: const Icon(Icons.add_circle_outline_rounded, size: 17, color: AppColors.secondary),
+                  icon: Icon(Icons.add_circle_outline_rounded, size: 17, color: AppColors.secondary),
                   label: Text(
                     '+ Pemasukan',
                     style: AppTypography.labelMd.copyWith(color: AppColors.secondary, fontWeight: FontWeight.bold),
@@ -498,11 +498,11 @@ class _WalletScreenState extends State<WalletScreen> {
                 children: [
                   Container(
                     padding: const EdgeInsets.all(6),
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: AppColors.tertiaryContainer,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.insights_rounded, size: 16, color: AppColors.onTertiaryContainer),
+                    child: Icon(Icons.insights_rounded, size: 16, color: AppColors.onTertiaryContainer),
                   ),
                   const SizedBox(width: 8),
                   Text(
@@ -522,7 +522,7 @@ class _WalletScreenState extends State<WalletScreen> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.edit, size: 11, color: AppColors.primary),
+                      Icon(Icons.edit, size: 11, color: AppColors.primary),
                       const SizedBox(width: 4),
                       Text(
                         'Atur Budget',
@@ -617,7 +617,7 @@ class _WalletScreenState extends State<WalletScreen> {
           children: [
             Row(
               children: [
-                const Icon(Icons.account_balance_rounded, size: 18, color: AppColors.primary),
+                Icon(Icons.account_balance_rounded, size: 18, color: AppColors.primary),
                 const SizedBox(width: 6),
                 Text(
                   'Tagihan Kampus & Kas Kelas',
@@ -656,7 +656,7 @@ class _WalletScreenState extends State<WalletScreen> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.add, size: 12, color: AppColors.onSecondaryContainer),
+                        Icon(Icons.add, size: 12, color: AppColors.onSecondaryContainer),
                         const SizedBox(width: 3),
                         Text(
                           'Tagihan',
@@ -763,7 +763,7 @@ class _WalletScreenState extends State<WalletScreen> {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close, size: 16, color: AppColors.outline),
+                      icon: Icon(Icons.close, size: 16, color: AppColors.outline),
                       visualDensity: VisualDensity.compact,
                       onPressed: () => _confirmDeleteBill(bill),
                     ),
@@ -785,7 +785,7 @@ class _WalletScreenState extends State<WalletScreen> {
           children: [
             Row(
               children: [
-                const Icon(Icons.history_rounded, size: 18, color: AppColors.primary),
+                Icon(Icons.history_rounded, size: 18, color: AppColors.primary),
                 const SizedBox(width: 6),
                 Text(
                   'Riwayat Transaksi Mahasiswa',
@@ -806,7 +806,7 @@ class _WalletScreenState extends State<WalletScreen> {
           decoration: BoxDecoration(
             color: AppColors.surfaceContainerLowest,
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: const Color(0x33F4DCE4)),
+            border: Border.all(color: AppColors.cardBorder),
             boxShadow: AppColors.cardShadow,
           ),
           child: TextField(
@@ -816,7 +816,7 @@ class _WalletScreenState extends State<WalletScreen> {
             decoration: InputDecoration(
               hintText: 'Cari transaksi soto, print, kas, kos...',
               hintStyle: AppTypography.bodySm.copyWith(color: AppColors.onSurfaceVariant),
-              prefixIcon: const Icon(Icons.search, color: AppColors.outline),
+              prefixIcon: Icon(Icons.search, color: AppColors.outline),
               suffixIcon: _searchQuery.isNotEmpty
                   ? IconButton(
                       icon: const Icon(Icons.clear, size: 18),
@@ -851,7 +851,7 @@ class _WalletScreenState extends State<WalletScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(9999),
                     side: BorderSide(
-                      color: isSelected ? AppColors.primary : const Color(0x33F4DCE4),
+                      color: isSelected ? AppColors.primary : AppColors.cardBorder,
                     ),
                   ),
                   showCheckmark: false,
@@ -875,11 +875,11 @@ class _WalletScreenState extends State<WalletScreen> {
                 children: [
                   Container(
                     padding: const EdgeInsets.all(12),
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: AppColors.primaryContainer,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.receipt_rounded, size: 32, color: AppColors.primary),
+                    child: Icon(Icons.receipt_rounded, size: 32, color: AppColors.primary),
                   ),
                   const SizedBox(height: 10),
                   Text(
@@ -973,7 +973,7 @@ class _WalletScreenState extends State<WalletScreen> {
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.delete_outline_rounded, size: 15, color: AppColors.outline),
+                          icon: Icon(Icons.delete_outline_rounded, size: 15, color: AppColors.outline),
                           visualDensity: VisualDensity.compact,
                           padding: EdgeInsets.zero,
                           constraints: const BoxConstraints(minWidth: 24, minHeight: 24),

@@ -65,7 +65,7 @@ class _WeeklyScheduleScreenState extends State<WeeklyScheduleScreen> {
         final int totalSksDay = daySchedules.fold<int>(0, (int sum, ScheduleModel s) => sum + s.sks);
 
         return Scaffold(
-          backgroundColor: AppColors.background,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
             title: Text(_viewMode == 0 ? 'Jadwal Kuliah Mingguan' : 'Kalender Akademik'),
             actions: [
@@ -83,13 +83,13 @@ class _WeeklyScheduleScreenState extends State<WeeklyScheduleScreen> {
               ),
               IconButton(
                 tooltip: 'Scan KRS',
-                icon: const Icon(Icons.document_scanner_rounded, color: AppColors.primary),
+                icon: Icon(Icons.document_scanner_rounded, color: AppColors.primary),
                 onPressed: () => ScanKrsKhsSheet.show(context),
               ),
               if (_viewMode == 0)
                 IconButton(
                   tooltip: 'Tambah Manual',
-                  icon: const Icon(Icons.add_circle_outline_rounded, color: AppColors.primary),
+                  icon: Icon(Icons.add_circle_outline_rounded, color: AppColors.primary),
                   onPressed: () {
                     AddScheduleSheet.show(context, onSave: (schedule) {
                       _appState.addSchedule(schedule);
@@ -348,7 +348,7 @@ class _WeeklyScheduleScreenState extends State<WeeklyScheduleScreen> {
                       child: Center(
                         child: Column(
                           children: [
-                            const Icon(Icons.beach_access_rounded, size: 36, color: AppColors.primaryContainer),
+                            Icon(Icons.beach_access_rounded, size: 36, color: AppColors.primaryContainer),
                             const SizedBox(height: 8),
                             Text(
                               'Tidak ada jadwal kuliah hari ini ✨',
@@ -388,14 +388,35 @@ class _WeeklyScheduleScreenState extends State<WeeklyScheduleScreen> {
                                       ),
                                     ],
                                   ),
-                                  IconButton(
-                                    icon: const Icon(Icons.delete_outline, size: 18, color: AppColors.error),
-                                    onPressed: () {
-                                      _appState.deleteSchedule(schedule.id!);
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(content: Text('Jadwal berhasil dihapus')),
-                                      );
-                                    },
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(Icons.edit_outlined, size: 18, color: AppColors.primary),
+                                        tooltip: 'Edit Jadwal',
+                                        onPressed: () {
+                                          AddScheduleSheet.show(
+                                            context,
+                                            initialSchedule: schedule,
+                                            onSave: (updated) {
+                                              _appState.updateSchedule(updated);
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                const SnackBar(content: Text('Jadwal kuliah berhasil diperbarui! 🌸')),
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: Icon(Icons.delete_outline, size: 18, color: AppColors.error),
+                                        tooltip: 'Hapus Jadwal',
+                                        onPressed: () {
+                                          _appState.deleteSchedule(schedule.id!);
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            const SnackBar(content: Text('Jadwal berhasil dihapus')),
+                                          );
+                                        },
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -415,14 +436,14 @@ class _WeeklyScheduleScreenState extends State<WeeklyScheduleScreen> {
                               const SizedBox(height: 10),
                               Row(
                                 children: [
-                                  const Icon(Icons.schedule, size: 15, color: AppColors.primary),
+                                  Icon(Icons.schedule, size: 15, color: AppColors.primary),
                                   const SizedBox(width: 4),
                                   Text(
                                     '${schedule.startTime} - ${schedule.endTime} WIB',
                                     style: AppTypography.labelSm.copyWith(fontWeight: FontWeight.w600),
                                   ),
                                   const SizedBox(width: 14),
-                                  const Icon(Icons.meeting_room_outlined, size: 15, color: AppColors.primary),
+                                  Icon(Icons.meeting_room_outlined, size: 15, color: AppColors.primary),
                                   const SizedBox(width: 4),
                                   Text(
                                     schedule.room,

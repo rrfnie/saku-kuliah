@@ -50,13 +50,16 @@ class _AddExamEventSheetState extends State<AddExamEventSheet> {
   void initState() {
     super.initState();
     _selectedDate = widget.initialDate ?? DateTime.now();
-    _titleController = TextEditingController(text: 'UTS Desain Antarmuka & UX');
-    _locationController = TextEditingController(text: 'Lab Multimedia 402');
-    _notesController = TextEditingController(text: 'Bawa kartu ujian & laptop. Sifat ujian: Praktik.');
+    _titleController = TextEditingController(text: '');
+    _locationController = TextEditingController(text: '');
+    _notesController = TextEditingController(text: '');
 
     if (_appState.krsCourses.isNotEmpty) {
       _selectedCourseName = _appState.krsCourses.first.courseName;
       _updateTitleBasedOnSelection();
+    } else {
+      _titleController.text = 'UTS Semester';
+      _locationController.text = 'Ruang Kuliah';
     }
   }
 
@@ -86,7 +89,7 @@ class _AddExamEventSheetState extends State<AddExamEventSheet> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
+            colorScheme: ColorScheme.light(
               primary: AppColors.primary,
               onPrimary: Colors.white,
               surface: AppColors.surfaceContainerLowest,
@@ -108,7 +111,7 @@ class _AddExamEventSheetState extends State<AddExamEventSheet> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
+            colorScheme: ColorScheme.light(
               primary: AppColors.primary,
               onPrimary: Colors.white,
               surface: AppColors.surfaceContainerLowest,
@@ -170,7 +173,7 @@ class _AddExamEventSheetState extends State<AddExamEventSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.surfaceContainerLowest,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -208,7 +211,7 @@ class _AddExamEventSheetState extends State<AddExamEventSheet> {
                     color: AppColors.primaryContainer,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.event_note_rounded, color: AppColors.primary, size: 20),
+                  child: Icon(Icons.event_note_rounded, color: AppColors.primary, size: 20),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
@@ -256,7 +259,7 @@ class _AddExamEventSheetState extends State<AddExamEventSheet> {
                       backgroundColor: AppColors.surfaceContainerLow,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       side: BorderSide(
-                        color: isSelected ? Colors.transparent : const Color(0x33D98BAE),
+                        color: isSelected ? Colors.transparent : AppColors.cardBorder,
                       ),
                       onSelected: (val) {
                         if (val) {
@@ -282,7 +285,7 @@ class _AddExamEventSheetState extends State<AddExamEventSheet> {
                 decoration: BoxDecoration(
                   color: AppColors.surfaceContainerLow,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: const Color(0x33D98BAE)),
+                  border: Border.all(color: AppColors.cardBorder),
                 ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
@@ -322,11 +325,11 @@ class _AddExamEventSheetState extends State<AddExamEventSheet> {
                 fillColor: AppColors.surfaceContainerLow,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0x33D98BAE)),
+                  borderSide: BorderSide(color: AppColors.cardBorder),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0x33D98BAE)),
+                  borderSide: BorderSide(color: AppColors.cardBorder),
                 ),
               ),
             ),
@@ -350,11 +353,11 @@ class _AddExamEventSheetState extends State<AddExamEventSheet> {
                           decoration: BoxDecoration(
                             color: AppColors.surfaceContainerLow,
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: const Color(0x33D98BAE)),
+                            border: Border.all(color: AppColors.cardBorder),
                           ),
                           child: Row(
                             children: [
-                              const Icon(Icons.calendar_today_rounded, size: 16, color: AppColors.primary),
+                              Icon(Icons.calendar_today_rounded, size: 16, color: AppColors.primary),
                               const SizedBox(width: 8),
                               Expanded(
                                 child: Text(
@@ -387,11 +390,11 @@ class _AddExamEventSheetState extends State<AddExamEventSheet> {
                           decoration: BoxDecoration(
                             color: AppColors.surfaceContainerLow,
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: const Color(0x33D98BAE)),
+                            border: Border.all(color: AppColors.cardBorder),
                           ),
                           child: Row(
                             children: [
-                              const Icon(Icons.access_time_rounded, size: 16, color: AppColors.primary),
+                              Icon(Icons.access_time_rounded, size: 16, color: AppColors.primary),
                               const SizedBox(width: 6),
                               Text(
                                 '${_formatTime(_startTime)} WIB',
@@ -421,11 +424,11 @@ class _AddExamEventSheetState extends State<AddExamEventSheet> {
                           decoration: BoxDecoration(
                             color: AppColors.surfaceContainerLow,
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: const Color(0x33D98BAE)),
+                            border: Border.all(color: AppColors.cardBorder),
                           ),
                           child: Row(
                             children: [
-                              const Icon(Icons.timer_off_outlined, size: 16, color: AppColors.onSurfaceVariant),
+                              Icon(Icons.timer_off_outlined, size: 16, color: AppColors.onSurfaceVariant),
                               const SizedBox(width: 6),
                               Text(
                                 '${_formatTime(_endTime)} WIB',
@@ -453,11 +456,11 @@ class _AddExamEventSheetState extends State<AddExamEventSheet> {
                 fillColor: AppColors.surfaceContainerLow,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0x33D98BAE)),
+                  borderSide: BorderSide(color: AppColors.cardBorder),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0x33D98BAE)),
+                  borderSide: BorderSide(color: AppColors.cardBorder),
                 ),
               ),
             ),
@@ -475,11 +478,11 @@ class _AddExamEventSheetState extends State<AddExamEventSheet> {
                 fillColor: AppColors.surfaceContainerLow,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0x33D98BAE)),
+                  borderSide: BorderSide(color: AppColors.cardBorder),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0x33D98BAE)),
+                  borderSide: BorderSide(color: AppColors.cardBorder),
                 ),
               ),
             ),

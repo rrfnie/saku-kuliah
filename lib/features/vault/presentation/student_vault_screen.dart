@@ -71,7 +71,7 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
           children: [
             Container(
               padding: const EdgeInsets.all(8),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: AppColors.primaryContainer,
                 shape: BoxShape.circle,
               ),
@@ -130,7 +130,7 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
                 decoration: BoxDecoration(
                   color: AppColors.surfaceContainerLow,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0x22F4DCE4)),
+                  border: Border.all(color: AppColors.dividerColor),
                 ),
                 child: Column(
                   children: [
@@ -161,7 +161,7 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.pin_rounded, size: 16, color: AppColors.secondary),
+                    Icon(Icons.pin_rounded, size: 16, color: AppColors.secondary),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
@@ -270,10 +270,10 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
         }).toList();
 
         return Scaffold(
-          backgroundColor: AppColors.surface,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20, color: AppColors.onSurface),
+              icon: Icon(Icons.arrow_back_ios_new_rounded, size: 20, color: AppColors.onSurface),
               onPressed: () => Navigator.pop(context),
             ),
             title: Text(
@@ -285,7 +285,7 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
             elevation: 0,
             actions: [
               IconButton(
-                icon: const Icon(Icons.add_circle_outline_rounded, color: AppColors.primary),
+                icon: Icon(Icons.add_circle_outline_rounded, color: AppColors.primary),
                 tooltip: 'Tambah Dokumen',
                 onPressed: () => AddDocumentSheet.show(context),
               ),
@@ -304,7 +304,7 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
                         decoration: BoxDecoration(
                           color: AppColors.surfaceContainerLowest,
                           borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: const Color(0x22F4DCE4)),
+                          border: Border.all(color: AppColors.dividerColor),
                           boxShadow: [
                             BoxShadow(
                               color: AppColors.primary.withValues(alpha: 0.04),
@@ -325,7 +325,7 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
                             hintStyle: AppTypography.bodySm.copyWith(
                               color: AppColors.onSurfaceVariant.withValues(alpha: 0.6),
                             ),
-                            prefixIcon: const Icon(Icons.search_rounded, size: 20, color: AppColors.primary),
+                            prefixIcon: Icon(Icons.search_rounded, size: 20, color: AppColors.primary),
                             suffixIcon: _searchQuery.isNotEmpty
                                 ? IconButton(
                                     icon: const Icon(Icons.clear_rounded, size: 18),
@@ -366,7 +366,7 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
                                     color: isSelected ? AppColors.primary : AppColors.surfaceContainerLow,
                                     borderRadius: BorderRadius.circular(20),
                                     border: Border.all(
-                                      color: isSelected ? AppColors.primary : const Color(0x22F4DCE4),
+                                      color: isSelected ? AppColors.primary : AppColors.dividerColor,
                                     ),
                                   ),
                                   child: Text(
@@ -399,7 +399,7 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.verified_user_rounded, size: 16, color: AppColors.primary),
+                        Icon(Icons.verified_user_rounded, size: 16, color: AppColors.primary),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
@@ -419,7 +419,7 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
                           ),
                           child: Text(
                             '${allDocs.length} Berkas',
-                            style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.primary),
+                            style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.primary),
                           ),
                         ),
                       ],
@@ -469,7 +469,7 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
             Container(
               width: 80,
               height: 80,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: AppColors.primaryContainer,
                 shape: BoxShape.circle,
               ),
@@ -580,7 +580,7 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
               const SizedBox(width: 4),
               // Menu Options Popup
               PopupMenuButton<String>(
-                icon: const Icon(Icons.more_vert_rounded, size: 18, color: AppColors.onSurfaceVariant),
+                icon: Icon(Icons.more_vert_rounded, size: 18, color: AppColors.onSurfaceVariant),
                 padding: EdgeInsets.zero,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 onSelected: (val) {
@@ -627,7 +627,7 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
                 decoration: BoxDecoration(
                   color: AppColors.surfaceContainerLow,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: const Color(0x18F4DCE4)),
+                  border: Border.all(color: AppColors.dividerColor),
                 ),
                 child: Center(
                   child: Icon(
@@ -673,11 +673,11 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
               decoration: BoxDecoration(
                 color: AppColors.surfaceContainerLowest,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0x22F4DCE4)),
+                border: Border.all(color: AppColors.dividerColor),
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.pin_rounded, size: 15, color: AppColors.secondary),
+                  Icon(Icons.pin_rounded, size: 15, color: AppColors.secondary),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -701,9 +701,9 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
-                        children: const [
+                        children: [
                           Icon(Icons.copy_rounded, size: 12, color: AppColors.primary),
-                          SizedBox(width: 4),
+                          const SizedBox(width: 4),
                           Text(
                             'Salin',
                             style: TextStyle(
@@ -743,7 +743,7 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
           ],
 
           const SizedBox(height: 12),
-          const Divider(height: 1, color: Color(0x18F4DCE4)),
+          Divider(height: 1, color: AppColors.dividerColor),
           const SizedBox(height: 10),
 
           // Bottom Action Row
@@ -754,11 +754,11 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   minimumSize: Size.zero,
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  side: const BorderSide(color: Color(0x33F4DCE4)),
+                  side: BorderSide(color: AppColors.cardBorder),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 ),
-                icon: const Icon(Icons.remove_red_eye_outlined, size: 14, color: AppColors.primary),
-                label: const Text('Buka Dokumen', style: TextStyle(fontSize: 11, color: AppColors.primary, fontWeight: FontWeight.bold)),
+                icon: Icon(Icons.remove_red_eye_outlined, size: 14, color: AppColors.primary),
+                label: Text('Buka Dokumen', style: TextStyle(fontSize: 11, color: AppColors.primary, fontWeight: FontWeight.bold)),
                 onPressed: () => _showDocumentPreview(doc),
               ),
               const Spacer(),
@@ -768,8 +768,8 @@ class _StudentVaultScreenState extends State<StudentVaultScreen> {
                   minimumSize: Size.zero,
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
-                icon: const Icon(Icons.edit_outlined, size: 14, color: AppColors.onSurfaceVariant),
-                label: const Text('Edit', style: TextStyle(fontSize: 11, color: AppColors.onSurfaceVariant)),
+                icon: Icon(Icons.edit_outlined, size: 14, color: AppColors.onSurfaceVariant),
+                label: Text('Edit', style: TextStyle(fontSize: 11, color: AppColors.onSurfaceVariant)),
                 onPressed: () => AddDocumentSheet.show(context, documentToEdit: doc),
               ),
             ],

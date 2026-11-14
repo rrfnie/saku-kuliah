@@ -46,7 +46,7 @@ class _NotesScreenState extends State<NotesScreen> {
                   color: AppColors.error.withValues(alpha: 0.12),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.delete_forever_rounded, color: AppColors.error, size: 22),
+                child: Icon(Icons.delete_forever_rounded, color: AppColors.error, size: 22),
               ),
               const SizedBox(width: 10),
               Text(
@@ -162,7 +162,7 @@ class _NotesScreenState extends State<NotesScreen> {
                       visualDensity: VisualDensity.compact,
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.delete_outline_rounded,
                         size: 17,
                         color: AppColors.error,
@@ -217,7 +217,7 @@ class _NotesScreenState extends State<NotesScreen> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(Icons.picture_as_pdf_outlined, size: 12, color: AppColors.error),
+                              Icon(Icons.picture_as_pdf_outlined, size: 12, color: AppColors.error),
                               const SizedBox(width: 3),
                               Text(
                                 note.attachmentName!,
@@ -264,7 +264,7 @@ class _NotesScreenState extends State<NotesScreen> {
                       ),
                     ),
                     const SizedBox(width: 2),
-                    const Icon(Icons.arrow_forward_ios_rounded, size: 10, color: AppColors.primary),
+                    Icon(Icons.arrow_forward_ios_rounded, size: 10, color: AppColors.primary),
                   ],
                 ),
               ],
@@ -322,7 +322,7 @@ class _NotesScreenState extends State<NotesScreen> {
                   decoration: BoxDecoration(
                     color: AppColors.surfaceContainerLowest,
                     borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: const Color(0x33F4DCE4)),
+                    border: Border.all(color: AppColors.cardBorder),
                     boxShadow: AppColors.cardShadow,
                   ),
                   child: TextField(
@@ -334,7 +334,7 @@ class _NotesScreenState extends State<NotesScreen> {
                     decoration: InputDecoration(
                       hintText: 'Cari catatan kuliah, materi, dosen...',
                       hintStyle: AppTypography.bodySm.copyWith(color: AppColors.onSurfaceVariant),
-                      prefixIcon: const Icon(Icons.search, color: AppColors.outline),
+                      prefixIcon: Icon(Icons.search, color: AppColors.outline),
                       suffixIcon: _searchQuery.isNotEmpty
                           ? IconButton(
                               icon: const Icon(Icons.clear, size: 18),
@@ -377,7 +377,7 @@ class _NotesScreenState extends State<NotesScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(9999),
                             side: BorderSide(
-                              color: isSelected ? AppColors.primary : const Color(0x33F4DCE4),
+                              color: isSelected ? AppColors.primary : AppColors.cardBorder,
                             ),
                           ),
                           showCheckmark: false,
@@ -395,7 +395,7 @@ class _NotesScreenState extends State<NotesScreen> {
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.push_pin, size: 16, color: AppColors.primary),
+                          Icon(Icons.push_pin, size: 16, color: AppColors.primary),
                           const SizedBox(width: 6),
                           Text(
                             'CATATAN DISEMATKAN',
@@ -453,11 +453,11 @@ class _NotesScreenState extends State<NotesScreen> {
                         children: [
                           Container(
                             padding: const EdgeInsets.all(14),
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: AppColors.primaryContainer,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.menu_book_rounded, size: 36, color: AppColors.primary),
+                            child: Icon(Icons.menu_book_rounded, size: 36, color: AppColors.primary),
                           ),
                           const SizedBox(height: 12),
                           Text(
@@ -506,7 +506,7 @@ class _NotesScreenState extends State<NotesScreen> {
         }
 
         return Scaffold(
-          backgroundColor: AppColors.background,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
             title: const Text('Catatan & Materi Kuliah'),
             actions: [
@@ -514,11 +514,11 @@ class _NotesScreenState extends State<NotesScreen> {
                 tooltip: 'Tambah Catatan Baru',
                 icon: Container(
                   padding: const EdgeInsets.all(6),
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: AppColors.primaryContainer,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.note_add_rounded, size: 20, color: AppColors.onPrimaryContainer),
+                  child: Icon(Icons.note_add_rounded, size: 20, color: AppColors.onPrimaryContainer),
                 ),
                 onPressed: () {
                   AddNoteSheet.show(context, onSave: (note) {

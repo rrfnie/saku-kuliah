@@ -5,18 +5,30 @@ import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/pastel_button.dart';
 import '../../models/schedule_model.dart';
 
-/// Modal Bottom Sheet Tambah Jadwal Kuliah Baru
+/// Modal Bottom Sheet Tambah & Edit Jadwal Kuliah
 class AddScheduleSheet extends StatefulWidget {
   final Function(ScheduleModel) onSave;
+  final ScheduleModel? initialSchedule;
 
-  const AddScheduleSheet({super.key, required this.onSave});
+  const AddScheduleSheet({
+    super.key,
+    required this.onSave,
+    this.initialSchedule,
+  });
 
-  static Future<void> show(BuildContext context, {required Function(ScheduleModel) onSave}) {
+  static Future<void> show(
+    BuildContext context, {
+    required Function(ScheduleModel) onSave,
+    ScheduleModel? initialSchedule,
+  }) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => AddScheduleSheet(onSave: onSave),
+      builder: (context) => AddScheduleSheet(
+        onSave: onSave,
+        initialSchedule: initialSchedule,
+      ),
     );
   }
 
@@ -40,6 +52,36 @@ class _AddScheduleSheetState extends State<AddScheduleSheet> {
   final List<String> _categories = ['Praktikum', 'Teori', 'Kuliah Inti', 'Seminar'];
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.initialSchedule != null) {
+      final s = widget.initialSchedule!;
+      _courseNameController.text = s.courseName;
+      _courseCodeController.text = s.courseCode;
+      _roomController.text = s.room;
+      _lecturerController.text = s.lecturer;
+      _selectedDay = s.dayOfWeek;
+      _selectedSks = s.sks;
+      _selectedCategory = s.category;
+
+      final startParts = s.startTime.split(':');
+      if (startParts.length >= 2) {
+        _startTime = TimeOfDay(
+          hour: int.tryParse(startParts[0]) ?? 8,
+          minute: int.tryParse(startParts[1]) ?? 0,
+        );
+      }
+      final endParts = s.endTime.split(':');
+      if (endParts.length >= 2) {
+        _endTime = TimeOfDay(
+          hour: int.tryParse(endParts[0]) ?? 10,
+          minute: int.tryParse(endParts[1]) ?? 30,
+        );
+      }
+    }
+  }
+
+  @override
   void dispose() {
     _courseNameController.dispose();
     _courseCodeController.dispose();
@@ -48,14 +90,58 @@ class _AddScheduleSheetState extends State<AddScheduleSheet> {
     super.dispose();
   }
 
+  Future<void> _pickTime({required bool isStart}) async {
+    final initial = isStart ? _startTime : _endTime;
+    final picked = await showTimePicker(
+      context: context,
+      initialTime: initial,
+      helpText: isStart ? 'PILIH JAM MULAI KULIAH' : 'PILIH JAM SELESAI KULIAH',
+      cancelText: 'BATAL',
+      confirmText: 'PILIH',
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: ColorScheme.light(
+                primary: AppColors.primary,
+                onPrimary: Colors.white,
+                surface: Colors.white,
+                onSurface: AppColors.onSurface,
+              ),
+            ),
+            child: child ?? const SizedBox.shrink(),
+          ),
+        );
+      },
+    );
+
+    if (picked != null) {
+      setState(() {
+        if (isStart) {
+          _startTime = picked;
+          // Otomatis sesuaikan jam selesai minimal + (SKS x 50 menit) jika jam selesai mendahului jam mulai
+          final startMinutes = picked.hour * 60 + picked.minute;
+          final endMinutes = _endTime.hour * 60 + _endTime.minute;
+          if (endMinutes <= startMinutes) {
+            final newEndMinutes = (startMinutes + (_selectedSks * 50)).clamp(0, 1439);
+            _endTime = TimeOfDay(hour: newEndMinutes ~/ 60, minute: newEndMinutes % 60);
+          }
+        } else {
+          _endTime = picked;
+        }
+      });
+    }
+  }
+
   void _submit() {
     if (_formKey.currentState!.validate()) {
       final schedule = ScheduleModel(
-        id: DateTime.now().millisecondsSinceEpoch,
+        id: widget.initialSchedule?.id ?? DateTime.now().millisecondsSinceEpoch,
         dayOfWeek: _selectedDay,
         courseName: _courseNameController.text.trim(),
         courseCode: _courseCodeController.text.trim().isEmpty
-            ? 'IF3000'
+            ? (widget.initialSchedule?.courseCode ?? 'IF3000')
             : _courseCodeController.text.trim(),
         sks: _selectedSks,
         room: _roomController.text.trim().isEmpty ? 'R. Kuliah' : _roomController.text.trim(),
@@ -67,7 +153,7 @@ class _AddScheduleSheetState extends State<AddScheduleSheet> {
         endTime:
             '${_endTime.hour.toString().padLeft(2, '0')}:${_endTime.minute.toString().padLeft(2, '0')}',
         category: _selectedCategory,
-        accentColorHex: '#805063',
+        accentColorHex: widget.initialSchedule?.accentColorHex ?? '#805063',
       );
 
       widget.onSave(schedule);
@@ -77,8 +163,10 @@ class _AddScheduleSheetState extends State<AddScheduleSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final isEditing = widget.initialSchedule != null;
+
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.surfaceContainerLowest,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -112,7 +200,7 @@ class _AddScheduleSheetState extends State<AddScheduleSheet> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '+ Tambah Jadwal Kuliah',
+                    isEditing ? '✏️ Edit Jadwal Kuliah' : '+ Tambah Jadwal Kuliah',
                     style: AppTypography.headlineSm.copyWith(fontWeight: FontWeight.bold),
                   ),
                   IconButton(
@@ -144,7 +232,7 @@ class _AddScheduleSheetState extends State<AddScheduleSheet> {
                         Text('Hari Kuliah', style: AppTypography.labelMd),
                         const SizedBox(height: 6),
                         DropdownButtonFormField<int>(
-                          value: _selectedDay,
+                          initialValue: _selectedDay,
                           decoration: const InputDecoration(),
                           items: List.generate(AppConstants.daysOfWeek.length, (idx) {
                             return DropdownMenuItem(
@@ -166,7 +254,7 @@ class _AddScheduleSheetState extends State<AddScheduleSheet> {
                         Text('Beban SKS', style: AppTypography.labelMd),
                         const SizedBox(height: 6),
                         DropdownButtonFormField<int>(
-                          value: _selectedSks,
+                          initialValue: _selectedSks,
                           decoration: const InputDecoration(),
                           items: [1, 2, 3, 4, 6].map((sks) {
                             return DropdownMenuItem(
@@ -183,7 +271,108 @@ class _AddScheduleSheetState extends State<AddScheduleSheet> {
               ),
               const SizedBox(height: 12),
 
-              // Ruangan & Dosen
+              // Waktu Kuliah (Jam Mulai - Jam Selesai)
+              Text('Waktu Kuliah (Jam Mulai & Selesai)', style: AppTypography.labelMd),
+              const SizedBox(height: 6),
+              Row(
+                children: [
+                  // Jam Mulai
+                  Expanded(
+                    child: InkWell(
+                      onTap: () => _pickTime(isStart: true),
+                      borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 11),
+                        decoration: BoxDecoration(
+                          color: AppColors.surfaceContainerLow,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: AppColors.outlineVariant.withValues(alpha: 0.6)),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                color: AppColors.primary.withValues(alpha: 0.1),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(Icons.schedule_rounded, size: 16, color: AppColors.primary),
+                            ),
+                            const SizedBox(width: 8),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Jam Mulai',
+                                  style: AppTypography.labelSm.copyWith(
+                                    fontSize: 10,
+                                    color: AppColors.onSurfaceVariant,
+                                  ),
+                                ),
+                                Text(
+                                  '${_startTime.hour.toString().padLeft(2, '0')}:${_startTime.minute.toString().padLeft(2, '0')} WIB',
+                                  style: AppTypography.labelMd.copyWith(fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    child: Icon(Icons.arrow_forward_rounded, size: 16, color: AppColors.onSurfaceVariant),
+                  ),
+                  // Jam Selesai
+                  Expanded(
+                    child: InkWell(
+                      onTap: () => _pickTime(isStart: false),
+                      borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 11),
+                        decoration: BoxDecoration(
+                          color: AppColors.surfaceContainerLow,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: AppColors.outlineVariant.withValues(alpha: 0.6)),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                color: AppColors.secondary.withValues(alpha: 0.1),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(Icons.alarm_off_rounded, size: 16, color: AppColors.secondary),
+                            ),
+                            const SizedBox(width: 8),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Jam Selesai',
+                                  style: AppTypography.labelSm.copyWith(
+                                    fontSize: 10,
+                                    color: AppColors.onSurfaceVariant,
+                                  ),
+                                ),
+                                Text(
+                                  '${_endTime.hour.toString().padLeft(2, '0')}:${_endTime.minute.toString().padLeft(2, '0')} WIB',
+                                  style: AppTypography.labelMd.copyWith(fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+
+              // Ruangan & Kategori
               Row(
                 children: [
                   Expanded(
@@ -207,7 +396,7 @@ class _AddScheduleSheetState extends State<AddScheduleSheet> {
                         Text('Kategori Kelas', style: AppTypography.labelMd),
                         const SizedBox(height: 6),
                         DropdownButtonFormField<String>(
-                          value: _selectedCategory,
+                          initialValue: _selectedCategory,
                           decoration: const InputDecoration(),
                           items: _categories.map((cat) {
                             return DropdownMenuItem(value: cat, child: Text(cat));
@@ -232,7 +421,7 @@ class _AddScheduleSheetState extends State<AddScheduleSheet> {
 
               // Submit Button
               PastelButton(
-                text: 'Simpan ke Jadwal',
+                text: isEditing ? 'Simpan Perubahan 🌸' : 'Simpan ke Jadwal 🌸',
                 width: double.infinity,
                 onPressed: _submit,
               ),
@@ -243,4 +432,3 @@ class _AddScheduleSheetState extends State<AddScheduleSheet> {
     );
   }
 }
-

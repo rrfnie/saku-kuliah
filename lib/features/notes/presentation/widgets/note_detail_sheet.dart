@@ -46,7 +46,7 @@ class NoteDetailSheet extends StatelessWidget {
                   color: AppColors.error.withValues(alpha: 0.12),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.delete_forever_rounded, color: AppColors.error, size: 22),
+                child: Icon(Icons.delete_forever_rounded, color: AppColors.error, size: 22),
               ),
               const SizedBox(width: 10),
               Text(
@@ -111,9 +111,9 @@ class NoteDetailSheet extends StatelessWidget {
     final fullText = '${note.title}\n\nMata Kuliah: ${note.courseName}\nTanggal: ${note.createdDate}\n\n${note.content}';
     Clipboard.setData(ClipboardData(text: fullText));
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
+      SnackBar(
         backgroundColor: AppColors.primary,
-        content: Text('Isi catatan berhasil disalin ke clipboard! 📋🌸'),
+        content: const Text('Isi catatan berhasil disalin ke clipboard! 📋🌸'),
       ),
     );
   }
@@ -127,7 +127,7 @@ class NoteDetailSheet extends StatelessWidget {
       constraints: BoxConstraints(
         maxHeight: size.height * 0.88,
       ),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.surfaceContainerLowest,
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
@@ -181,7 +181,7 @@ class NoteDetailSheet extends StatelessWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.push_pin, size: 12, color: AppColors.onSecondaryContainer),
+                            Icon(Icons.push_pin, size: 12, color: AppColors.onSecondaryContainer),
                             const SizedBox(width: 4),
                             Text(
                               'Disematkan',
@@ -202,19 +202,19 @@ class NoteDetailSheet extends StatelessWidget {
                     // Copy button
                     IconButton(
                       tooltip: 'Salin Teks Catatan',
-                      icon: const Icon(Icons.copy_rounded, size: 20, color: AppColors.primary),
+                      icon: Icon(Icons.copy_rounded, size: 20, color: AppColors.primary),
                       onPressed: () => _copyToClipboard(context),
                     ),
                     // Edit button
                     IconButton(
                       tooltip: 'Edit Catatan',
-                      icon: const Icon(Icons.edit_outlined, size: 20, color: AppColors.onSurfaceVariant),
+                      icon: Icon(Icons.edit_outlined, size: 20, color: AppColors.onSurfaceVariant),
                       onPressed: () => _editNote(context),
                     ),
                     // Delete button
                     IconButton(
                       tooltip: 'Hapus Catatan',
-                      icon: const Icon(Icons.delete_outline_rounded, size: 20, color: AppColors.error),
+                      icon: Icon(Icons.delete_outline_rounded, size: 20, color: AppColors.error),
                       onPressed: () => _confirmDelete(context),
                     ),
                     // Close button
@@ -227,7 +227,7 @@ class NoteDetailSheet extends StatelessWidget {
               ],
             ),
           ),
-          const Divider(height: 1, color: Color(0x22F4DCE4)),
+          Divider(height: 1, color: AppColors.dividerColor),
 
           // Scrollable Content
           Expanded(
@@ -239,7 +239,7 @@ class NoteDetailSheet extends StatelessWidget {
                   // Meta Info (Date & Read Time)
                   Row(
                     children: [
-                      const Icon(Icons.calendar_today_rounded, size: 13, color: AppColors.onSurfaceVariant),
+                      Icon(Icons.calendar_today_rounded, size: 13, color: AppColors.onSurfaceVariant),
                       const SizedBox(width: 4),
                       Text(
                         note.createdDate,
@@ -249,7 +249,7 @@ class NoteDetailSheet extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 14),
-                      const Icon(Icons.schedule_rounded, size: 13, color: AppColors.onSurfaceVariant),
+                      Icon(Icons.schedule_rounded, size: 13, color: AppColors.onSurfaceVariant),
                       const SizedBox(width: 4),
                       Text(
                         note.readTime ?? '3 mnt baca',
@@ -284,7 +284,7 @@ class NoteDetailSheet extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: AppColors.surfaceContainerLow,
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: const Color(0x33F4DCE4)),
+                            border: Border.all(color: AppColors.cardBorder),
                           ),
                           child: Text(
                             tag.startsWith('#') ? tag : '#$tag',
@@ -307,7 +307,7 @@ class NoteDetailSheet extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: AppColors.surfaceContainerLow,
                         borderRadius: BorderRadius.circular(14),
-                        border: Border.all(color: const Color(0x22F4DCE4)),
+                        border: Border.all(color: AppColors.dividerColor),
                       ),
                       child: Row(
                         children: [
@@ -317,7 +317,7 @@ class NoteDetailSheet extends StatelessWidget {
                               color: AppColors.error.withValues(alpha: 0.12),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: const Icon(Icons.picture_as_pdf_rounded, color: AppColors.error, size: 22),
+                            child: Icon(Icons.picture_as_pdf_rounded, color: AppColors.error, size: 22),
                           ),
                           const SizedBox(width: 12),
                           Expanded(
@@ -350,7 +350,7 @@ class NoteDetailSheet extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: AppColors.surfaceContainerLow.withValues(alpha: 0.45),
                       borderRadius: BorderRadius.circular(18),
-                      border: Border.all(color: const Color(0x22F4DCE4)),
+                      border: Border.all(color: AppColors.dividerColor),
                     ),
                     child: SelectableText(
                       note.content,
@@ -372,9 +372,9 @@ class NoteDetailSheet extends StatelessWidget {
                           style: OutlinedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                            side: const BorderSide(color: Color(0x44F4DCE4)),
+                            side: BorderSide(color: AppColors.cardBorder),
                           ),
-                          icon: const Icon(Icons.copy_rounded, size: 16, color: AppColors.primary),
+                          icon: Icon(Icons.copy_rounded, size: 16, color: AppColors.primary),
                           label: Text(
                             'Salin Semua Teks',
                             style: AppTypography.labelMd.copyWith(color: AppColors.primary),

@@ -228,7 +228,7 @@ class _AcademicCalendarScreenState extends State<AcademicCalendarScreen> {
                     Row(
                       children: [
                         IconButton(
-                          icon: const Icon(Icons.chevron_left, color: AppColors.primary),
+                          icon: Icon(Icons.chevron_left, color: AppColors.primary),
                           onPressed: () {
                             setState(() {
                               _currentMonth = DateTime(_currentMonth.year, _currentMonth.month - 1);
@@ -236,7 +236,7 @@ class _AcademicCalendarScreenState extends State<AcademicCalendarScreen> {
                           },
                         ),
                         IconButton(
-                          icon: const Icon(Icons.chevron_right, color: AppColors.primary),
+                          icon: Icon(Icons.chevron_right, color: AppColors.primary),
                           onPressed: () {
                             setState(() {
                               _currentMonth = DateTime(_currentMonth.year, _currentMonth.month + 1);
@@ -263,7 +263,7 @@ class _AcademicCalendarScreenState extends State<AcademicCalendarScreen> {
                             child: Center(
                               child: Text(
                                 day,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 11,
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.onSurfaceVariant,
@@ -336,7 +336,7 @@ class _AcademicCalendarScreenState extends State<AcademicCalendarScreen> {
                                   child: Center(
                                     child: Text(
                                       '$day',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: AppColors.error,
                                         fontSize: 13,
@@ -366,7 +366,7 @@ class _AcademicCalendarScreenState extends State<AcademicCalendarScreen> {
                                     ],
                                   ),
                                 ),
-                                const Icon(Icons.beach_access_rounded, size: 16, color: AppColors.error),
+                                Icon(Icons.beach_access_rounded, size: 16, color: AppColors.error),
                               ],
                             ),
                           ),
@@ -407,7 +407,7 @@ class _AcademicCalendarScreenState extends State<AcademicCalendarScreen> {
                         Container(
                           width: 8,
                           height: 8,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             color: AppColors.primary,
                             shape: BoxShape.circle,
                           ),
@@ -426,8 +426,8 @@ class _AcademicCalendarScreenState extends State<AcademicCalendarScreen> {
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                       ),
-                      icon: const Icon(Icons.add_circle_outline, size: 15, color: AppColors.primary),
-                      label: const Text(
+                      icon: Icon(Icons.add_circle_outline, size: 15, color: AppColors.primary),
+                      label: Text(
                         'Tambah Ujian',
                         style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.primary),
                       ),
@@ -479,7 +479,7 @@ class _AcademicCalendarScreenState extends State<AcademicCalendarScreen> {
                             ],
                           ),
                         ),
-                        const Icon(Icons.beach_access_rounded, size: 22, color: AppColors.error),
+                        Icon(Icons.beach_access_rounded, size: 22, color: AppColors.error),
                       ],
                     ),
                   );
@@ -493,11 +493,11 @@ class _AcademicCalendarScreenState extends State<AcademicCalendarScreen> {
                     decoration: BoxDecoration(
                       color: AppColors.surfaceContainerLow,
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: const Color(0x33D98BAE)),
+                      border: Border.all(color: AppColors.cardBorder),
                     ),
                     child: Column(
                       children: [
-                        const Icon(Icons.event_available_outlined, size: 36, color: AppColors.onSurfaceVariant),
+                        Icon(Icons.event_available_outlined, size: 36, color: AppColors.onSurfaceVariant),
                         const SizedBox(height: 8),
                         Text(
                           'Tidak ada ujian atau agenda di tanggal ini 🌸',
@@ -570,12 +570,12 @@ class _AcademicCalendarScreenState extends State<AcademicCalendarScreen> {
         }
 
         return Scaffold(
-          backgroundColor: AppColors.background,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
             title: const Text('Kalender Akademik & Ujian'),
             actions: [
               IconButton(
-                icon: const Icon(Icons.add_circle_outline_rounded, color: AppColors.primary),
+                icon: Icon(Icons.add_circle_outline_rounded, color: AppColors.primary),
                 tooltip: 'Tambah Jadwal Ujian',
                 onPressed: () => AddExamEventSheet.show(context, initialDate: selectedDate),
               ),
@@ -673,7 +673,7 @@ class _AcademicCalendarScreenState extends State<AcademicCalendarScreen> {
                   Row(
                     children: [
                       if (showDateBadge) ...[
-                        const Icon(Icons.calendar_today_outlined, size: 12, color: AppColors.onSurfaceVariant),
+                        Icon(Icons.calendar_today_outlined, size: 12, color: AppColors.onSurfaceVariant),
                         const SizedBox(width: 4),
                         Text(
                           e.eventDate,
@@ -682,7 +682,7 @@ class _AcademicCalendarScreenState extends State<AcademicCalendarScreen> {
                         const SizedBox(width: 8),
                       ],
                       if (e.startTime != null && e.startTime!.isNotEmpty) ...[
-                        const Icon(Icons.access_time, size: 12, color: AppColors.onSurfaceVariant),
+                        Icon(Icons.access_time, size: 12, color: AppColors.onSurfaceVariant),
                         const SizedBox(width: 4),
                         Text(
                           '${e.startTime} - ${e.endTime ?? ''} WIB',
@@ -695,7 +695,7 @@ class _AcademicCalendarScreenState extends State<AcademicCalendarScreen> {
                     const SizedBox(height: 2),
                     Row(
                       children: [
-                        const Icon(Icons.room_outlined, size: 12, color: AppColors.onSurfaceVariant),
+                        Icon(Icons.room_outlined, size: 12, color: AppColors.onSurfaceVariant),
                         const SizedBox(width: 4),
                         Expanded(
                           child: Text(
@@ -723,7 +723,7 @@ class _AcademicCalendarScreenState extends State<AcademicCalendarScreen> {
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.delete_outline, size: 18, color: AppColors.error),
+              icon: Icon(Icons.delete_outline, size: 18, color: AppColors.error),
               tooltip: 'Hapus Agenda',
               onPressed: () {
                 if (e.id != null) {

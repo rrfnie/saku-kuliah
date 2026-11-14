@@ -123,7 +123,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
             : 0.0;
 
         return Scaffold(
-          backgroundColor: AppColors.background,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
@@ -240,11 +240,11 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
-                    color: Color(0x15805063),
+                    color: AppColors.primary.withValues(alpha: 0.08),
                     blurRadius: 6,
-                    offset: Offset(0, 2),
+                    offset: const Offset(0, 2),
                   ),
                 ],
               ),
@@ -264,12 +264,12 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
               decoration: BoxDecoration(
                 color: AppColors.surfaceContainerLowest,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: const Color(0x33F4DCE4)),
+                border: Border.all(color: AppColors.cardBorder),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.access_time_filled_rounded, size: 13, color: AppColors.primary),
+                  Icon(Icons.access_time_filled_rounded, size: 13, color: AppColors.primary),
                   const SizedBox(width: 4),
                   Text(
                     timeStr,
@@ -292,7 +292,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.cloud_done_rounded, size: 12, color: AppColors.primary),
+                  Icon(Icons.cloud_done_rounded, size: 12, color: AppColors.primary),
                   const SizedBox(width: 4),
                   Text(
                     'Offline Ready',
@@ -325,9 +325,9 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: AppColors.surfaceContainerLowest,
-                      border: Border.all(color: const Color(0x33F4DCE4)),
+                      border: Border.all(color: AppColors.cardBorder),
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.notifications_none_rounded,
                       size: 20,
                       color: AppColors.onSurfaceVariant,
@@ -342,7 +342,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                       right: -2,
                       child: Container(
                         padding: const EdgeInsets.all(3.5),
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           color: AppColors.primary,
                           shape: BoxShape.circle,
                         ),
@@ -396,7 +396,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.calendar_today_rounded, size: 11, color: AppColors.primary),
+                  Icon(Icons.calendar_today_rounded, size: 11, color: AppColors.primary),
                   const SizedBox(width: 4),
                   Text(
                     _getFormattedDate(),
@@ -457,7 +457,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                         color: AppColors.primaryFixed,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.menu_book_rounded,
                         size: 16,
                         color: AppColors.onPrimaryFixedVariant,
@@ -512,7 +512,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                         color: AppColors.secondaryFixed,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.pending_actions_rounded,
                         size: 16,
                         color: AppColors.onSecondaryFixedVariant,
@@ -570,7 +570,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                           color: AppColors.tertiaryFixed,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.verified_rounded,
                           size: 16,
                           color: AppColors.onTertiaryFixedVariant,
@@ -712,11 +712,11 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                 children: [
                   Container(
                     padding: const EdgeInsets.all(5),
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: AppColors.primaryContainer,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.auto_awesome_rounded, size: 14, color: AppColors.onPrimaryContainer),
+                    child: Icon(Icons.auto_awesome_rounded, size: 14, color: AppColors.onPrimaryContainer),
                   ),
                   const SizedBox(width: 8),
                   Text(
@@ -781,7 +781,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           colors: [
             AppColors.primaryFixed,
             AppColors.secondaryFixed,
@@ -864,7 +864,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                     value: progress,
                     minHeight: 6,
                     backgroundColor: Colors.white.withValues(alpha: 0.6),
-                    valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
                   ),
                 ),
                 const SizedBox(height: 6),
@@ -896,10 +896,10 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                     value: progress,
                     strokeWidth: 4,
                     backgroundColor: AppColors.primaryContainer.withValues(alpha: 0.4),
-                    valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
                   ),
                 ),
-                const Icon(
+                Icon(
                   Icons.military_tech_rounded,
                   size: 24,
                   color: AppColors.primary,
@@ -963,7 +963,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   const SizedBox(width: 8),
                   Text(
                     daysLeft == 0 ? 'Hari Ini! 🔥' : (daysLeft == 1 ? 'Besok! ⏳' : 'Tinggal $daysLeft Hari Lagi ⏳'),
-                    style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.error),
+                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.error),
                   ),
                 ],
               ),
@@ -974,7 +974,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                     MaterialPageRoute(builder: (context) => const AcademicCalendarScreen()),
                   );
                 },
-                child: const Text('Lihat Semua >', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.primary)),
+                child: Text('Lihat Semua >', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.primary)),
               ),
             ],
           ),
@@ -986,7 +986,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
           const SizedBox(height: 4),
           Row(
             children: [
-              const Icon(Icons.calendar_today_rounded, size: 12.5, color: AppColors.onSurfaceVariant),
+              Icon(Icons.calendar_today_rounded, size: 12.5, color: AppColors.onSurfaceVariant),
               const SizedBox(width: 5),
               Text(
                 nextExam.eventDate,
@@ -994,7 +994,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
               ),
               const SizedBox(width: 10),
               if (nextExam.startTime != null && nextExam.startTime!.isNotEmpty) ...[
-                const Icon(Icons.access_time_rounded, size: 12.5, color: AppColors.onSurfaceVariant),
+                Icon(Icons.access_time_rounded, size: 12.5, color: AppColors.onSurfaceVariant),
                 const SizedBox(width: 5),
                 Text(
                   '${nextExam.startTime} WIB',
@@ -1003,7 +1003,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                 const SizedBox(width: 10),
               ],
               if (nextExam.location != null && nextExam.location!.isNotEmpty) ...[
-                const Icon(Icons.room_outlined, size: 12.5, color: AppColors.onSurfaceVariant),
+                Icon(Icons.room_outlined, size: 12.5, color: AppColors.onSurfaceVariant),
                 const SizedBox(width: 4),
                 Expanded(
                   child: Text(
@@ -1029,28 +1029,37 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Text(
-                  'Jadwal Kuliah Hari Ini',
-                  style: AppTypography.headlineSm.copyWith(
-                    fontWeight: FontWeight.bold,
+            Expanded(
+              child: Row(
+                children: [
+                  Flexible(
+                    child: Text(
+                      'Jadwal Kuliah Hari Ini',
+                      style: AppTypography.headlineSm.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15.5,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 6),
-                Container(
-                  width: 8,
-                  height: 8,
-                  decoration: const BoxDecoration(
-                    color: AppColors.primary,
-                    shape: BoxShape.circle,
+                  const SizedBox(width: 6),
+                  Container(
+                    width: 8,
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color: AppColors.primary,
+                      shape: BoxShape.circle,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
+            const SizedBox(width: 8),
             GestureDetector(
               onTap: () => widget.onNavigateToSchedule?.call(),
               child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     'Lihat Semua',
@@ -1059,7 +1068,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const Icon(Icons.chevron_right, size: 16, color: AppColors.primary),
+                  Icon(Icons.chevron_right, size: 16, color: AppColors.primary),
                 ],
               ),
             ),
@@ -1123,7 +1132,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                         children: [
                           Row(
                             children: [
-                              const Icon(Icons.schedule, size: 16, color: AppColors.primary),
+                              Icon(Icons.schedule, size: 16, color: AppColors.primary),
                               const SizedBox(width: 4),
                               Text(
                                 '${schedule.startTime} - ${schedule.endTime} WIB',
@@ -1136,7 +1145,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                           ),
                           Row(
                             children: [
-                              const Icon(Icons.meeting_room_outlined, size: 16, color: AppColors.primary),
+                              Icon(Icons.meeting_room_outlined, size: 16, color: AppColors.primary),
                               const SizedBox(width: 4),
                               Text(
                                 schedule.room,
@@ -1167,44 +1176,53 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Text(
-                  'Tugas Mendekati Deadline',
-                  style: AppTypography.headlineSm.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(width: 6),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: AppColors.errorContainer,
-                    borderRadius: BorderRadius.circular(9999),
-                  ),
-                  child: Text(
-                    '${tasks.length} Pending',
-                    style: AppTypography.labelSm.copyWith(
-                      color: AppColors.onErrorContainer,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 10,
+            Expanded(
+              child: Row(
+                children: [
+                  Flexible(
+                    child: Text(
+                      'Tugas Mendekati Deadline',
+                      style: AppTypography.headlineSm.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15.5,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(width: 6),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: AppColors.errorContainer,
+                      borderRadius: BorderRadius.circular(9999),
+                    ),
+                    child: Text(
+                      '${tasks.length} Pending',
+                      style: AppTypography.labelSm.copyWith(
+                        color: AppColors.onErrorContainer,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
+            const SizedBox(width: 8),
             GestureDetector(
               onTap: () => widget.onNavigateToTasks?.call(),
               child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Kelola Tugas',
+                    'Kelola',
                     style: AppTypography.labelMd.copyWith(
                       color: AppColors.primary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const Icon(Icons.chevron_right, size: 16, color: AppColors.primary),
+                  Icon(Icons.chevron_right, size: 16, color: AppColors.primary),
                 ],
               ),
             ),
@@ -1217,7 +1235,9 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
             padding: const EdgeInsets.all(16),
             child: Center(
               child: Text(
-                'Semua tugas telah selesai. Kerja bagus, ${_appState.studentProfile.name.split(' ').first}! 💖',
+                _appState.studentProfile.name.trim().isNotEmpty
+                    ? 'Semua tugas telah selesai. Kerja bagus, ${_appState.studentProfile.name.trim().split(' ').first}! 💖'
+                    : 'Semua tugas telah selesai. Kerja bagus! 💖',
                 style: AppTypography.bodySm.copyWith(color: AppColors.onSurfaceVariant),
               ),
             ),
@@ -1359,11 +1379,11 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                 children: [
                   Container(
                     padding: const EdgeInsets.all(7),
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: AppColors.secondaryContainer,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.account_balance_wallet_rounded, size: 16, color: AppColors.onSecondaryContainer),
+                    child: Icon(Icons.account_balance_wallet_rounded, size: 16, color: AppColors.onSecondaryContainer),
                   ),
                   const SizedBox(width: 8),
                   Text(
@@ -1383,7 +1403,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                       fontSize: 10.5,
                     ),
                   ),
-                  const Icon(Icons.chevron_right_rounded, size: 14, color: AppColors.primary),
+                  Icon(Icons.chevron_right_rounded, size: 14, color: AppColors.primary),
                 ],
               ),
             ],
@@ -1413,7 +1433,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   ],
                 ),
               ),
-              Container(height: 28, width: 1, color: const Color(0x33F4DCE4)),
+              Container(height: 28, width: 1, color: AppColors.cardBorder),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -1448,7 +1468,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.info_outline_rounded, size: 13, color: AppColors.primary),
+                  Icon(Icons.info_outline_rounded, size: 13, color: AppColors.primary),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -1473,18 +1493,18 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
       decoration: BoxDecoration(
         color: AppColors.surfaceContainerLow,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0x33F4DCE4)),
+        border: Border.all(color: AppColors.cardBorder),
       ),
       child: Row(
         children: [
           Container(
             width: 40,
             height: 40,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: AppColors.tertiaryContainer,
               shape: BoxShape.circle,
             ),
-            child: const Icon(
+            child: Icon(
               Icons.favorite_rounded,
               size: 20,
               color: AppColors.onTertiaryContainer,

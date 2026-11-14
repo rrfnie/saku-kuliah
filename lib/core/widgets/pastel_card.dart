@@ -70,17 +70,36 @@ class _PastelCardState extends State<PastelCard> {
       );
     }
 
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    content = DefaultTextStyle.merge(
+      style: TextStyle(
+        color: isDark ? const Color(0xFFF6EEF8) : const Color(0xFF1E1A22),
+      ),
+      child: content,
+    );
+
     final cardWidget = Container(
       margin: widget.margin,
       decoration: BoxDecoration(
-        color: widget.backgroundColor ?? AppColors.surfaceContainerLowest,
+        color: widget.backgroundColor ?? theme.cardColor,
         borderRadius: BorderRadius.circular(widget.borderRadius),
         border: widget.border ??
             Border.all(
-              color: const Color(0x33F4DCE4),
+              color: AppColors.cardBorder,
               width: 1,
             ),
-        boxShadow: widget.boxShadow ?? AppColors.cardShadow,
+        boxShadow: widget.boxShadow ??
+            (isDark
+                ? [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.35),
+                      blurRadius: 16,
+                      offset: const Offset(0, 4),
+                    ),
+                  ]
+                : AppColors.cardShadow),
       ),
       clipBehavior: Clip.antiAlias,
       child: content,
