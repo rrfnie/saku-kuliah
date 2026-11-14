@@ -113,14 +113,27 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
         final todaySchedules = _appState.schedules.where((ScheduleModel s) => s.dayOfWeek == todayDayOfWeek).toList();
         final pendingTasks = _appState.tasks.where((TaskModel t) => !t.isCompleted).toList();
         final urgentTasks = pendingTasks.where((TaskModel t) => t.priority == 'Tinggi').toList();
-        final sksSemester = _appState.krsCourses.fold<int>(0, (sum, c) => sum + c.sks);
-        final activeCoursesCount = _appState.krsCourses.length;
+        // Menggabungkan seluruh mata kuliah aktif dari KRS & Jadwal Kuliah secara cerdas
+        final unifiedCourses = <String, int>{};
+        for (final c in _appState.krsCourses) {
+          if (c.courseName.trim().isNotEmpty) {
+            unifiedCourses[c.courseName.trim().toUpperCase()] = c.sks;
+          }
+        }
+        for (final s in _appState.schedules) {
+          if (s.courseName.trim().isNotEmpty) {
+            unifiedCourses.putIfAbsent(s.courseName.trim().toUpperCase(), () => s.sks);
+          }
+        }
+
+        final sksSemester = unifiedCourses.values.fold<int>(0, (sum, sks) => sum + sks);
+        final activeCoursesCount = unifiedCourses.length;
         final attendanceRate = _appState.krsCourses.isNotEmpty
             ? _appState.krsCourses
                     .map((c) => c.attendanceTotal > 0 ? (c.attendancePresent / c.attendanceTotal) * 100 : 100.0)
                     .reduce((a, b) => a + b) /
                 _appState.krsCourses.length
-            : 0.0;
+            : (activeCoursesCount > 0 ? 100.0 : 0.0);
 
         return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,

@@ -121,16 +121,25 @@ class SakuKuliahState extends ChangeNotifier {
 
   // --- ACTIONS ---
 
-  // Jadwal Kuliah
+  // Jadwal Kuliah (Terintegrasi otomatis dengan KRS & Pelacak Absensi)
   void addSchedule(ScheduleModel schedule) {
     schedules.add(schedule);
+    _syncScheduleToKrs(schedule);
     notifyListeners();
     _saveSchedules();
     NotificationService.instance.scheduleClassReminder(schedule);
   }
 
   void deleteSchedule(int id) {
+    final deleted = schedules.where((s) => s.id == id).firstOrNull;
     schedules.removeWhere((item) => item.id == id);
+    if (deleted != null) {
+      final stillExists = schedules.any((s) => s.courseName.trim().toUpperCase() == deleted.courseName.trim().toUpperCase());
+      if (!stillExists) {
+        krsCourses.removeWhere((c) => c.courseName.trim().toUpperCase() == deleted.courseName.trim().toUpperCase());
+        _saveKrsCourses();
+      }
+    }
     notifyListeners();
     _saveSchedules();
     NotificationService.instance.cancelNotification(1000 + id);
@@ -140,9 +149,120 @@ class SakuKuliahState extends ChangeNotifier {
     final index = schedules.indexWhere((item) => item.id == schedule.id);
     if (index != -1) {
       schedules[index] = schedule;
+      _syncScheduleToKrs(schedule);
       notifyListeners();
       _saveSchedules();
       NotificationService.instance.scheduleClassReminder(schedule);
+    }
+  }
+
+  void _syncScheduleToKrs(ScheduleModel schedule) {
+    final name = schedule.courseName.trim().toUpperCase();
+    final code = schedule.courseCode.trim().toUpperCase();
+    final idx = krsCourses.indexWhere((c) =>
+        (code.isNotEmpty && c.courseCode.trim().toUpperCase() == code) ||
+        c.courseName.trim().toUpperCase() == name);
+
+    if (idx != -1) {
+      final old = krsCourses[idx];
+      if (old.sks != schedule.sks) {
+        krsCourses[idx] = CourseKrsModel(
+          id: old.id,
+          semesterNumber: old.semesterNumber,
+          courseName: old.courseName,
+          courseCode: old.courseCode,
+          sks: schedule.sks,
+          targetGrade: old.targetGrade,
+          gradePoint: old.gradePoint,
+          attendancePresent: old.attendancePresent,
+          attendanceTotal: old.attendanceTotal,
+          status: old.status,
+        );
+        _saveKrsCourses();
+      }
+    } else if (schedule.courseName.trim().isNotEmpty) {
+      krsCourses.add(CourseKrsModel(
+        id: DateTime.now().millisecondsSinceEpoch + ((schedule.id ?? 0) % 1000),
+        semesterNumber: studentProfile.currentSemester,
+        courseName: schedule.courseName.trim(),
+        courseCode: schedule.courseCode.trim().isEmpty ? 'MK${(schedule.id ?? 0) % 10000}' : schedule.courseCode.trim(),
+        sks: schedule.sks > 0 ? schedule.sks : 3,
+        targetGrade: 'A',
+        gradePoint: 4.0,
+        attendancePresent: 0,
+        attendanceTotal: 16,
+        status: 'Aktif',
+      ));
+      _saveKrsCourses();
+    }
+  }
+
+  void syncAllSchedulesToKrs({Map<String, dynamic>? attendanceMap}) {
+    bool changed = false;
+    for (final s in schedules) {
+      final name = s.courseName.trim().toUpperCase();
+      final code = s.courseCode.trim().toUpperCase();
+      final idx = krsCourses.indexWhere((c) =>
+          (code.isNotEmpty && c.courseCode.trim().toUpperCase() == code) ||
+          c.courseName.trim().toUpperCase() == name);
+
+      if (idx == -1 && s.courseName.trim().isNotEmpty) {
+        int present = 0;
+        int total = 16;
+        if (attendanceMap != null) {
+          final item = (attendanceMap[code] ?? attendanceMap[name]) as Map<String, dynamic>?;
+          if (item != null) {
+            present = ((item['hadir'] as num?)?.toInt() ?? 0).clamp(0, 16);
+            final hadir = present;
+            final izin = ((item['izin'] as num?)?.toInt() ?? 0).clamp(0, 16);
+            final alpa = ((item['alpa'] as num?)?.toInt() ?? 0).clamp(0, 16);
+            total = (hadir + izin + alpa) > 0 ? (hadir + izin + alpa) : 16;
+          }
+        }
+
+        krsCourses.add(CourseKrsModel(
+          id: DateTime.now().millisecondsSinceEpoch + ((s.id ?? 0) % 1000),
+          semesterNumber: studentProfile.currentSemester,
+          courseName: s.courseName.trim(),
+          courseCode: s.courseCode.trim().isEmpty ? 'MK${(s.id ?? 0) % 10000}' : s.courseCode.trim(),
+          sks: s.sks > 0 ? s.sks : 3,
+          targetGrade: 'A',
+          gradePoint: 4.0,
+          attendancePresent: present,
+          attendanceTotal: total,
+          status: 'Aktif',
+        ));
+        changed = true;
+      } else if (idx != -1 && attendanceMap != null) {
+        final old = krsCourses[idx];
+        final item = (attendanceMap[code] ?? attendanceMap[name]) as Map<String, dynamic>?;
+        if (item != null) {
+          final present = ((item['hadir'] as num?)?.toInt() ?? 0).clamp(0, 16);
+          final hadir = present;
+          final izin = ((item['izin'] as num?)?.toInt() ?? 0).clamp(0, 16);
+          final alpa = ((item['alpa'] as num?)?.toInt() ?? 0).clamp(0, 16);
+          final total = (hadir + izin + alpa) > 0 ? (hadir + izin + alpa) : 16;
+          if (old.attendancePresent != present || old.attendanceTotal != total) {
+            krsCourses[idx] = CourseKrsModel(
+              id: old.id,
+              semesterNumber: old.semesterNumber,
+              courseName: old.courseName,
+              courseCode: old.courseCode,
+              sks: old.sks,
+              targetGrade: old.targetGrade,
+              gradePoint: old.gradePoint,
+              attendancePresent: present,
+              attendanceTotal: total,
+              status: old.status,
+            );
+            changed = true;
+          }
+        }
+      }
+    }
+
+    if (changed) {
+      _saveKrsCourses();
     }
   }
 
@@ -252,8 +372,12 @@ class SakuKuliahState extends ChangeNotifier {
     }
   }
 
-  void updateCourseAttendance(String courseCode, int present, int total) {
-    final idx = krsCourses.indexWhere((c) => c.courseCode.toUpperCase() == courseCode.toUpperCase());
+  void updateCourseAttendance(String courseCodeOrName, int present, int total) {
+    final query = courseCodeOrName.trim().toUpperCase();
+    final idx = krsCourses.indexWhere((c) =>
+        (c.courseCode.trim().isNotEmpty && c.courseCode.trim().toUpperCase() == query) ||
+        c.courseName.trim().toUpperCase() == query);
+
     if (idx != -1) {
       final old = krsCourses[idx];
       krsCourses[idx] = CourseKrsModel(
@@ -268,9 +392,28 @@ class SakuKuliahState extends ChangeNotifier {
         attendanceTotal: total > 0 ? total : 16,
         status: old.status,
       );
-      notifyListeners();
-      _saveKrsCourses();
+    } else {
+      // Jika belum ada di krsCourses, ambil dari jadwal kuliah
+      final sched = schedules.where((s) =>
+          (s.courseCode.trim().isNotEmpty && s.courseCode.trim().toUpperCase() == query) ||
+          s.courseName.trim().toUpperCase() == query).firstOrNull;
+      if (sched != null) {
+        krsCourses.add(CourseKrsModel(
+          id: DateTime.now().millisecondsSinceEpoch,
+          semesterNumber: studentProfile.currentSemester,
+          courseName: sched.courseName,
+          courseCode: sched.courseCode,
+          sks: sched.sks,
+          targetGrade: 'A',
+          gradePoint: 4.0,
+          attendancePresent: present,
+          attendanceTotal: total > 0 ? total : 16,
+          status: 'Aktif',
+        ));
+      }
     }
+    notifyListeners();
+    _saveKrsCourses();
   }
 
   // Riwayat KHS Semester Sebelumnya & Pengaturan Jenjang (D3 / S1)
@@ -611,6 +754,16 @@ class SakuKuliahState extends ChangeNotifier {
           orElse: () => AppPaletteType.sakura,
         );
       }
+
+      // 13. Sinkronisasi Cerdas Jadwal Kuliah & KRS serta Pelacak Absensi
+      Map<String, dynamic>? attendanceMap;
+      final rawAtt = prefs.getString('sakukuliah_attendance_counts');
+      if (rawAtt != null && rawAtt.isNotEmpty) {
+        try {
+          attendanceMap = jsonDecode(rawAtt) as Map<String, dynamic>;
+        } catch (_) {}
+      }
+      syncAllSchedulesToKrs(attendanceMap: attendanceMap);
 
       notifyListeners();
     } catch (_) {}
